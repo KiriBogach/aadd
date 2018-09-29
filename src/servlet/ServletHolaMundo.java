@@ -59,12 +59,24 @@ public class ServletHolaMundo extends HttpServlet {
 		} else {
 			sesion.setAttribute("contador", ++contador);
 		}
+		
+		// Si no tienes las cookies activadas te mete el jsessionid en las url
+		String urlEncoded = response.encodeURL("index.html"); // index.html;jsessionid=1E99A60C4837E927C479F4805CC44D0A
+		
+		// Ojo, la primera llamada que no tenemos cookies también meté el jsessionid
+		if (urlEncoded.equals("index.html")) {
+			// Las cookies están activadas
+		} else {
+			// Las cookies están desactivadas
+		}
+		
 
 		//response.setHeader("refresh", "3;" + referer); // vuelvo a de donde viene la petición en 10 segundos
 		response.getWriter()
 				.append("Usuario: " + usuario).append("\nPassword: " + password)
 				.append("\nAutor: " + getInitParameter("autor")).append("\nReferer: " + referer)
-				.append("\nContador: " + contador);
+				.append("\nContador: " + contador)
+				.append("\nurlEncoded: " + urlEncoded);
 
 	}
 
