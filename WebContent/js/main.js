@@ -5,9 +5,9 @@ $("#botonLogin").click(function () {
     var password = $("#password").val();
 
     /* Quitamos ' y " de las entradas */
-    user = user.replace('"', '').replace("'", '');
-    password = password.replace('"', '').replace("'", '');
-
+    //user = user.replace('"', '').replace("'", '').trim();
+    //password = password.replace('"', '').replace("'", '').trim();
+    
     if (user && password) {
         $("#form").submit();
     } else {
