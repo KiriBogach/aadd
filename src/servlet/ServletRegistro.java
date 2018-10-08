@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +24,7 @@ import model.Usuario;
 public class ServletRegistro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String TOP = "<!DOCTYPE html>\r\n" + "\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "\r\n"
-			+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>LOGIN FAIL</title>\r\n"
+			+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>REGISTRO CORRECTO</title>\r\n"
 			+ "	<link rel='icon' type='image/png' href=\"icon/favicon.png\" />\r\n"
 			+ "	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n" + "\r\n"
 			+ "	<!-- Bootstrap CSS -->\r\n"
@@ -89,13 +93,20 @@ public class ServletRegistro extends HttpServlet {
 		if (!error) {
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
+			/* JPA */
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("aadd");
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			em.persist(u);
+			tx.commit();
 		} else {
 			out.println("Error: Usuario duplicado");
 			response.setHeader("refresh", "3; URL=" + referer);
 		}
 
 		out.println(BOTTOM);
-
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
