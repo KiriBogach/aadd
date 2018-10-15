@@ -2,21 +2,13 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Usuario;
-
+import controller.Controlador;
 /**
  * Servlet implementation class ServletRegistro
  */
@@ -53,60 +45,54 @@ public class ServletRegistro extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 
-		// Instanciamos el Bean
-		Usuario u = new Usuario();
-		// Obtenemos los parámetros de la llamada
-		// No hace falta hacer conversiones de tipos porque todas
-		// las propiedades del bean son cadenas.
-		u.setUsuario(request.getParameter("usuario"));
-		u.setPassword(request.getParameter("password"));
-		u.setEmail(request.getParameter("email"));
-		u.setTelefono(request.getParameter("telefono"));
-
-		// Recupera el contexto de la aplicación
-		ServletContext app = getServletConfig().getServletContext();
-		// Intenta localizar la tabla de usuarios
-		@SuppressWarnings("unchecked")
-		HashMap<String, Usuario> usuarios = (HashMap<String, Usuario>) app.getAttribute("usuarios");
-		// Si no existe, la crea
-		if (usuarios == null) {
-			usuarios = new HashMap<String, Usuario>();
-			app.setAttribute("usuarios", usuarios);
-		}
-
-		boolean error = false;
-		// Intenta guardar un usuario. Si existe el identificador, devuelve un error
-		if (usuarios.get(u.getUsuario()) != null) {
-			// response.sendError(500, "Identificador de usuario duplicado");
-			// return;
-			error = true;
-		} else {
-			usuarios.put(u.getUsuario(), u);
-		}
-
+		/*
+		 * // Instanciamos el Bean Usuario u = new Usuario(); // Obtenemos los
+		 * parámetros de la llamada // No hace falta hacer conversiones de tipos porque
+		 * todas // las propiedades del bean son cadenas.
+		 * u.setUsuario(request.getParameter("usuario"));
+		 * u.setPassword(request.getParameter("password"));
+		 * u.setEmail(request.getParameter("email"));
+		 * u.setTelefono(request.getParameter("telefono"));
+		 * 
+		 * // Recupera el contexto de la aplicación ServletContext app =
+		 * getServletConfig().getServletContext(); // Intenta localizar la tabla de
+		 * usuarios
+		 * 
+		 * @SuppressWarnings("unchecked") HashMap<String, Usuario> usuarios =
+		 * (HashMap<String, Usuario>) app.getAttribute("usuarios"); // Si no existe, la
+		 * crea if (usuarios == null) { usuarios = new HashMap<String, Usuario>();
+		 * app.setAttribute("usuarios", usuarios); }
+		 * 
+		 * boolean error = false; // Intenta guardar un usuario. Si existe el
+		 * identificador, devuelve un error if (usuarios.get(u.getUsuario()) != null) {
+		 * // response.sendError(500, "Identificador de usuario duplicado"); // return;
+		 * error = true; } else { usuarios.put(u.getUsuario(), u); }
+		 */
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
 		out.println(TOP);
 
+		Controlador controlador = Controlador.getInstance();
+
+		String usuario = request.getParameter("usuario");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		String telefono = request.getParameter("telefono");
+
 		String referer = request.getHeader("referer");
-		if (!error) {
+		if (!controlador.findUsuario(usuario)) {
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
-			/* JPA */
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("aadd");
-			EntityManager em = emf.createEntityManager();
-			EntityTransaction tx = em.getTransaction();
-			tx.begin();
-			em.persist(u);
-			tx.commit();
+			controlador.createUsuario(usuario, password, email, telefono);
+
 		} else {
 			out.println("Error: Usuario duplicado");
 			response.setHeader("refresh", "3; URL=" + referer);
 		}
 
 		out.println(BOTTOM);
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

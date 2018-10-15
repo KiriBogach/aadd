@@ -2,9 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.Usuario;
+import controller.Controlador;
 
 /**
  * Servlet implementation class ServletHolaMundo
@@ -72,6 +68,7 @@ public class Login extends HttpServlet {
 		// // error 404...
 		// response.sendRedirect(request.getHeader("referer")); // redirect
 
+		/*
 		boolean identificado = false;
 		// Recuperamos el objeto sesión
 		HttpSession sesion = request.getSession(true);
@@ -85,11 +82,23 @@ public class Login extends HttpServlet {
 			out.println("Número fallos identificación excedido");
 			return;
 		}
+		*/
 
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		String referer = request.getHeader("referer"); // de donde viene la petición
-
+		
+		Controlador controlador = Controlador.getInstance();
+		controlador.test();
+		
+		if (controlador.loginUsuario(usuario, password)) {
+			out.println("<b><p>Identificación correcta</b></p>");
+		} else {
+			out.println("<b><p>Error de identificación</b></p>");
+			response.setHeader("refresh", "3;" + referer);
+		}
+		
+		/*
 		// Obtenemos el objeto ServletContext
 		ServletContext app = getServletConfig().getServletContext();
 		// Accedemos a la referencia de la tabla hash
@@ -144,6 +153,7 @@ public class Login extends HttpServlet {
 			cookie.setMaxAge(60 * 60 * 24 * 7); // Cálculo segundos semana
 			response.addCookie(cookie);
 		}
+		*/
 
 		/*
 		 * if (usuario.equals("admin") && password.equals("admin")) {
