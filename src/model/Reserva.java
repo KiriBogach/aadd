@@ -8,13 +8,16 @@ import javax.persistence.*;
 public class Reserva implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
-	private String comentario;	
+	private String comentario;
 	@Enumerated(EnumType.STRING)
 	private EstadoReserva estado;
+
+	@ManyToOne
+	private Viaje viaje;
 
 	public Reserva() {
 		super();
@@ -42,5 +45,13 @@ public class Reserva implements Serializable {
 
 	public void setEstado(EstadoReserva estado) {
 		this.estado = estado;
+	}
+
+	public Viaje getViaje() {
+		return viaje;
+	}
+
+	public void setViaje(Viaje viaje) {
+		this.viaje = viaje;
 	}
 }

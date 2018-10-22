@@ -2,6 +2,7 @@
     <wb-module deploy-name="Practica-Bogach-Kyryl">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="Practica-Bogach-Kyryl"/>
         <property name="java-output-path" value="/Practica-Bogach-Kyryl/build/classes"/>
     </wb-module>

@@ -81,7 +81,7 @@ public class ServletRegistro extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 
 		String referer = request.getHeader("referer");
-		if (!controlador.findUsuario(usuario)) {
+		if (controlador.findUsuario(usuario) != null) {
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
 			controlador.createUsuario(usuario, password, email, telefono);

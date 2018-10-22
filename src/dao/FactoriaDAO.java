@@ -13,7 +13,11 @@ public abstract class FactoriaDAO {
 		}
 		return unicaInstancia;
 	}
+	
+	public abstract CocheDAO getCocheDAO();
 
 	public abstract UsuarioDAO getUsuarioDAO();
+	public abstract ViajeDAO getViajeDAO();
+	public abstract ParadaDAO getParadaDAO();
 	// public abstract UsuarioDAO getCocheDAO();
 }

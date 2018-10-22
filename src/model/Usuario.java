@@ -4,23 +4,26 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private String usuario;
 	private String password;
 	private String email;
 	private String telefono;
 	private boolean administrador;
-	
+	@OneToOne(mappedBy = "usuario")
+	private Coche coche;
+
 	public Usuario() {
 		administrador = false;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -53,7 +56,6 @@ public class Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-
 	public boolean isAdministrador() {
 		return administrador;
 	}
@@ -61,4 +63,13 @@ public class Usuario implements Serializable {
 	public void setAdministrador(boolean administrador) {
 		this.administrador = administrador;
 	}
+
+	public Coche getCoche() {
+		return coche;
+	}
+
+	public void setCoche(Coche coche) {
+		this.coche = coche;
+	}
+
 }

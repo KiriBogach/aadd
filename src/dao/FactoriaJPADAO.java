@@ -19,6 +19,28 @@ public class FactoriaJPADAO extends FactoriaDAO {
 	}
 	
 	@Override
+	public CocheDAO getCocheDAO() {
+		synchronized (this.emf) {
+			return new CocheJPADAO(this.emf.createEntityManager());
+		}
+	}
+	
+	@Override
+	public ViajeDAO getViajeDAO() {
+		synchronized (this.emf) {
+			return new ViajeJPADAO(this.emf.createEntityManager());
+		}
+	}
+
+	@Override
+	public ParadaDAO getParadaDAO() {
+		synchronized (this.emf) {
+			return new ParadaJPADAO(this.emf.createEntityManager());
+		}
+	}
+
+	
+	@Override
 	protected void finalize() throws Throwable {
 		this.emf.close();
 		super.finalize();

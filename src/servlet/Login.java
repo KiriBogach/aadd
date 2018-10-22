@@ -89,7 +89,7 @@ public class Login extends HttpServlet {
 		String referer = request.getHeader("referer"); // de donde viene la petición
 		
 		Controlador controlador = Controlador.getInstance();
-		controlador.test();
+		//controlador.test();
 		
 		if (controlador.loginUsuario(usuario, password)) {
 			out.println("<b><p>Identificación correcta</b></p>");
