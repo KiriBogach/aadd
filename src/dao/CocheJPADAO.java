@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import model.Coche;
-import model.Usuario;
 
 public class CocheJPADAO implements CocheDAO {
 
@@ -15,10 +14,8 @@ public class CocheJPADAO implements CocheDAO {
 	}
 
 	@Override
-	public Coche createCoche(Usuario usuario, String matricula, String modelo, int year, int confort) {
-		this.em.merge(usuario);
+	public Coche createCoche(String matricula, String modelo, int year, int confort) {
 		Coche coche = new Coche(matricula, modelo, confort, year);
-		coche.setUsuario(usuario);
 		
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
@@ -42,6 +39,13 @@ public class CocheJPADAO implements CocheDAO {
 	protected void finalize() throws Throwable {
 		this.em.close();
 		super.finalize();
+	}
+
+	@Override
+	public void update(Coche coche) {
+		EntityTransaction tx = this.em.getTransaction();
+		tx.begin();
+		tx.commit();
 	}
 
 }

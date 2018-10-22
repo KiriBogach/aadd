@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "Viaje")
+@NamedQueries({ @NamedQuery(name = "findViajeById", query = "SELECT v FROM Viaje v where v.id=:id") })
 public class Viaje implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,7 +15,7 @@ public class Viaje implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	@Column(name = "asientos")
 	private int plazas;
 	private double precio;
@@ -33,7 +33,12 @@ public class Viaje implements Serializable {
 	private List<Reserva> reservas;
 
 	public Viaje() {
-		super();
+
+	}
+
+	public Viaje(int plazas, double precio) {
+		this.plazas = plazas;
+		this.precio = precio;
 	}
 
 	public int getId() {

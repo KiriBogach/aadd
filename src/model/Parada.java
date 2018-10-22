@@ -20,7 +20,13 @@ public class Parada implements Serializable {
 	private Direccion direccion;
 
 	public Parada() {
-		super();
+
+	}
+
+	public Parada(String ciudad, String calle, int CP, Date fecha) {
+		this.ciudad = ciudad;
+		this.direccion = new Direccion(calle, CP);
+		this.fecha = fecha;
 	}
 
 	public int getId() {

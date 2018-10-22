@@ -7,6 +7,15 @@ public class Direccion {
 	private String calle;
 	private int CP;
 
+	public Direccion() {
+
+	}
+
+	public Direccion(String calle, int CP) {
+		this.calle = calle;
+		this.CP = CP;
+	}
+
 	public String getCalle() {
 		return calle;
 	}

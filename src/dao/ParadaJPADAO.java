@@ -1,6 +1,9 @@
 package dao;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import model.Parada;
 
@@ -19,15 +22,23 @@ public class ParadaJPADAO implements ParadaDAO {
 	}
 
 	@Override
-	public Parada createParada(String usuario, String password, String email, String telefono) {
-		// TODO Auto-generated method stub
-		return null;
+	public Parada createParada(String ciudad, String calle, int CP, Date fecha) {
+		Parada parada = new Parada(ciudad, calle, CP, fecha);
+		EntityTransaction tx = this.em.getTransaction();
+		tx.begin();
+		try {
+			this.em.persist(parada);
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			return null;
+		}
+		return parada;
 	}
 
 	@Override
-	public Parada findParada(String usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Parada findParada(int id) {
+		return this.em.find(Parada.class, id);
 	}
 
 }

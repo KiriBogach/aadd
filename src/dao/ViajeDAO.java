@@ -4,6 +4,7 @@ import model.Viaje;
 
 public interface ViajeDAO {
 
-	Viaje createViaje(String usuario, String password, String email, String telefono);
-	Viaje findViaje(String usuario);
+	Viaje createViaje(int plazas, double precio);
+	Viaje findViaje(int id);
+	void update(Viaje viaje);
 }

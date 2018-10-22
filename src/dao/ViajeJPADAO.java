@@ -1,6 +1,8 @@
 package dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import model.Viaje;
 
 public class ViajeJPADAO implements ViajeDAO {
@@ -18,15 +20,30 @@ public class ViajeJPADAO implements ViajeDAO {
 	}
 
 	@Override
-	public Viaje createViaje(String usuario, String password, String email, String telefono) {
-		// TODO Auto-generated method stub
-		return null;
+	public Viaje createViaje(int plazas, double precio) {
+		Viaje v = new Viaje(plazas, precio);
+		EntityTransaction tx = this.em.getTransaction();
+		tx.begin();
+		try {
+			this.em.persist(v);
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			return null;
+		}
+		return v;
 	}
 
 	@Override
-	public Viaje findViaje(String usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Viaje findViaje(int id) {
+		return this.em.find(Viaje.class, id);
+	}
+
+	@Override
+	public void update(Viaje v) {
+		EntityTransaction tx = this.em.getTransaction();
+		tx.begin();
+		tx.commit();
 	}
 
 }

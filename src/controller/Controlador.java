@@ -46,25 +46,41 @@ public class Controlador {
 	}
 
 	public boolean registrarCoche(Usuario usuario, String matricula, String modelo, int year, int confort) {
-		CocheDAO dao = FactoriaDAO.getInstancia().getCocheDAO();
-		Coche coche = dao.createCoche(usuario, matricula, modelo, year, confort);
+		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
+		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
+		
+		Coche coche = daoCoche.createCoche(matricula, modelo, year, confort);
 		if (coche == null) {
 			return false;
 		}
+		
+		coche.setUsuario(usuario);
 		usuario.setCoche(coche);
+		
+		daoCoche.update(coche);
+		daoUsuario.update(usuario);
+		
 		return true;
 	}
 
 	public Viaje registrarViaje(int plazas, double precio) {
 		ViajeDAO dao = FactoriaDAO.getInstancia().getViajeDAO();
-		Viaje viaje = dao.createViaje("", "", "", "");
+		Viaje viaje = dao.createViaje(plazas,precio);
 		return viaje;
 	}
 
-	public Parada registrarPradaOrigen(int idViaje, String ciudad, String calle, int CP, Date fecha) {
-		ParadaDAO dao = FactoriaDAO.getInstancia().getParadaDAO();
-		Parada parada = dao.createParada("", "", "", "");
-		return parada;
+	public Parada registrarParadaOrigen(int idViaje, String ciudad, String calle, int CP, Date fecha) {
+		ParadaDAO daoParada = FactoriaDAO.getInstancia().getParadaDAO();
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+		
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		Parada paradaOrigen = daoParada.createParada(ciudad, calle, CP, fecha);
+		
+		viaje.setOrigen(paradaOrigen);
+		
+		daoViaje.update(viaje);
+		
+		return paradaOrigen;
 	}
 
 }
