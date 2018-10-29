@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +7,6 @@
 <title>Email del usuario</title>
 </head>
 <body>
-
-	<c:out value="${sessionScope.usuario.email}" />
-	<br/>
+	<b>Email del usuario:</b> ${sessionScope.usuario.email}
 </body>
 </html>
