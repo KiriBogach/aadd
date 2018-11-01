@@ -2,19 +2,35 @@ package pruebas;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Test;
 
 import controller.Controlador;
 import model.Usuario;
+import servlet.ServletRegistro;
 
 public class CocheTest {
 
 	@Test
 	public void testRegistroCoche() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ServletRegistro.FORMATO_FECHA);
 		Controlador controlador = Controlador.getInstance();
 		Usuario usuario = controlador.findUsuario("TestUsuario");
 		if (usuario == null) {
-			usuario = controlador.createUsuario("TestUsuario", "123", "email", "123");
+			Date fechaNacimiento=null;
+			try {
+				fechaNacimiento = dateFormat.parse("20/01/1994");
+			} catch (java.text.ParseException e) {
+				
+				e.printStackTrace();
+			}
+			java.sql.Date sqlDate=null;
+			if(fechaNacimiento!=null)
+			sqlDate = new java.sql.Date(fechaNacimiento.getTime());
+			
+			controlador.registrarUsuario("TestUsuario", "123", sqlDate, "médico", "testUsuario@gmail.com", "Carlos", "Martinez Serrano");
 		}
 		
 		assertNotNull(usuario);

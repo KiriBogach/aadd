@@ -4,11 +4,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class FactoriaJPADAO extends FactoriaDAO {
-	
+	public static final String UNIT_PERSISTENCE="aadd"; 
 	private EntityManagerFactory emf;
 	
 	protected FactoriaJPADAO() {
-		this.emf = Persistence.createEntityManagerFactory("aadd");
+		this.emf = Persistence.createEntityManagerFactory(UNIT_PERSISTENCE);
 	}
 	
 	@Override

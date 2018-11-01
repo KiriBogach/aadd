@@ -1,6 +1,8 @@
 package controller;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import dao.CocheDAO;
 import dao.FactoriaDAO;
@@ -36,11 +38,11 @@ public class Controlador {
 		ViajeDAO dao=FactoriaDAO.getInstancia().getViajeDAO();
 		return dao.findViaje(id);
 	}
+	
 	/*Este método persiste un usuario y devuelve el objeto usuario que se ha persistido o nulo en otro caso*/
-	/*SUGERENCIA: LLAMAR A ESTE METODO REGISTROUSUARIO*/
-	public Usuario createUsuario(String usuario, String password, String email, String telefono) {
+	public Usuario registrarUsuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos) {
 		UsuarioDAO dao = FactoriaDAO.getInstancia().getUsuarioDAO();
-		return dao.createUsuario(usuario, password, email, telefono);
+		return dao.createUsuario(usuario, password, fechaNacimiento, profesion, email, nombre, apellidos);
 	}
 
 	public boolean loginUsuario(String usuario, String password) {

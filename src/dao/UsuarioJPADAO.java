@@ -25,13 +25,9 @@ public class UsuarioJPADAO implements UsuarioDAO {
 		return this.em.find(Usuario.class, usuario);
 	}
 
-	public Usuario createUsuario(String usuario, String password, String email, String telefono) {
-		Usuario u = new Usuario();
-		u.setUsuario(usuario);
-		u.setPassword(password);
-		u.setEmail(email);
-		u.setTelefono(telefono);
-
+	public Usuario createUsuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos) {
+		Usuario u = new Usuario(usuario, password, fechaNacimiento, profesion, email, nombre, apellidos);
+	
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		try {

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,16 +13,29 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String usuario;
+	private String usuario; 
 	private String password;
+	private Date fechaNacimiento;
+	private String profesion;
 	private String email;
-	private String telefono;
+	private String nombre;
+	private String apellidos;
 	private boolean administrador;
 	@OneToOne(mappedBy = "usuario")
 	private Coche coche;
 
 	public Usuario() {
 		administrador = false;
+	}
+	
+	public Usuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos){
+		this.usuario=usuario;
+		this.password=password;
+		this.fechaNacimiento=fechaNacimiento;
+		this.profesion=profesion;
+		this.email=email;
+		this.nombre=nombre;
+		this.apellidos=apellidos;
 	}
 
 	public String getUsuario() {
@@ -36,8 +50,24 @@ public class Usuario implements Serializable {
 		return password;
 	}
 
-	public void setPassword(String clave) {
-		this.password = clave;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
 	}
 
 	public String getEmail() {
@@ -48,12 +78,20 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	public boolean isAdministrador() {
