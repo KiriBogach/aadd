@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario implements Serializable {
@@ -29,7 +30,8 @@ public class Usuario implements Serializable {
 
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Reserva> reservas;
-
+	
+	@Transient
 	private Collection<Valoracion> valoraciones;
 
 	public Usuario() {
@@ -47,7 +49,6 @@ public class Usuario implements Serializable {
 		this.apellidos = apellidos;
 		this.reservas = new LinkedList<>();
 		this.valoraciones = new LinkedList<Valoracion>();
-
 	}
 
 	public String getUsuario() {

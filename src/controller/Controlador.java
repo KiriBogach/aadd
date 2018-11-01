@@ -1,6 +1,8 @@
 package controller;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 import dao.CocheDAO;
@@ -20,6 +22,7 @@ public class Controlador {
 
 	private static Controlador unicaInstancia = null;
 	private Usuario usuarioLogeado = null;
+	public static String fechaSistema = "26/02/2018";
 
 	private Controlador() {
 	}
@@ -69,11 +72,10 @@ public class Controlador {
 	}
 
 	/*
-	 * SUGERENCIA:En este metodo comentar que toda la responsabilidad de
-	 * añadirCoche recae sobre el controlador violando el patrón experto
-	 * Sugerencia: Persistir el coche en el controlador. El constructor del
-	 * coche puede admitir el objeto usuario e implementar en Usuario un metodo
-	 * llamado anadirCoche
+	 * SUGERENCIA:En este metodo comentar que toda la responsabilidad de añadirCoche
+	 * recae sobre el controlador violando el patrón experto Sugerencia: Persistir
+	 * el coche en el controlador. El constructor del coche puede admitir el objeto
+	 * usuario e implementar en Usuario un metodo llamado anadirCoche
 	 */
 	public boolean addCoche(String matricula, String modelo, int year, int confort) {
 		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
@@ -93,8 +95,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método persiste un viaje y devuelve el objeto viaje que se ha
-	 * persistido o nulo en otro caso
+	 * Este método persiste un viaje y devuelve el objeto viaje que se ha persistido
+	 * o nulo en otro caso
 	 */
 	public Viaje registrarViaje(int plazas, double precio) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
@@ -223,7 +225,7 @@ public class Controlador {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
 
-		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+		// ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
 
 		Viaje viaje = daoViaje.findViaje(idViaje);
 		if (viaje == null) {
@@ -260,7 +262,7 @@ public class Controlador {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
 
-		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+		// ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
 
 		Viaje viaje = daoViaje.findViaje(idViaje);
 		if (viaje == null) {
@@ -292,12 +294,35 @@ public class Controlador {
 		return true;
 
 	}
+
+	public Collection<Viaje> listarViajes(boolean pendientes, boolean realizados, boolean propios, boolean ordenFecha,
+			boolean ordenCiudad) {
+
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+		if (pendientes || realizados || propios || ordenFecha || ordenCiudad) {
+			return daoViaje.getAllViajesBy(pendientes, realizados, propios, ordenFecha, ordenCiudad);
+		}
+		
+		return daoViaje.getAllViajes();
+
+	}
 	
-	public Collection<Viaje> listarViajes (boolean pedientes, boolean realizados, boolean propios, boolean ordenFecha, boolean ordenCiudad){
+	public static Date fromStringToDate(String fecha) {
+		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
 		
-		return null;
+		try {
+			date = formatoDelTexto.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		
-		
+		return date;
+
+	}
+	
+
+	public Usuario getUsuarioLogeado() {
+		return this.usuarioLogeado;
 	}
 }

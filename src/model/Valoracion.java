@@ -13,16 +13,15 @@ public class Valoracion {
 		this.receptor = receptor;
 		this.emisor = emisor;
 		this.reserva = reserva;
+	}
+
+	public Valoracion() {
 
 	}
 
 	public Valoracion(String comentario, int puntuacion) {
 		this.comentario = comentario;
 		this.puntuacion = puntuacion;
-	}
-
-	public Valoracion() {
-
 	}
 
 	public String getComentario() {
@@ -64,5 +63,5 @@ public class Valoracion {
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
-	
+
 }

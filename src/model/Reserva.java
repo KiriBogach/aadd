@@ -22,7 +22,7 @@ public class Reserva implements Serializable {
 	private Usuario usuario;
 	@ManyToOne
 	private Viaje viaje;
-
+	@Transient
 	private Collection<Valoracion> valoraciones;
 
 	public Reserva() {
