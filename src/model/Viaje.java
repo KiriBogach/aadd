@@ -113,7 +113,7 @@ public class Viaje implements Serializable {
 		this.coche = coche;
 	}
 	
-	public Reserva getUsuarioReserva(String usuario) {
+	public Reserva getReservaUsuario(String usuario) {
 		for (Reserva reserva : this.reservas) {
 			if (reserva.isUsuario(usuario)) {
 				return reserva;
@@ -128,4 +128,5 @@ public class Viaje implements Serializable {
 		}
 		return this.coche.isConductor(usuario);
 	}
+	
 }

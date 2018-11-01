@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Date;
+import java.util.Collection;
 
 import dao.CocheDAO;
 import dao.FactoriaDAO;
@@ -12,6 +13,7 @@ import model.Coche;
 import model.Parada;
 import model.Reserva;
 import model.Usuario;
+import model.Valoracion;
 import model.Viaje;
 
 public class Controlador {
@@ -67,10 +69,11 @@ public class Controlador {
 	}
 
 	/*
-	 * SUGERENCIA:En este metodo comentar que toda la responsabilidad de añadirCoche
-	 * recae sobre el controlador violando el patrón experto Sugerencia: Persistir
-	 * el coche en el controlador. El constructor del coche puede admitir el objeto
-	 * usuario e implementar en Usuario un metodo llamado anadirCoche
+	 * SUGERENCIA:En este metodo comentar que toda la responsabilidad de
+	 * añadirCoche recae sobre el controlador violando el patrón experto
+	 * Sugerencia: Persistir el coche en el controlador. El constructor del
+	 * coche puede admitir el objeto usuario e implementar en Usuario un metodo
+	 * llamado anadirCoche
 	 */
 	public boolean addCoche(String matricula, String modelo, int year, int confort) {
 		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
@@ -90,8 +93,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método persiste un viaje y devuelve el objeto viaje que se ha persistido
-	 * o nulo en otro caso
+	 * Este método persiste un viaje y devuelve el objeto viaje que se ha
+	 * persistido o nulo en otro caso
 	 */
 	public Viaje registrarViaje(int plazas, double precio) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
@@ -126,6 +129,26 @@ public class Controlador {
 		return paradaOrigen;
 	}
 
+	/* Si no se encuentra el idViaje se devuelve una Parada nula */
+	public Parada registrarParadaDestino(int idViaje, String ciudad, String calle, int CP, Date fecha) {
+		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
+		ParadaDAO daoParada = FactoriaDAO.getInstancia().getParadaDAO();
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		if (viaje == null) {
+			return null;
+		}
+
+		Parada paradaDestino = daoParada.createParada(ciudad, calle, CP, fecha);
+
+		viaje.setDestino(paradaDestino);
+		daoViaje.update();
+		daoCoche.update();
+
+		return paradaDestino;
+	}
+
 	/* Si no se encuentra el idViaje se devuelve false */
 	public boolean reservarViaje(int idViaje, String comentario) {
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
@@ -155,25 +178,126 @@ public class Controlador {
 		return true;
 
 	}
-	
+
 	public boolean aceptarViaje(int idViaje, String usuarioReservador) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
-		
+
 		Viaje viaje = daoViaje.findViaje(idViaje);
 		if (viaje == null) {
 			return false;
 		}
-		
-		Reserva reserva = viaje.getUsuarioReserva(usuarioReservador);
+
+		Reserva reserva = viaje.getReservaUsuario(usuarioReservador);
 		if (reserva == null) {
 			return false;
 		}
-		
+
 		reserva.setEstadoAceptado();
 		daoReserva.update(reserva);
-		
+
 		return true;
 	}
 
+	public boolean rechazarViaje(int idViaje, String usuarioReservador) {
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		if (viaje == null) {
+			return false;
+		}
+
+		Reserva reserva = viaje.getReservaUsuario(usuarioReservador);
+		if (reserva == null) {
+			return false;
+		}
+
+		reserva.setEstadoRechazado();
+		daoReserva.update(reserva);
+
+		return true;
+	}
+
+	public boolean valorarViajeConductor(int idViaje, String pasajero, String comentario, int puntuacion) {
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
+
+		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		if (viaje == null) {
+			return false;
+		}
+
+		Usuario usuarioPasajero = daoUsuario.findUsuario(pasajero);
+		if (usuarioPasajero == null) {
+			return false;
+		}
+
+		Reserva reserva = viaje.getReservaUsuario(pasajero);
+		if (reserva == null) {
+			return false;
+		}
+
+		Valoracion valoracion = new Valoracion(comentario, puntuacion);
+		valoracion.setEmisor(this.usuarioLogeado);
+		valoracion.setReceptor(usuarioPasajero);
+		valoracion.setReserva(reserva);
+		usuarioPasajero.addValoracion(valoracion);
+		this.usuarioLogeado.addValoracion(valoracion);
+		reserva.addValoracion(valoracion);
+
+		/*
+		 * daoReserva.update(reserva); daoUsuario.update(); daoViaje.update();
+		 */
+
+		return true;
+
+	}
+
+	public boolean valorarViajePasajero(int idViaje, String conductor, String comentario, int puntuacion) {
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
+
+		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		if (viaje == null) {
+			return false;
+		}
+
+		Usuario usuarioConductor = daoUsuario.findUsuario(conductor);
+		if (usuarioConductor == null) {
+			return false;
+		}
+
+		Reserva reserva = viaje.getReservaUsuario(this.usuarioLogeado.getUsuario());
+		if (reserva == null) {
+			return false;
+		}
+
+		Valoracion valoracion = new Valoracion(comentario, puntuacion);
+		valoracion.setEmisor(this.usuarioLogeado);
+		valoracion.setReceptor(usuarioConductor);
+		valoracion.setReserva(reserva);
+		usuarioConductor.addValoracion(valoracion);
+		this.usuarioLogeado.addValoracion(valoracion);
+		reserva.addValoracion(valoracion);
+
+		/*
+		 * daoReserva.update(reserva); daoUsuario.update(); daoViaje.update();
+		 */
+
+		return true;
+
+	}
+	
+	public Collection<Viaje> listarViajes (boolean pedientes, boolean realizados, boolean propios, boolean ordenFecha, boolean ordenCiudad){
+		
+		return null;
+		
+		
+		
+	}
 }

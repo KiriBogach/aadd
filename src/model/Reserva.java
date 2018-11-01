@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Collection;
+import java.util.LinkedList;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +23,8 @@ public class Reserva implements Serializable {
 	@ManyToOne
 	private Viaje viaje;
 
+	private Collection<Valoracion> valoraciones;
+
 	public Reserva() {
 		super();
 	}
@@ -27,6 +32,7 @@ public class Reserva implements Serializable {
 	public Reserva(String comentario, EstadoReserva estado) {
 		this.comentario = comentario;
 		this.estado = estado;
+		this.valoraciones = new LinkedList<Valoracion>();
 	}
 
 	public Reserva(String comentario) {
@@ -76,9 +82,17 @@ public class Reserva implements Serializable {
 	public boolean isUsuario(String usuario) {
 		return this.usuario.isUsuario(usuario);
 	}
-	
+
 	public void setEstadoAceptado() {
 		this.estado = EstadoReserva.ACEPTADA;
+	}
+
+	public void setEstadoRechazado() {
+		this.estado = EstadoReserva.RECHAZADA;
+
+	}
+	public void addValoracion(Valoracion valoracion){
+		this.valoraciones.add(valoracion);
 	}
 
 }

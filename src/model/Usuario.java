@@ -23,15 +23,17 @@ public class Usuario implements Serializable {
 	private String email;
 	private String nombre;
 	private String apellidos;
-	private boolean administrador;
+
 	@OneToOne(mappedBy = "usuario")
 	private Coche coche;
 
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Reserva> reservas;
 
+	private Collection<Valoracion> valoraciones;
+
 	public Usuario() {
-		administrador = false;
+
 	}
 
 	public Usuario(String usuario, String password, Date fechaNacimiento, String profesion, String email, String nombre,
@@ -44,6 +46,8 @@ public class Usuario implements Serializable {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.reservas = new LinkedList<>();
+		this.valoraciones = new LinkedList<Valoracion>();
+
 	}
 
 	public String getUsuario() {
@@ -102,14 +106,6 @@ public class Usuario implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public boolean isAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
-	}
-
 	public Coche getCoche() {
 		return coche;
 	}
@@ -132,6 +128,10 @@ public class Usuario implements Serializable {
 
 	public boolean isUsuario(String usuario) {
 		return this.getUsuario().equals(usuario);
+	}
+
+	public void addValoracion(Valoracion valoracion) {
+		this.valoraciones.add(valoracion);
 	}
 
 }
