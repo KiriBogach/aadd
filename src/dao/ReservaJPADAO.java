@@ -3,13 +3,13 @@ package dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.Viaje;
+import model.Reserva;
 
-public class ViajeJPADAO implements ViajeDAO {
+public class ReservaJPADAO implements ReservaDAO {
 
 	private EntityManager em;
 
-	public ViajeJPADAO(EntityManager em) {
+	public ReservaJPADAO(EntityManager em) {
 		this.em = em;
 	}
 
@@ -20,23 +20,25 @@ public class ViajeJPADAO implements ViajeDAO {
 	}
 
 	@Override
-	public Viaje createViaje(int plazas, double precio) {
-		Viaje v = new Viaje(plazas, precio);
+	public Reserva createReserva(String comentario) {
+		Reserva reserva = new Reserva(comentario);
+
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		try {
-			this.em.persist(v);
+			this.em.persist(reserva);
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
 			return null;
 		}
-		return v;
+		return reserva;
 	}
-
+	
 	@Override
-	public Viaje findViaje(int id) {
-		return this.em.find(Viaje.class, id);
+	public void update(Reserva reserva) {
+		reserva = this.em.merge(reserva);
+		this.update();
 	}
 
 	@Override
@@ -44,6 +46,11 @@ public class ViajeJPADAO implements ViajeDAO {
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		tx.commit();
+	}
+
+	@Override
+	public Reserva findReserva(int id) {
+		return this.em.find(Reserva.class, id);
 	}
 
 }

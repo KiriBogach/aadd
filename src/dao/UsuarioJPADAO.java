@@ -25,9 +25,10 @@ public class UsuarioJPADAO implements UsuarioDAO {
 		return this.em.find(Usuario.class, usuario);
 	}
 
-	public Usuario createUsuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos) {
+	public Usuario createUsuario(String usuario, String password, Date fechaNacimiento, String profesion, String email,
+			String nombre, String apellidos) {
 		Usuario u = new Usuario(usuario, password, fechaNacimiento, profesion, email, nombre, apellidos);
-	
+
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		try {
@@ -97,7 +98,7 @@ public class UsuarioJPADAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void update(Usuario usuario) {
+	public void update() {
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		tx.commit();

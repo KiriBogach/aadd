@@ -17,7 +17,7 @@ import dao.FactoriaDAO;
 @WebServlet("*.ctrl")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected static final String HOME = "welcome.html";
 	protected static final String LOGIN = "login.html";
 	protected static final String BAD_LOGIN = "badlogin.html";
@@ -50,18 +50,20 @@ public class FrontController extends HttpServlet {
 			throws ServletException, java.io.IOException {
 		procesa(peticion, respuesta);
 	}
-	
-	/* CON METAPROGRAMACION LA URL TIENE QUE SER IDÉNTICA, 
-	 * CON LA SOLUCIÓN DEL PROFESOR NO!
+
+	/*
+	 * CON METAPROGRAMACION LA URL TIENE QUE SER IDÉNTICA, CON LA SOLUCIÓN DEL
+	 * PROFESOR NO!
 	 */
 
 	// Método de procesamiento
 	protected void procesa(HttpServletRequest peticion, HttpServletResponse respuesta)
 			throws ServletException, java.io.IOException {
-		/*// Obtiene la ruta física de la aplicación para que el
-		// objeto PeticionHelper pueda acceder a sus ficheros de
-		// propiedades
-		String dirAplicacion = getServletConfig().getServletContext().getRealPath("/");*/
+		/*
+		 * // Obtiene la ruta física de la aplicación para que el // objeto
+		 * PeticionHelper pueda acceder a sus ficheros de // propiedades String
+		 * dirAplicacion = getServletConfig().getServletContext().getRealPath("/");
+		 */
 		// Utiliza una clase Helper para analizar la acción a realizar
 		PeticionHelper peticionHelper = new PeticionHelper(peticion);
 		// Acciones comunes de la aplicación

@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,16 +23,17 @@ public class Coche implements Serializable {
 	private Usuario usuario;
 	@OneToMany(mappedBy = "coche")
 	private Collection<Viaje> viajes;
-	
+
 	public Coche() {
-		
+
 	}
-	
+
 	public Coche(String matricula, String modelo, int confort, int year) {
 		this.matricula = matricula;
 		this.modelo = modelo;
 		this.confort = confort;
 		this.year = year;
+		this.viajes = new LinkedList<>();
 	}
 
 	public String getMatricula() {
@@ -74,8 +76,12 @@ public class Coche implements Serializable {
 		this.usuario = usuario;
 	}
 
-	// crear las relaciones que tiene; con usuario y con viaje
+	public boolean isConductor(Usuario usuario) {
+		return this.usuario.isUsuario(usuario.getUsuario());
+	}
 
-	// EN EL MODELO DE LA PRACTICA TENEMOS BIDIRECCIONALIDAD EN LAS ENTIDADES.
-	// PUEDE SER QUE NO SEA NECESARIO!! ESTUDIAR TODOS LOS CASOS
+	public void addViaje(Viaje viaje) {
+		this.viajes.add(viaje);
+	}
+
 }

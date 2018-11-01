@@ -16,7 +16,7 @@ public class CocheJPADAO implements CocheDAO {
 	@Override
 	public Coche createCoche(String matricula, String modelo, int year, int confort) {
 		Coche coche = new Coche(matricula, modelo, confort, year);
-		
+
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		try {
@@ -31,21 +31,20 @@ public class CocheJPADAO implements CocheDAO {
 
 	@Override
 	public Coche findCoche(String matricula) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.em.find(Coche.class, matricula);
+	}
+
+	@Override
+	public void update() {
+		EntityTransaction tx = this.em.getTransaction();
+		tx.begin();
+		tx.commit();
 	}
 
 	@Override
 	protected void finalize() throws Throwable {
 		this.em.close();
 		super.finalize();
-	}
-
-	@Override
-	public void update(Coche coche) {
-		EntityTransaction tx = this.em.getTransaction();
-		tx.begin();
-		tx.commit();
 	}
 
 }

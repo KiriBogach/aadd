@@ -16,7 +16,7 @@ public class AccionLogin implements Accion {
 		if (Controlador.getInstance().loginUsuario(usuario, password)) {
 			HttpSession sesion = peticion.getSession();
 			sesion.setAttribute("usuario", (Controlador.getInstance().findUsuario(usuario)));
-			//return FrontController.HOME;
+			// return FrontController.HOME;
 			return FrontController.JSP;
 		}
 		return FrontController.BAD_LOGIN;

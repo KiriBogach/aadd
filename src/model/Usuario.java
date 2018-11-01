@@ -1,10 +1,13 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,7 +16,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String usuario; 
+	private String usuario;
 	private String password;
 	private Date fechaNacimiento;
 	private String profesion;
@@ -24,18 +27,23 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario")
 	private Coche coche;
 
+	@OneToMany(mappedBy = "usuario")
+	private Collection<Reserva> reservas;
+
 	public Usuario() {
 		administrador = false;
 	}
-	
-	public Usuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos){
-		this.usuario=usuario;
-		this.password=password;
-		this.fechaNacimiento=fechaNacimiento;
-		this.profesion=profesion;
-		this.email=email;
-		this.nombre=nombre;
-		this.apellidos=apellidos;
+
+	public Usuario(String usuario, String password, Date fechaNacimiento, String profesion, String email, String nombre,
+			String apellidos) {
+		this.usuario = usuario;
+		this.password = password;
+		this.fechaNacimiento = fechaNacimiento;
+		this.profesion = profesion;
+		this.email = email;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.reservas = new LinkedList<>();
 	}
 
 	public String getUsuario() {
@@ -108,6 +116,22 @@ public class Usuario implements Serializable {
 
 	public void setCoche(Coche coche) {
 		this.coche = coche;
+	}
+
+	public Collection<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(Collection<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public void addReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+	}
+
+	public boolean isUsuario(String usuario) {
+		return this.getUsuario().equals(usuario);
 	}
 
 }

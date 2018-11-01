@@ -69,91 +69,57 @@ public class Login extends HttpServlet {
 		// response.sendRedirect(request.getHeader("referer")); // redirect
 
 		/*
-		boolean identificado = false;
-		// Recuperamos el objeto sesión
-		HttpSession sesion = request.getSession(true);
-		// Obtenemos el número de identificaciones fallidas
-		Integer numFallos = (Integer) sesion.getAttribute("fallos");
-		if (numFallos == null) {
-			// No se ha identificado
-			numFallos = new Integer(0);
-			sesion.setAttribute("fallos", numFallos);
-		} else if (numFallos.intValue() == 3) {
-			out.println("Número fallos identificación excedido");
-			return;
-		}
-		*/
+		 * boolean identificado = false; // Recuperamos el objeto sesión HttpSession
+		 * sesion = request.getSession(true); // Obtenemos el número de identificaciones
+		 * fallidas Integer numFallos = (Integer) sesion.getAttribute("fallos"); if
+		 * (numFallos == null) { // No se ha identificado numFallos = new Integer(0);
+		 * sesion.setAttribute("fallos", numFallos); } else if (numFallos.intValue() ==
+		 * 3) { out.println("Número fallos identificación excedido"); return; }
+		 */
 
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		String referer = request.getHeader("referer"); // de donde viene la petición
-		
+
 		Controlador controlador = Controlador.getInstance();
-		//controlador.test();
-		
+		// controlador.test();
+
 		if (controlador.loginUsuario(usuario, password)) {
 			out.println("<b><p>Identificación correcta</b></p>");
 		} else {
 			out.println("<b><p>Error de identificación</b></p>");
 			response.setHeader("refresh", "3;" + referer);
 		}
-		
+
 		/*
-		// Obtenemos el objeto ServletContext
-		ServletContext app = getServletConfig().getServletContext();
-		// Accedemos a la referencia de la tabla hash
-		HashMap usuarios = (HashMap) app.getAttribute("usuarios");
-		Usuario u = null;
-		if (usuarios == null) // No hay usuarios registrados
-			identificado = false;
-		else {
-			// Obtenemos el objeto cliente por usuario
-			u = (Usuario) usuarios.get(usuario);
-			if (u == null) // No está registrado
-				identificado = false;
-			else {
-				// Comprobamos la clave
-				if (u.getPassword().equals(password))
-					identificado = true;
-				else
-					identificado = false;
-			}
-		}
-
-		// Establecemos el tipo MIME de la respuesta
-		response.setContentType("text/html");
-		// Escribimos la respuesta
-		// Cabecera HTML
-		out.println("<html> <head> <title> Login </title> </head> <body>");
-		// Nuestros datos
-		if (identificado) {
-			out.println("<b><p>Identificación correcta</b></p>");
-		} else {
-			out.println("<b><p>Error de identificación</b></p>");
-			response.setHeader("refresh", "3;" + referer);
-		}
-		// Cierre de la página
-		out.println("</body>");
-		out.println("</html>");
-		// Actualizamos la sesión
-		if (identificado) {
-			// Guardamos el objeto usuario en la sesión
-			sesion.setAttribute("usuario", u);
-			// Reseteamos número fallos
-			sesion.setAttribute("fallos", new Integer(0));
-		} else {
-			// Incrementamos el número de fallos
-			int fallos = ((Integer) sesion.getAttribute("fallos")).intValue();
-			sesion.setAttribute("fallos", new Integer(++fallos));
-		}
-
-		if (identificado) {
-			// Enviamos una cookie al navegador web
-			Cookie cookie = new Cookie("aadd", u.getUsuario());
-			cookie.setMaxAge(60 * 60 * 24 * 7); // Cálculo segundos semana
-			response.addCookie(cookie);
-		}
-		*/
+		 * // Obtenemos el objeto ServletContext ServletContext app =
+		 * getServletConfig().getServletContext(); // Accedemos a la referencia de la
+		 * tabla hash HashMap usuarios = (HashMap) app.getAttribute("usuarios"); Usuario
+		 * u = null; if (usuarios == null) // No hay usuarios registrados identificado =
+		 * false; else { // Obtenemos el objeto cliente por usuario u = (Usuario)
+		 * usuarios.get(usuario); if (u == null) // No está registrado identificado =
+		 * false; else { // Comprobamos la clave if (u.getPassword().equals(password))
+		 * identificado = true; else identificado = false; } }
+		 * 
+		 * // Establecemos el tipo MIME de la respuesta
+		 * response.setContentType("text/html"); // Escribimos la respuesta // Cabecera
+		 * HTML out.println("<html> <head> <title> Login </title> </head> <body>"); //
+		 * Nuestros datos if (identificado) {
+		 * out.println("<b><p>Identificación correcta</b></p>"); } else {
+		 * out.println("<b><p>Error de identificación</b></p>");
+		 * response.setHeader("refresh", "3;" + referer); } // Cierre de la página
+		 * out.println("</body>"); out.println("</html>"); // Actualizamos la sesión if
+		 * (identificado) { // Guardamos el objeto usuario en la sesión
+		 * sesion.setAttribute("usuario", u); // Reseteamos número fallos
+		 * sesion.setAttribute("fallos", new Integer(0)); } else { // Incrementamos el
+		 * número de fallos int fallos = ((Integer)
+		 * sesion.getAttribute("fallos")).intValue(); sesion.setAttribute("fallos", new
+		 * Integer(++fallos)); }
+		 * 
+		 * if (identificado) { // Enviamos una cookie al navegador web Cookie cookie =
+		 * new Cookie("aadd", u.getUsuario()); cookie.setMaxAge(60 * 60 * 24 * 7); //
+		 * Cálculo segundos semana response.addCookie(cookie); }
+		 */
 
 		/*
 		 * if (usuario.equals("admin") && password.equals("admin")) {

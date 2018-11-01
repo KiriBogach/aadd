@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import controller.Controlador;
+
 /**
  * Servlet implementation class ServletRegistro
  */
 @WebServlet("/ServletRegistro")
 public class ServletRegistro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String CAMPO_USUARIO="usuario";
-	public static final String CAMPO_PASSWORD="password";
-	public static final String CAMPO_FECHA_NACIMIENTO="fechaNacimiento";
-	public static final String CAMPO_PROFESION="profesion";
-	public static final String CAMPO_EMAIL="email";
-	public static final String CAMPO_NOMBRE="nombre";
-	public static final String CAMPO_APELLIDOS="apellidos";
-	public static final String FORMATO_FECHA="dd/MM/yyyy";
-	
+	public static final String CAMPO_USUARIO = "usuario";
+	public static final String CAMPO_PASSWORD = "password";
+	public static final String CAMPO_FECHA_NACIMIENTO = "fechaNacimiento";
+	public static final String CAMPO_PROFESION = "profesion";
+	public static final String CAMPO_EMAIL = "email";
+	public static final String CAMPO_NOMBRE = "nombre";
+	public static final String CAMPO_APELLIDOS = "apellidos";
+	public static final String FORMATO_FECHA = "dd/MM/yyyy";
+
 	private static final String TOP = "<!DOCTYPE html>\r\n" + "\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "\r\n"
 			+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>REGISTRO CORRECTO</title>\r\n"
 			+ "	<link rel='icon' type='image/png' href=\"icon/favicon.png\" />\r\n"
@@ -86,37 +85,37 @@ public class ServletRegistro extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		out.println(TOP);
-		
-		SimpleDateFormat dateFormat=new SimpleDateFormat(FORMATO_FECHA);
-		
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
+
 		Controlador controlador = Controlador.getInstance();
-		
+
 		String usuario = request.getParameter(CAMPO_USUARIO);
 		String password = request.getParameter(CAMPO_PASSWORD);
-		String  birthdate=request.getParameter(CAMPO_FECHA_NACIMIENTO);
-		String profesion =request.getParameter(CAMPO_PROFESION);
+		String birthdate = request.getParameter(CAMPO_FECHA_NACIMIENTO);
+		String profesion = request.getParameter(CAMPO_PROFESION);
 		String email = request.getParameter(CAMPO_EMAIL);
-		String nombre =request.getParameter(CAMPO_NOMBRE);
-		String apellidos =request.getParameter(CAMPO_APELLIDOS);
-		//Esto lo he hecho en el caso de que la fecha de nacimiento no sea obligatorio ponerlo
-		Date fechaNacimiento=null;
-		if(!birthdate.equals("")){
-			
+		String nombre = request.getParameter(CAMPO_NOMBRE);
+		String apellidos = request.getParameter(CAMPO_APELLIDOS);
+		// Esto lo he hecho en el caso de que la fecha de nacimiento no sea obligatorio
+		// ponerlo
+		Date fechaNacimiento = null;
+		if (!birthdate.equals("")) {
+
 			try {
 				fechaNacimiento = dateFormat.parse(birthdate);
 			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
-		java.sql.Date sqlDate=null;
-		if(fechaNacimiento!=null)
-		sqlDate = new java.sql.Date(fechaNacimiento.getTime());
-		
+		java.sql.Date sqlDate = null;
+		if (fechaNacimiento != null)
+			sqlDate = new java.sql.Date(fechaNacimiento.getTime());
+
 		String referer = request.getHeader("referer");
 		if (controlador.findUsuario(usuario) == null) {
-			controlador.registrarUsuario(usuario, password, sqlDate, profesion, email,  nombre, apellidos);
+			controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos);
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
 

@@ -30,7 +30,8 @@ public class LogRegistro implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		System.out.println("Intento de Registro del usuario: " + request.getParameter("usuario"));
-		// if (!request.getParameter("usuario").equals("admin")) { // no dejará logearse si no eres el admin
+		// if (!request.getParameter("usuario").equals("admin")) { // no dejará logearse
+		// si no eres el admin
 		chain.doFilter(request, response);
 		// }
 		System.out.println("Resultado del registro. Codigo: " + ((HttpServletResponse) response).getStatus());

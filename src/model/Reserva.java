@@ -15,12 +15,22 @@ public class Reserva implements Serializable {
 	private String comentario;
 	@Enumerated(EnumType.STRING)
 	private EstadoReserva estado;
-
+	@ManyToOne
+	private Usuario usuario;
 	@ManyToOne
 	private Viaje viaje;
 
 	public Reserva() {
 		super();
+	}
+
+	public Reserva(String comentario, EstadoReserva estado) {
+		this.comentario = comentario;
+		this.estado = estado;
+	}
+
+	public Reserva(String comentario) {
+		this(comentario, EstadoReserva.PENDIENTE);
 	}
 
 	public int getId() {
@@ -54,4 +64,21 @@ public class Reserva implements Serializable {
 	public void setViaje(Viaje viaje) {
 		this.viaje = viaje;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public boolean isUsuario(String usuario) {
+		return this.usuario.isUsuario(usuario);
+	}
+	
+	public void setEstadoAceptado() {
+		this.estado = EstadoReserva.ACEPTADA;
+	}
+
 }

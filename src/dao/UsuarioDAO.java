@@ -6,10 +6,16 @@ import model.Usuario;
 
 public interface UsuarioDAO {
 
-	Usuario createUsuario(String usuario, String password,Date fechaNacimiento, String profesion, String email, String nombre, String apellidos);
+	Usuario createUsuario(String usuario, String password, Date fechaNacimiento, String profesion, String email,
+			String nombre, String apellidos);
+
 	Usuario findUsuario(String usuario);
-	void update(Usuario usuario);
+
+	void update();
+
 	void addViaje();
+
 	void addParada();
+
 	void addReserva();
 }

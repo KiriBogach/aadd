@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Viaje implements Serializable {
 	private ArrayList<String> notas;
 	@ManyToOne
 	private Coche coche;
+
 	@OneToOne(cascade = { CascadeType.REMOVE })
 	private Parada origen;
 	@OneToOne(cascade = { CascadeType.REMOVE })
@@ -39,6 +41,8 @@ public class Viaje implements Serializable {
 	public Viaje(int plazas, double precio) {
 		this.plazas = plazas;
 		this.precio = precio;
+		this.notas = new ArrayList<>();
+		this.reservas = new LinkedList<>();
 	}
 
 	public int getId() {
@@ -95,5 +99,33 @@ public class Viaje implements Serializable {
 
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
+	}
+
+	public void addReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+	}
+
+	public Coche getCoche() {
+		return coche;
+	}
+
+	public void setCoche(Coche coche) {
+		this.coche = coche;
+	}
+	
+	public Reserva getUsuarioReserva(String usuario) {
+		for (Reserva reserva : this.reservas) {
+			if (reserva.isUsuario(usuario)) {
+				return reserva;
+			}
+		}
+		return null;
+	}
+
+	public boolean isConductor(Usuario usuario) {
+		if (this.coche == null) {
+			return false;
+		}
+		return this.coche.isConductor(usuario);
 	}
 }
