@@ -18,7 +18,7 @@ public class CocheTest {
 		}
 		
 		assertNotNull(usuario);
-		controlador.registrarCoche(usuario, "123A", "Seat", 2009, 10);
+		controlador.registrarCoche(usuario.getUsuario(), "123A", "Seat", 2009, 10);
 		
 
 		/*

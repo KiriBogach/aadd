@@ -30,9 +30,7 @@ public class ViajeTest {
 		java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
 		Viaje viaje = Controlador.getInstance().registrarViaje(3, 125.0);
 		Controlador.getInstance().registrarParadaOrigen(viaje.getId(), "Murcia", "C/Mayor,25", 30001, sqlDate);
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("aadd");
-		EntityManager em = emf.createEntityManager();
-		Viaje viajeJPA = em.find(Viaje.class, viaje.getId());
+		Viaje viajeJPA = Controlador.getInstance().findViaje(viaje.getId());
 		assertNotNull(viajeJPA);
 	}
 
