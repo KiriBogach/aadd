@@ -134,7 +134,7 @@ public class Usuario implements Serializable {
 	public void addValoracion(Valoracion valoracion) {
 		this.valoraciones.add(valoracion);
 	}
-	public boolean usuarioTieneCoche(){
+	public boolean tieneCoche(){
 		return coche!=null;
 	}
 	

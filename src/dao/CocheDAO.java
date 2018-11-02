@@ -10,7 +10,5 @@ public interface CocheDAO {
 
 	void update();
 
-	// void addViaje();
-	// void addParada();
-	// void addReserva();
+	void update(Coche coche);
 }

@@ -125,7 +125,7 @@ public class Controlador {
 	 */
 	public Viaje registrarViaje(int plazas, double precio) {
 
-		if (!this.usuarioLogeado.usuarioTieneCoche()) {
+		if (!this.usuarioLogeado.tieneCoche()) {
 			return null;
 		}
 
@@ -136,7 +136,7 @@ public class Controlador {
 		this.usuarioLogeado.registrarViaje(viaje);
 
 		daoViaje.update();
-		daoCoche.update();
+		daoCoche.update(this.usuarioLogeado.getCoche());
 
 		return viaje;
 	}
@@ -187,7 +187,10 @@ public class Controlador {
 		return paradaDestino;
 	}
 
-	/* Si no se encuentra el idViaje se devuelve false */
+	/*
+	 * Este método permite crear una reserva para un viaje existente. Devuelve
+	 * true si se ha hecho la reserva; false en otro caso.
+	 */
 	public boolean reservarViaje(int idViaje, String comentario) {
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
 		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
@@ -217,6 +220,10 @@ public class Controlador {
 
 	}
 
+	/*
+	 * Este método permite aceptar la reserva de viaje de un usuario. Devuelve
+	 * verdadero si se ha conseguido aceptar la reserva; falso en otro caso
+	 */
 	public boolean aceptarViaje(int idViaje, String usuarioReservador) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
@@ -236,7 +243,10 @@ public class Controlador {
 
 		return true;
 	}
-
+	/*
+	 * Este método permite rechazar la reserva de viaje de un usuario. Devuelve
+	 * verdadero si se ha conseguido rechazar la reserva; falso en otro caso
+	 */
 	public boolean rechazarViaje(int idViaje, String usuarioReservador) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();

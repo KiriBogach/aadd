@@ -41,11 +41,19 @@ public class CocheJPADAO implements CocheDAO {
 		tx.begin();
 		tx.commit();
 	}
-	
+
 	@Override
 	protected void finalize() throws Throwable {
 		this.em.close();
 		super.finalize();
+	}
+
+	@Override
+	public void update(Coche coche) {
+
+		coche = this.em.merge(coche);
+		this.update();
+
 	}
 
 }

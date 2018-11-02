@@ -1,17 +1,14 @@
 package dao;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.Direccion;
-import model.EstadoReserva;
-import model.Parada;
-import model.Reserva;
+
 import model.Usuario;
-import model.Viaje;
+
 
 public class UsuarioJPADAO implements UsuarioDAO {
 
