@@ -2,9 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controlador;
+import model.UtilClass;
 
 /**
  * Servlet implementation class ServletRegistro
@@ -26,7 +26,7 @@ public class ServletRegistro extends HttpServlet {
 	public static final String CAMPO_EMAIL = "email";
 	public static final String CAMPO_NOMBRE = "nombre";
 	public static final String CAMPO_APELLIDOS = "apellidos";
-	public static final String FORMATO_FECHA = "dd/MM/yyyy";
+
 
 	private static final String TOP = "<!DOCTYPE html>\r\n" + "\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "\r\n"
 			+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>REGISTRO CORRECTO</title>\r\n"
@@ -60,33 +60,34 @@ public class ServletRegistro extends HttpServlet {
 
 		/*
 		 * // Instanciamos el Bean Usuario u = new Usuario(); // Obtenemos los
-		 * parámetros de la llamada // No hace falta hacer conversiones de tipos porque
-		 * todas // las propiedades del bean son cadenas.
+		 * parámetros de la llamada // No hace falta hacer conversiones de tipos
+		 * porque todas // las propiedades del bean son cadenas.
 		 * u.setUsuario(request.getParameter("usuario"));
 		 * u.setPassword(request.getParameter("password"));
 		 * u.setEmail(request.getParameter("email"));
 		 * u.setTelefono(request.getParameter("telefono"));
 		 * 
 		 * // Recupera el contexto de la aplicación ServletContext app =
-		 * getServletConfig().getServletContext(); // Intenta localizar la tabla de
-		 * usuarios
+		 * getServletConfig().getServletContext(); // Intenta localizar la tabla
+		 * de usuarios
 		 * 
 		 * @SuppressWarnings("unchecked") HashMap<String, Usuario> usuarios =
-		 * (HashMap<String, Usuario>) app.getAttribute("usuarios"); // Si no existe, la
-		 * crea if (usuarios == null) { usuarios = new HashMap<String, Usuario>();
-		 * app.setAttribute("usuarios", usuarios); }
+		 * (HashMap<String, Usuario>) app.getAttribute("usuarios"); // Si no
+		 * existe, la crea if (usuarios == null) { usuarios = new
+		 * HashMap<String, Usuario>(); app.setAttribute("usuarios", usuarios); }
 		 * 
 		 * boolean error = false; // Intenta guardar un usuario. Si existe el
-		 * identificador, devuelve un error if (usuarios.get(u.getUsuario()) != null) {
-		 * // response.sendError(500, "Identificador de usuario duplicado"); // return;
-		 * error = true; } else { usuarios.put(u.getUsuario(), u); }
+		 * identificador, devuelve un error if (usuarios.get(u.getUsuario()) !=
+		 * null) { // response.sendError(500,
+		 * "Identificador de usuario duplicado"); // return; error = true; }
+		 * else { usuarios.put(u.getUsuario(), u); }
 		 */
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
 		out.println(TOP);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
+		
 
 		Controlador controlador = Controlador.getInstance();
 
@@ -97,25 +98,14 @@ public class ServletRegistro extends HttpServlet {
 		String email = request.getParameter(CAMPO_EMAIL);
 		String nombre = request.getParameter(CAMPO_NOMBRE);
 		String apellidos = request.getParameter(CAMPO_APELLIDOS);
-		// Esto lo he hecho en el caso de que la fecha de nacimiento no sea obligatorio
-		// ponerlo
-		Date fechaNacimiento = null;
-		if (!birthdate.equals("")) {
 
-			try {
-				fechaNacimiento = dateFormat.parse(birthdate);
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-
-		}
-		java.sql.Date sqlDate = null;
-		if (fechaNacimiento != null)
-			sqlDate = new java.sql.Date(fechaNacimiento.getTime());
-
+		
+		Date sqlDate = UtilClass.fromStringToSQLDate(birthdate);
+		
+			
 		String referer = request.getHeader("referer");
-		if (controlador.findUsuario(usuario) == null) {
-			controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos);
+		if (controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos)!=null) {
+			
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
 

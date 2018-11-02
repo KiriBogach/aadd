@@ -35,67 +35,13 @@ public class UsuarioJPADAO implements UsuarioDAO {
 			this.em.persist(u);
 			tx.commit();
 		} catch (Exception e) {
+			if(tx.isActive())
 			tx.rollback();
 			return null;
-		} /*
-			 * finally { this.em.close(); }
-			 */
+		}
 		return u;
 	}
 
-	public void addViaje() {
-		Viaje v = new Viaje();
-		v.setPlazas(2);
-		v.setPrecio(200);
-		ArrayList<String> notas = new ArrayList<>();
-		notas.add("Buen olor");
-		notas.add("Gran espacio");
-		v.setNotas(notas);
-
-		EntityTransaction tx = this.em.getTransaction();
-		tx.begin();
-		try {
-			this.em.persist(v);
-			tx.commit();
-		} catch (Exception e) {
-			tx.rollback();
-		}
-	}
-
-	public void addParada() {
-		Direccion d = new Direccion();
-		d.setCalle("Calle Santa Otilia");
-		d.setCP(03300);
-
-		Parada p = new Parada();
-		p.setCiudad("Orihuela");
-		p.setFecha(new Date());
-		p.setDireccion(d);
-
-		EntityTransaction tx = this.em.getTransaction();
-		tx.begin();
-		try {
-			this.em.persist(p);
-			tx.commit();
-		} catch (Exception e) {
-			tx.rollback();
-		}
-	}
-
-	public void addReserva() {
-		Reserva r = new Reserva();
-		r.setEstado(EstadoReserva.ACEPTADA);
-		r.setComentario("Quiero llevar a mi mascota");
-
-		EntityTransaction tx = this.em.getTransaction();
-		tx.begin();
-		try {
-			this.em.persist(r);
-			tx.commit();
-		} catch (Exception e) {
-			tx.rollback();
-		}
-	}
 
 	@Override
 	public void update() {

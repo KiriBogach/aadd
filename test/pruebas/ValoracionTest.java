@@ -19,7 +19,7 @@ public class ValoracionTest {
 
 	@Before
 	public void before() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(ServletRegistro.FORMATO_FECHA);
+		/*SimpleDateFormat dateFormat = new SimpleDateFormat(ServletRegistro.FORMATO_FECHA);
 		Controlador controlador = Controlador.getInstance();
 		this.usuario1 = controlador.findUsuario("OfertaViaje");
 		if (this.usuario1 == null) {
@@ -53,7 +53,7 @@ public class ValoracionTest {
 
 			this.usuario2 = controlador.registrarUsuario("ReservaViaje", "123", sqlDate, "médico",
 					"testUsuario@gmail.com", "Carlos", "Martinez Serrano");
-		}
+		}*/
 	}
 
 	@Test

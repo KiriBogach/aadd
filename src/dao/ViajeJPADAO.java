@@ -89,7 +89,7 @@ public class ViajeJPADAO implements ViajeDAO {
 		Query query = this.em.createQuery(queryString);
 
 		
-		Date fecha = Controlador.fromStringToDate(Controlador.fechaSistema);
+		Date fecha = Controlador.fromStringToDate(Controlador.FECHA_SISTEMA);
 		
 		if (pendientes || realizados) {
 			query.setParameter("fecha", fecha, TemporalType.DATE);

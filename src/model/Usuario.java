@@ -134,5 +134,12 @@ public class Usuario implements Serializable {
 	public void addValoracion(Valoracion valoracion) {
 		this.valoraciones.add(valoracion);
 	}
+	public boolean usuarioTieneCoche(){
+		return coche!=null;
+	}
+	
+	public void registrarViaje(Viaje viaje){
+		coche.addViaje(viaje);
+	}
 
 }

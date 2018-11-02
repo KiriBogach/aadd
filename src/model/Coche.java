@@ -36,6 +36,9 @@ public class Coche implements Serializable {
 		this.viajes = new LinkedList<>();
 	}
 
+	public Collection<Viaje> getViajes(){
+		return viajes;
+	}
 	public String getMatricula() {
 		return matricula;
 	}
@@ -81,6 +84,7 @@ public class Coche implements Serializable {
 	}
 
 	public void addViaje(Viaje viaje) {
+		viaje.setCoche(this);
 		this.viajes.add(viaje);
 	}
 

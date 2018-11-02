@@ -23,7 +23,8 @@ public class CocheJPADAO implements CocheDAO {
 			this.em.persist(coche);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx.isActive())
+				tx.rollback();
 			return null;
 		}
 		return coche;
@@ -40,7 +41,7 @@ public class CocheJPADAO implements CocheDAO {
 		tx.begin();
 		tx.commit();
 	}
-
+	
 	@Override
 	protected void finalize() throws Throwable {
 		this.em.close();

@@ -13,9 +13,5 @@ public interface UsuarioDAO {
 
 	void update();
 
-	void addViaje();
-
-	void addParada();
-
-	void addReserva();
+	
 }
