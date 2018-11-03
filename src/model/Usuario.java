@@ -30,8 +30,8 @@ public class Usuario implements Serializable {
 
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Reserva> reservas;
-	
-	@Transient
+
+	// @Transient
 	private Collection<Valoracion> valoraciones;
 
 	public Usuario() {
@@ -48,7 +48,7 @@ public class Usuario implements Serializable {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.reservas = new LinkedList<>();
-		this.valoraciones = new LinkedList<Valoracion>();
+		this.valoraciones = new LinkedList<>();
 	}
 
 	public String getUsuario() {
@@ -132,34 +132,36 @@ public class Usuario implements Serializable {
 	}
 
 	public void addValoracion(Valoracion valoracion) {
+
 		this.valoraciones.add(valoracion);
 	}
-	public boolean tieneCoche(){
-		return coche!=null;
+
+	public boolean tieneCoche() {
+		return coche != null;
 	}
-	
-	public void registrarViaje(Viaje viaje){
+
+	public void registrarViaje(Viaje viaje) {
 		coche.addViaje(viaje);
 	}
 
-	public Valoracion createValoracion(String comentario, int puntuacion, Usuario usuarioPasajero, Reserva reserva) {
+	public Valoracion createValoracion(String comentario, int puntuacion, Usuario receptor, Reserva reserva) {
 		Valoracion valoracion = null;
 		try {
 			valoracion = new Valoracion(comentario, puntuacion);
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
-		
+
 		valoracion.setEmisor(this);
-		valoracion.setReceptor(usuarioPasajero);
+		valoracion.setReceptor(receptor);
 		valoracion.setReserva(reserva);
-		
-		usuarioPasajero.addValoracion(valoracion);
+
+		receptor.addValoracion(valoracion);
 		this.addValoracion(valoracion);
 		reserva.addValoracion(valoracion);
-		
+
 		return valoracion;
-		
+
 	}
 
 }

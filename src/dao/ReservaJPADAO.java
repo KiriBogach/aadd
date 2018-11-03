@@ -34,7 +34,7 @@ public class ReservaJPADAO implements ReservaDAO {
 		}
 		return reserva;
 	}
-	
+
 	@Override
 	public void update(Reserva reserva) {
 		reserva = this.em.merge(reserva);

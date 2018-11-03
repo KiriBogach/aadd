@@ -22,7 +22,7 @@ public class Reserva implements Serializable {
 	private Usuario usuario;
 	@ManyToOne
 	private Viaje viaje;
-	@Transient
+	// @Transient
 	private Collection<Valoracion> valoraciones;
 
 	public Reserva() {
@@ -83,15 +83,20 @@ public class Reserva implements Serializable {
 		return this.usuario.isUsuario(usuario);
 	}
 
-	public void setEstadoAceptado() {
-		this.estado = EstadoReserva.ACEPTADA;
+	public boolean setEstadoAceptado() {
+		boolean aceptado = viaje.aceptarReserva();
+		if (aceptado) {
+			this.estado = EstadoReserva.ACEPTADA;
+		}
+		return aceptado;
 	}
 
 	public void setEstadoRechazado() {
 		this.estado = EstadoReserva.RECHAZADA;
 
 	}
-	public void addValoracion(Valoracion valoracion){
+
+	public void addValoracion(Valoracion valoracion) {
 		this.valoraciones.add(valoracion);
 	}
 

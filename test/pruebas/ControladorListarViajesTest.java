@@ -16,8 +16,8 @@ public class ControladorListarViajesTest {
 	@Test
 	public void listarViajes() {
 		/*
-		 * Hay que tener en cuenta para este test la fecha del Sistema del controlador
-		 * FECHA_SISTEMA = "26/02/2018";
+		 * Hay que tener en cuenta para este test la fecha del Sistema del
+		 * controlador FECHA_SISTEMA = "26/02/2018";
 		 */
 		Controlador controlador = Controlador.getInstance();
 		Date sqlDate = Utils.fromStringToSQLDate("20/01/1994");
@@ -38,8 +38,8 @@ public class ControladorListarViajesTest {
 		Date fechaDestino = null;
 
 		/*
-		 * Registramos un viaje -> saldría en pendientes, no saldría en realizados,
-		 * propio de usuario14
+		 * Registramos un viaje -> saldría en pendientes, no saldría en
+		 * realizados, propio de usuario14
 		 */
 		viaje = controlador.registrarViaje(4, 151.0);
 		fechaOrigen = Utils.fromStringToSQLDate("10/03/2018");
@@ -48,8 +48,8 @@ public class ControladorListarViajesTest {
 		controlador.registrarParadaDestino(viaje.getId(), "Albacete", "Calle Limón", 15040, fechaDestino);
 
 		/*
-		 * Registramos un viaje -> no saldría en pendientes, saldría en realizados,
-		 * propio de usuario14
+		 * Registramos un viaje -> no saldría en pendientes, saldría en
+		 * realizados, propio de usuario14
 		 */
 		viaje = controlador.registrarViaje(4, 151.0);
 		fechaOrigen = Utils.fromStringToSQLDate("10/01/2018");

@@ -39,8 +39,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método recupera el objeto usuario dado el nombre de usuario o nulo en
-	 * otro caso
+	 * Este método recupera el objeto usuario dado el nombre de usuario o nulo
+	 * en otro caso
 	 */
 	public Usuario findUsuario(String usuario) {
 		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
@@ -48,7 +48,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método recupera el objeto viaje dado el id del viaje o nulo en otro caso
+	 * Este método recupera el objeto viaje dado el id del viaje o nulo en otro
+	 * caso
 	 */
 	public Viaje findViaje(int id) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
@@ -56,8 +57,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método recupera el objeto coche dado la matricula del coche o nulo en
-	 * otro caso
+	 * Este método recupera el objeto coche dado la matricula del coche o nulo
+	 * en otro caso
 	 */
 	public Coche findCoche(String matricula) {
 		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
@@ -79,8 +80,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método permite a un usuario poder loguearse. Devuelve true en el caso de
-	 * que se haya logueado false en otro caso
+	 * Este método permite a un usuario poder loguearse. Devuelve true en el
+	 * caso de que se haya logueado false en otro caso
 	 */
 	public boolean loginUsuario(String usuario, String password) {
 
@@ -95,8 +96,8 @@ public class Controlador {
 
 	/*
 	 * Este método permite a un usuario logueado poder registrar su coche en la
-	 * aplicación. Devuelve true si se ha conseguido registrar su coche, false en
-	 * otro caso
+	 * aplicación. Devuelve true si se ha conseguido registrar su coche, false
+	 * en otro caso
 	 */
 	public boolean addCoche(String matricula, String modelo, int year, int confort) {
 
@@ -122,8 +123,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método persiste un viaje y devuelve el objeto viaje que se ha persistido
-	 * o nulo en otro caso
+	 * Este método persiste un viaje y devuelve el objeto viaje que se ha
+	 * persistido o nulo en otro caso
 	 */
 	public Viaje registrarViaje(int plazas, double precio) {
 
@@ -191,8 +192,8 @@ public class Controlador {
 	}
 
 	/*
-	 * Este método permite crear una reserva para un viaje existente. Devuelve true
-	 * si se ha hecho la reserva; false en otro caso.
+	 * Este método permite crear una reserva para un viaje existente. Devuelve
+	 * true si se ha hecho la reserva; false en otro caso.
 	 */
 	public Reserva reservarViaje(int idViaje, String comentario) {
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
@@ -241,7 +242,10 @@ public class Controlador {
 			return null;
 		}
 
-		reserva.setEstadoAceptado();
+		if (!reserva.setEstadoAceptado()) {
+			return null;
+		}
+
 		daoReserva.update(reserva);
 
 		return viaje;
@@ -301,7 +305,7 @@ public class Controlador {
 		if (valoracion == null) {
 			return false;
 		}
-		
+
 		/*
 		 * daoReserva.update(reserva); daoUsuario.update(); daoViaje.update();
 		 */
@@ -309,7 +313,7 @@ public class Controlador {
 		return true;
 
 	}
-	
+
 	/* El pasajero valora */
 	public boolean valorarViajePasajero(int idViaje, String conductor, String comentario, int puntuacion) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
@@ -336,12 +340,11 @@ public class Controlador {
 			return false;
 		}
 
-		
 		Valoracion valoracion = this.usuarioLogeado.createValoracion(comentario, puntuacion, usuarioConductor, reserva);
 		if (valoracion == null) {
 			return false;
 		}
-		
+
 		return true;
 
 	}
@@ -355,10 +358,10 @@ public class Controlador {
 		}
 
 		/*
-		 * La construcción de la query se delega al DAO concreto para abstraer la
-		 * sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por ejemplo,
-		 * estaríamos obligados a usar JPQL en nuestro sistema o usar otro método de
-		 * listarViajes diferente en función del lenguaje
+		 * La construcción de la query se delega al DAO concreto para abstraer
+		 * la sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por
+		 * ejemplo, estaríamos obligados a usar JPQL en nuestro sistema o usar
+		 * otro método de listarViajes diferente en función del lenguaje
 		 */
 		return daoViaje.getAllViajes();
 

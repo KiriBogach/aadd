@@ -8,5 +8,6 @@ public interface ReservaDAO {
 	Reserva findReserva(int id);
 
 	void update();
+
 	void update(Reserva reserva);
 }

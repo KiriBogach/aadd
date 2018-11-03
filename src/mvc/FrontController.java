@@ -62,7 +62,8 @@ public class FrontController extends HttpServlet {
 		/*
 		 * // Obtiene la ruta física de la aplicación para que el // objeto
 		 * PeticionHelper pueda acceder a sus ficheros de // propiedades String
-		 * dirAplicacion = getServletConfig().getServletContext().getRealPath("/");
+		 * dirAplicacion =
+		 * getServletConfig().getServletContext().getRealPath("/");
 		 */
 		// Utiliza una clase Helper para analizar la acción a realizar
 		PeticionHelper peticionHelper = new PeticionHelper(peticion);

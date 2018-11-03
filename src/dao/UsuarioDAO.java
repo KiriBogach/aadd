@@ -13,5 +13,4 @@ public interface UsuarioDAO {
 
 	void update();
 
-	
 }

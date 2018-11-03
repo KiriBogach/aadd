@@ -27,7 +27,6 @@ public class ServletRegistro extends HttpServlet {
 	public static final String CAMPO_NOMBRE = "nombre";
 	public static final String CAMPO_APELLIDOS = "apellidos";
 
-
 	private static final String TOP = "<!DOCTYPE html>\r\n" + "\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "\r\n"
 			+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>REGISTRO CORRECTO</title>\r\n"
 			+ "	<link rel='icon' type='image/png' href=\"icon/favicon.png\" />\r\n"
@@ -87,8 +86,6 @@ public class ServletRegistro extends HttpServlet {
 
 		out.println(TOP);
 
-		
-
 		Controlador controlador = Controlador.getInstance();
 
 		String usuario = request.getParameter(CAMPO_USUARIO);
@@ -99,13 +96,11 @@ public class ServletRegistro extends HttpServlet {
 		String nombre = request.getParameter(CAMPO_NOMBRE);
 		String apellidos = request.getParameter(CAMPO_APELLIDOS);
 
-		
 		Date sqlDate = Utils.fromStringToSQLDate(birthdate);
-		
-			
+
 		String referer = request.getHeader("referer");
-		if (controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos)!=null) {
-			
+		if (controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos) != null) {
+
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");
 
