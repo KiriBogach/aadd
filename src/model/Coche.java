@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -14,6 +13,8 @@ import javax.persistence.OneToOne;
 public class Coche implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final int MIN_CONFORT = 1;
+	public static final int MAX_CONFORT = 5;
 
 	@Id
 	private String matricula; // PK
@@ -30,6 +31,11 @@ public class Coche implements Serializable {
 	}
 
 	public Coche(String matricula, String modelo, int confort, int year) {
+		if (confort < MIN_CONFORT || confort > MAX_CONFORT) {
+			throw new IllegalArgumentException(
+					"El confort tiene que estar en un intervalo de [" + MIN_CONFORT + "-" + MAX_CONFORT + "]");
+		}
+
 		this.matricula = matricula;
 		this.modelo = modelo;
 		this.confort = confort;
@@ -37,9 +43,10 @@ public class Coche implements Serializable {
 		this.viajes = new LinkedList<>();
 	}
 
-	public Collection<Viaje> getViajes(){
+	public Collection<Viaje> getViajes() {
 		return viajes;
 	}
+
 	public String getMatricula() {
 		return matricula;
 	}

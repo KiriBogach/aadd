@@ -60,4 +60,8 @@ public class Parada implements Serializable {
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
 	}
+
+	public boolean isAnterior(Date fecha) {
+		return this.fecha.before(fecha);
+	}
 }

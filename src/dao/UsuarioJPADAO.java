@@ -1,14 +1,11 @@
 package dao;
 
-
 import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-
 import model.Usuario;
-
 
 public class UsuarioJPADAO implements UsuarioDAO {
 
@@ -32,13 +29,13 @@ public class UsuarioJPADAO implements UsuarioDAO {
 			this.em.persist(u);
 			tx.commit();
 		} catch (Exception e) {
-			if(tx.isActive())
-			tx.rollback();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			return null;
 		}
 		return u;
 	}
-
 
 	@Override
 	public void update() {

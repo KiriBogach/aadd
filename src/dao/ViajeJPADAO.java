@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -61,41 +60,58 @@ public class ViajeJPADAO implements ViajeDAO {
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, boolean propios, boolean ordenFecha,
 			boolean ordenCiudad) {
-		String queryString = "SELECT v FROM Viaje v WHERE ";
 		LinkedList<String> filtros = new LinkedList<>();
+
+		String queryString = "SELECT v FROM Viaje v";
+		if (pendientes || realizados || propios) {
+			queryString += " WHERE";
+		}
 		if (pendientes) {
-			filtros.add("v.origen.fecha < :fecha ");
+			filtros.add(" v.origen.fecha > :fechaSistema");
 		}
 		if (realizados) {
-			filtros.add("v.destino.fecha < :fecha ");
+			filtros.add(" v.destino.fecha < :fechaSistema");
 		}
 		if (propios) {
-			filtros.add("v.coche.usuario.usuario = :usuario ");
+			filtros.add(" v.coche.usuario.usuario = :usuario");
 		}
-		// ....
-		
+
 		for (int i = 0; i < filtros.size() - 1; i++) {
 			queryString += filtros.get(i) + " OR ";
 		}
-		
+
 		if (filtros.size() != 0) {
 			queryString += filtros.getLast();
 		}
-		
+
+		if (ordenFecha) {
+			// Filtramos por el origen
+			queryString += " ORDER BY v.origen.fecha ";
+		}
+
+		if (ordenCiudad) {
+			// Filtramos por el origen
+			queryString += " ORDER BY v.origen.ciudad ";
+		}
+
 		Query query = this.em.createQuery(queryString);
 
-		
-		Date fecha = Controlador.fromStringToDate(Controlador.FECHA_SISTEMA);
-		
+		Date fechaSistema = Controlador.FECHA_SISTEMA_DATE;
+
 		if (pendientes || realizados) {
-			query.setParameter("fecha", fecha, TemporalType.DATE);
+			query.setParameter("fechaSistema", fechaSistema, TemporalType.DATE);
 		}
+
 		if (propios) {
 			query.setParameter("usuario", Controlador.getInstance().getUsuarioLogeado().getUsuario());
 		}
+
+		System.out.println(queryString);
+
 		return query.getResultList();
 	}
 

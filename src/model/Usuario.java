@@ -142,4 +142,24 @@ public class Usuario implements Serializable {
 		coche.addViaje(viaje);
 	}
 
+	public Valoracion createValoracion(String comentario, int puntuacion, Usuario usuarioPasajero, Reserva reserva) {
+		Valoracion valoracion = null;
+		try {
+			valoracion = new Valoracion(comentario, puntuacion);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+		
+		valoracion.setEmisor(this);
+		valoracion.setReceptor(usuarioPasajero);
+		valoracion.setReserva(reserva);
+		
+		usuarioPasajero.addValoracion(valoracion);
+		this.addValoracion(valoracion);
+		reserva.addValoracion(valoracion);
+		
+		return valoracion;
+		
+	}
+
 }

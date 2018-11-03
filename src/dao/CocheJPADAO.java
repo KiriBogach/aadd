@@ -15,8 +15,13 @@ public class CocheJPADAO implements CocheDAO {
 
 	@Override
 	public Coche createCoche(String matricula, String modelo, int year, int confort) {
-		Coche coche = new Coche(matricula, modelo, confort, year);
-
+		Coche coche = null;
+		try {
+			coche = new Coche(matricula, modelo, confort, year);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+		
 		EntityTransaction tx = this.em.getTransaction();
 		tx.begin();
 		try {

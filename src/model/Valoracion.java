@@ -2,6 +2,9 @@ package model;
 
 public class Valoracion {
 
+	public static final int MIN_PUNTUACION = 1;
+	public static final int MAX_PUNTUACION = 10;
+
 	private String comentario;
 	private int puntuacion;
 	private Usuario receptor;
@@ -20,6 +23,10 @@ public class Valoracion {
 	}
 
 	public Valoracion(String comentario, int puntuacion) {
+		if (puntuacion < MIN_PUNTUACION || puntuacion > MAX_PUNTUACION) {
+			throw new IllegalArgumentException(
+					"La puntuación tiene que estar en un intervalo de [" + MIN_PUNTUACION + "-" + MAX_PUNTUACION + "]");
+		}
 		this.comentario = comentario;
 		this.puntuacion = puntuacion;
 	}

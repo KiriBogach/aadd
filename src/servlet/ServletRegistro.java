@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controlador;
-import model.UtilClass;
+import model.Utils;
 
 /**
  * Servlet implementation class ServletRegistro
@@ -100,7 +100,7 @@ public class ServletRegistro extends HttpServlet {
 		String apellidos = request.getParameter(CAMPO_APELLIDOS);
 
 		
-		Date sqlDate = UtilClass.fromStringToSQLDate(birthdate);
+		Date sqlDate = Utils.fromStringToSQLDate(birthdate);
 		
 			
 		String referer = request.getHeader("referer");
