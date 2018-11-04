@@ -1,7 +1,10 @@
 package model;
 
-public class Valoracion {
+import java.io.Serializable;
 
+public class Valoracion implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	public static final int MIN_PUNTUACION = 1;
 	public static final int MAX_PUNTUACION = 10;
 
@@ -69,6 +72,11 @@ public class Valoracion {
 
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
+	}
+
+	// ¿Usar equals superficial?
+	public boolean isEmisor(Usuario usuarioLogeado) {
+		return usuarioLogeado.getUsuario().equals(this.emisor.getUsuario());
 	}
 
 }

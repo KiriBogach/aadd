@@ -30,7 +30,9 @@ public class ParadaJPADAO implements ParadaDAO {
 			this.em.persist(parada);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			return null;
 		}
 		return parada;

@@ -29,7 +29,9 @@ public class ReservaJPADAO implements ReservaDAO {
 			this.em.persist(reserva);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			return null;
 		}
 		return reserva;

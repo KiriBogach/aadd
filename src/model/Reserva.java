@@ -18,11 +18,11 @@ public class Reserva implements Serializable {
 	private String comentario;
 	@Enumerated(EnumType.STRING)
 	private EstadoReserva estado;
+	@JoinColumn(name = "USUARIO_RESERVADOR")
 	@ManyToOne
 	private Usuario usuario;
 	@ManyToOne
 	private Viaje viaje;
-	// @Transient
 	private Collection<Valoracion> valoraciones;
 
 	public Reserva() {
@@ -82,6 +82,14 @@ public class Reserva implements Serializable {
 	public boolean isUsuario(String usuario) {
 		return this.usuario.isUsuario(usuario);
 	}
+	
+	public Collection<Valoracion> getValoraciones() {
+		return valoraciones;
+	}
+	
+	public void setValoraciones(Collection<Valoracion> valoraciones) {
+		this.valoraciones = valoraciones;
+	}
 
 	public boolean setEstadoAceptado() {
 		boolean aceptado = viaje.aceptarReserva();
@@ -93,11 +101,19 @@ public class Reserva implements Serializable {
 
 	public void setEstadoRechazado() {
 		this.estado = EstadoReserva.RECHAZADA;
-
 	}
 
 	public void addValoracion(Valoracion valoracion) {
 		this.valoraciones.add(valoracion);
+	}
+
+	public boolean haValorado(Usuario usuarioLogeado) {
+		for (Valoracion valoracion : this.valoraciones) {
+			if (valoracion.isEmisor(usuarioLogeado)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

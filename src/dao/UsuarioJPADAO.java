@@ -43,6 +43,12 @@ public class UsuarioJPADAO implements UsuarioDAO {
 		tx.begin();
 		tx.commit();
 	}
+	
+	@Override
+	public void update(Usuario usuario) {
+		this.em.merge(usuario);
+		this.update();
+	}
 
 	@Override
 	protected void finalize() throws Throwable {

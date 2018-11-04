@@ -2,8 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,27 +58,26 @@ public class ServletRegistro extends HttpServlet {
 
 		/*
 		 * // Instanciamos el Bean Usuario u = new Usuario(); // Obtenemos los
-		 * parámetros de la llamada // No hace falta hacer conversiones de tipos
-		 * porque todas // las propiedades del bean son cadenas.
+		 * parámetros de la llamada // No hace falta hacer conversiones de tipos porque
+		 * todas // las propiedades del bean son cadenas.
 		 * u.setUsuario(request.getParameter("usuario"));
 		 * u.setPassword(request.getParameter("password"));
 		 * u.setEmail(request.getParameter("email"));
 		 * u.setTelefono(request.getParameter("telefono"));
 		 * 
 		 * // Recupera el contexto de la aplicación ServletContext app =
-		 * getServletConfig().getServletContext(); // Intenta localizar la tabla
-		 * de usuarios
+		 * getServletConfig().getServletContext(); // Intenta localizar la tabla de
+		 * usuarios
 		 * 
 		 * @SuppressWarnings("unchecked") HashMap<String, Usuario> usuarios =
-		 * (HashMap<String, Usuario>) app.getAttribute("usuarios"); // Si no
-		 * existe, la crea if (usuarios == null) { usuarios = new
-		 * HashMap<String, Usuario>(); app.setAttribute("usuarios", usuarios); }
+		 * (HashMap<String, Usuario>) app.getAttribute("usuarios"); // Si no existe, la
+		 * crea if (usuarios == null) { usuarios = new HashMap<String, Usuario>();
+		 * app.setAttribute("usuarios", usuarios); }
 		 * 
 		 * boolean error = false; // Intenta guardar un usuario. Si existe el
-		 * identificador, devuelve un error if (usuarios.get(u.getUsuario()) !=
-		 * null) { // response.sendError(500,
-		 * "Identificador de usuario duplicado"); // return; error = true; }
-		 * else { usuarios.put(u.getUsuario(), u); }
+		 * identificador, devuelve un error if (usuarios.get(u.getUsuario()) != null) {
+		 * // response.sendError(500, "Identificador de usuario duplicado"); // return;
+		 * error = true; } else { usuarios.put(u.getUsuario(), u); }
 		 */
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -96,10 +94,10 @@ public class ServletRegistro extends HttpServlet {
 		String nombre = request.getParameter(CAMPO_NOMBRE);
 		String apellidos = request.getParameter(CAMPO_APELLIDOS);
 
-		Date sqlDate = Utils.fromStringToSQLDate(birthdate);
+		Date date = Utils.fromStringToDate(birthdate);
 
 		String referer = request.getHeader("referer");
-		if (controlador.registrarUsuario(usuario, password, sqlDate, profesion, email, nombre, apellidos) != null) {
+		if (controlador.registrarUsuario(usuario, password, date, profesion, email, nombre, apellidos) != null) {
 
 			out.println("Registro correcto");
 			response.setHeader("refresh", "3; URL=index.html");

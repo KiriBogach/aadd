@@ -12,5 +12,7 @@ public interface UsuarioDAO {
 	Usuario findUsuario(String usuario);
 
 	void update();
+	
+	void update(Usuario usuario);
 
 }

@@ -20,7 +20,7 @@ public class ControladorListarViajesTest {
 		 * controlador FECHA_SISTEMA = "26/02/2018";
 		 */
 		Controlador controlador = Controlador.getInstance();
-		Date sqlDate = Utils.fromStringToSQLDate("20/01/1994");
+		Date sqlDate = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
 		Usuario usuario = controlador.registrarUsuario("usuario14", "123", sqlDate, "médico", "testUsuario@gmail.com",
@@ -42,9 +42,9 @@ public class ControladorListarViajesTest {
 		 * realizados, propio de usuario14
 		 */
 		viaje = controlador.registrarViaje(4, 151.0);
-		fechaOrigen = Utils.fromStringToSQLDate("10/03/2018");
+		fechaOrigen = Utils.fromStringToDate("10/03/2018");
 		controlador.registrarParadaOrigen(viaje.getId(), "Madrid", "Puerta del Sol", 03300, fechaOrigen);
-		fechaDestino = Utils.fromStringToSQLDate("12/03/2018");
+		fechaDestino = Utils.fromStringToDate("12/03/2018");
 		controlador.registrarParadaDestino(viaje.getId(), "Albacete", "Calle Limón", 15040, fechaDestino);
 
 		/*
@@ -52,9 +52,9 @@ public class ControladorListarViajesTest {
 		 * realizados, propio de usuario14
 		 */
 		viaje = controlador.registrarViaje(4, 151.0);
-		fechaOrigen = Utils.fromStringToSQLDate("10/01/2018");
+		fechaOrigen = Utils.fromStringToDate("10/01/2018");
 		controlador.registrarParadaOrigen(viaje.getId(), "Barcelona", "Puerta del Sol", 03300, fechaOrigen);
-		fechaDestino = Utils.fromStringToSQLDate("12/01/2018");
+		fechaDestino = Utils.fromStringToDate("12/01/2018");
 		controlador.registrarParadaDestino(viaje.getId(), "Cádiz", "Calle Limón", 15040, fechaDestino);
 
 		/* Listamos los viajes por el usuario que ha creado dichos viajes */
@@ -77,14 +77,14 @@ public class ControladorListarViajesTest {
 
 		/* Registramos más viaje para comprobar la ordenación */
 		viaje = controlador.registrarViaje(4, 151.0);
-		fechaOrigen = Utils.fromStringToSQLDate("10/08/2018");
+		fechaOrigen = Utils.fromStringToDate("10/08/2018");
 		controlador.registrarParadaOrigen(viaje.getId(), "Zaragoza", "Puerta del Sol", 03300, fechaOrigen);
-		fechaDestino = Utils.fromStringToSQLDate("12/08/2018");
+		fechaDestino = Utils.fromStringToDate("12/08/2018");
 		controlador.registrarParadaDestino(viaje.getId(), "Málaga", "Calle Limón", 15040, fechaDestino);
 
-		fechaOrigen = Utils.fromStringToSQLDate("10/10/2018");
+		fechaOrigen = Utils.fromStringToDate("10/10/2018");
 		controlador.registrarParadaOrigen(viaje.getId(), "Almería", "Puerta del Sol", 03300, fechaOrigen);
-		fechaDestino = Utils.fromStringToSQLDate("12/10/2018");
+		fechaDestino = Utils.fromStringToDate("12/10/2018");
 		controlador.registrarParadaDestino(viaje.getId(), "País Vasco", "Calle Limón", 15040, fechaDestino);
 
 		/* Comprabamos la ordenación por fechas */

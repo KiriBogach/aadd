@@ -28,8 +28,9 @@ public class CocheJPADAO implements CocheDAO {
 			this.em.persist(coche);
 			tx.commit();
 		} catch (Exception e) {
-			if (tx.isActive())
+			if (tx.isActive()) {
 				tx.rollback();
+			}
 			return null;
 		}
 		return coche;

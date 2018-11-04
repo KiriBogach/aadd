@@ -35,7 +35,9 @@ public class ViajeJPADAO implements ViajeDAO {
 			this.em.persist(v);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			return null;
 		}
 		return v;
