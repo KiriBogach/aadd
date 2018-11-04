@@ -67,7 +67,13 @@ public class Controlador {
 		CocheDAO daoCoche = FactoriaDAO.getInstancia().getCocheDAO();
 		return daoCoche.findCoche(matricula);
 	}
-
+	/*
+	 * Este método recupera el objeto reserva dado el id de la reserva o nulo en otro caso
+	 */
+	public Reserva findReserva(int id) {
+		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
+		return daoReserva.findReserva(id);
+	}
 	/*
 	 * Este método persiste un usuario y devuelve el objeto usuario que se ha
 	 * persistido o nulo en otro caso

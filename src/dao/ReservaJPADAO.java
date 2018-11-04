@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import model.Reserva;
+import model.Viaje;
 
 public class ReservaJPADAO implements ReservaDAO {
 
@@ -54,5 +55,7 @@ public class ReservaJPADAO implements ReservaDAO {
 	public Reserva findReserva(int id) {
 		return this.em.find(Reserva.class, id);
 	}
+
+	
 
 }

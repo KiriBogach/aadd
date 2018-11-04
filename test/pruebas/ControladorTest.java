@@ -74,6 +74,7 @@ public class ControladorTest {
 		/* Hacemos login con el usuario registrado previamente */
 		controlador.loginUsuario(usuario.getUsuario(), usuario.getPassword());
 
+		/* Aquí comprobamos que el confort debe estar entre [1-5] */
 		/* Registramos un coche inválido */
 		assertFalse(controlador.addCoche("123A", "Seat", 2009, -1));
 
@@ -92,12 +93,18 @@ public class ControladorTest {
 		controlador.loginUsuario(usuario4.getUsuario(), usuario4.getPassword());
 
 		/*
-		 * Registramos el coche del usuario logueado pero con una matricula ya exitente
+		 * Registramos el coche del usuario logueado pero con una matricula ya
+		 * exitente
 		 */
 		assertFalse(controlador.addCoche("123A", "Ferrari", 2017, 5));
-		
-		/* Comprobamos que se han guardado correctamente los datos en la base de datos */
+
+		/*
+		 * Comprobamos que se han guardado correctamente los datos en la base de
+		 * datos
+		 */
 		assertEquals("123A", controlador.findUsuario("usuario3").getCoche().getMatricula());
+
+		assertNull(controlador.findUsuario("usuario4").getCoche());
 	}
 
 	@Test
@@ -121,6 +128,7 @@ public class ControladorTest {
 
 		Coche coche = controlador.findCoche("12345A");
 
+		/* Comprobamos que efectivamente se ha registrado el viaje */
 		assertEquals(1, coche.getViajes().size());
 
 		/* Registramos al usuario */
@@ -158,6 +166,12 @@ public class ControladorTest {
 		date = Utils.fromStringToDate("20/11/2018");
 		assertNotNull(controlador.registrarParadaOrigen(viaje.getId(), "Murcia", "C/Mayor,25", 30001, date));
 
+		viaje = controlador.findViaje(viaje.getId());
+		/*
+		 * Comprobamos si efectivamente la parada se ha registrado en el viaje
+		 */
+		assertEquals("Murcia", viaje.getOrigen().getCiudad());
+
 		/* Registramos una parada origen en un viaje inexistente */
 		assertNull(controlador.registrarParadaOrigen(-5, "Murcia", "C/Mayor,25", 30001, date));
 
@@ -186,6 +200,12 @@ public class ControladorTest {
 		/* Registramos una parada destino en el viaje previamente registrado */
 		date = Utils.fromStringToDate("22/11/2018");
 		assertNotNull(controlador.registrarParadaDestino(viaje.getId(), "Murcia", "C/Mayor,25", 30001, date));
+		viaje = controlador.findViaje(viaje.getId());
+
+		/*
+		 * Comprobamos si efectivamente la parada se ha registrado en el viaje
+		 */
+		assertEquals("Murcia", viaje.getDestino().getCiudad());
 
 		/* Registramos una parada destino en un viaje inexistente */
 		assertNull(controlador.registrarParadaDestino(-5, "Murcia", "C/Mayor,25", 30001, date));
@@ -213,15 +233,15 @@ public class ControladorTest {
 		Viaje viaje = controlador.registrarViaje(4, 157.0);
 
 		/*
-		 * Hacemos la reserva de un viaje previamente registrado pero el conductor es el
-		 * mismo que hace la reserva
+		 * Hacemos la reserva de un viaje previamente registrado pero el
+		 * conductor es el mismo que hace la reserva
 		 */
 		assertNull(controlador.reservarViaje(viaje.getId(), "Me gustaría reservar una plaza en mi propio coche"));
-		viaje = controlador.findViaje(viaje.getId());
 		/*
-		 * He vuelto a hacer la reasignacion ya que el viaje puede estar obsoleto pero
-		 * ni aun con esas se recupera correctamente
+		 * Hemos vuelto a hacer la reasignacion ya que el viaje puede estar
+		 * obsoleto
 		 */
+		viaje = controlador.findViaje(viaje.getId());
 		assertEquals(0, viaje.getReservas().size());
 
 		/* Hacemos la reserva de un viaje inexistente */
@@ -238,6 +258,14 @@ public class ControladorTest {
 		 * Hacemos la reserva de un viaje previamente registrado
 		 */
 		assertNotNull(controlador.reservarViaje(viaje.getId(), "Me gustaría reservar una plaza"));
+
+		/*
+		 * Hemos vuelto a hacer la reasignacion ya que el viaje puede estar
+		 * obsoleto
+		 */
+		viaje = controlador.findViaje(viaje.getId());
+		assertEquals(1, viaje.getReservas().size());
+
 	}
 
 	@Test
@@ -280,10 +308,7 @@ public class ControladorTest {
 		viaje = controlador.aceptarViaje(viaje.getId(), usuarioReservador.getUsuario());
 		assertNotNull(viaje);
 
-		/*
-		 * Aqui haria falta reasignar viaje porque esta obsoleto Ademas no existe
-		 * asociacion entre viaje y reservas al recuperarla de la BD
-		 */
+		/* Comprobamos que efectivamente a cambiado el estado de la reserva */
 		reserva = viaje.getReservaUsuario(usuarioReservador.getUsuario());
 		assertEquals(EstadoReserva.ACEPTADA, reserva.getEstado());
 
@@ -291,8 +316,8 @@ public class ControladorTest {
 		assertNull(controlador.aceptarViaje(-5, usuarioReservador.getUsuario()));
 
 		/*
-		 * Aceptamos la reserva de viaje de un usuario que no ha creado la reserva
-		 * Registramos al usuario reservador
+		 * Aceptamos la reserva de viaje de un usuario que no ha creado la
+		 * reserva Registramos al usuario no reservador
 		 */
 		Usuario usuarioNoReservador = controlador.registrarUsuario("usuario13", "123", date, "médico",
 				"testUsuario@gmail.com", "Carlos", "Martinez Serrano");
@@ -342,17 +367,15 @@ public class ControladorTest {
 		viaje = controlador.rechazarViaje(viaje.getId(), usuarioReservador.getUsuario());
 		assertNotNull(viaje);
 
-		/*
-		 * Aqui haria falta reasignar viaje porque esta obsoleto Ademas no existe
-		 * asociacion entre viaje y reservas al recuperarla de la BD
-		 */
+		/* Comprobamos que efectivamente a cambiado el estado de la reserva */
 		reserva = viaje.getReservaUsuario(usuarioReservador.getUsuario());
 		assertEquals(EstadoReserva.RECHAZADA, reserva.getEstado());
 
 		/* Rechazamos la reserva de viaje de un viaje inexistente */
 		assertNull(controlador.aceptarViaje(-5, usuarioReservador.getUsuario()));
 		/*
-		 * Rechazamos la reserva de viaje de un usuario que no ha creado la reserva
+		 * Rechazamos la reserva de viaje de un usuario que no ha creado la
+		 * reserva
 		 */
 		/* Registramos al usuario reservador */
 		Usuario usuarioNoReservador = controlador.registrarUsuario("usuario16", "123", date, "médico",
@@ -405,17 +428,47 @@ public class ControladorTest {
 		/*
 		 * Hacemos la reserva del viaje1
 		 */
-		controlador.reservarViaje(viaje1.getId(), "Me gustaría reservar una plaza");
+		Reserva reserva1 = controlador.reservarViaje(viaje1.getId(), "Me gustaría reservar una plaza");
 
 		/*
 		 * Hacemos la reserva del viaje2
 		 */
-		controlador.reservarViaje(viaje2.getId(), "Me gustaría reservar una plaza");
+		Reserva reserva2 = controlador.reservarViaje(viaje2.getId(), "Me gustaría reservar una plaza");
 
 		/* El usuario pasajero valora al conductor de un viaje terminado */
 		assertTrue(controlador.valorarViajePasajero(viaje1.getId(), usuario.getUsuario(), "Muy amigable", 7));
+
+		reserva1 = controlador.findReserva(reserva1.getId());
+
+		/*
+		 * Comprobamos que efectivamente se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(1, reserva1.getValoraciones().size());
+
+		/*
+		 * El usuario pasajero vuelve a valorar al conductor de un viaje
+		 * terminado
+		 */
+		assertFalse(controlador.valorarViajePasajero(viaje1.getId(), usuario.getUsuario(), "Muy amigable otra vez", 7));
+
+		reserva1 = controlador.findReserva(reserva1.getId());
+		/*
+		 * Comprobamos que efectivamente no se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(1, reserva1.getValoraciones().size());
+
 		/* El usuario pasajero valora al conductor de un viaje no terminado */
 		assertFalse(controlador.valorarViajePasajero(viaje2.getId(), usuario.getUsuario(), "Muy amigable", 6));
+
+		reserva2 = controlador.findReserva(reserva2.getId());
+		/*
+		 * Comprobamos que efectivamente no se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(0, reserva2.getValoraciones().size());
+
 		/* El usuario pasajero valora al conductor de un viaje inexistente */
 		assertFalse(controlador.valorarViajePasajero(-5, usuario.getUsuario(), "Muy amigable", 7));
 
@@ -429,18 +482,12 @@ public class ControladorTest {
 		controlador.loginUsuario(usuarioNoReservador.getUsuario(), usuarioNoReservador.getPassword());
 
 		assertFalse(controlador.valorarViajePasajero(viaje1.getId(), usuario.getUsuario(), "Muy amigable", 7));
-
-		/* Hacemos login otra vez con el usuario que oferta un viaje */
-		controlador.loginUsuario(usuario.getUsuario(), usuario.getPassword());
-
-		/* El usuario pasajero valora al conductor de un viaje terminado */
-		assertTrue(
-				controlador.valorarViajeConductor(viaje1.getId(), usuarioReservador.getUsuario(), "Muy amigable", 7));
-		/* El usuario pasajero valora al conductor de un viaje no terminado */
-		assertFalse(
-				controlador.valorarViajeConductor(viaje2.getId(), usuarioReservador.getUsuario(), "Muy amigable", 7));
-		/* El usuario pasajero valora al conductor de un viaje inexistente */
-		assertFalse(controlador.valorarViajeConductor(-5, usuarioReservador.getUsuario(), "Muy amigable", 7));
+		reserva1 = controlador.findReserva(reserva1.getId());
+		/*
+		 * Comprobamos que efectivamente no se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(1, reserva1.getValoraciones().size());
 
 	}
 
@@ -488,31 +535,59 @@ public class ControladorTest {
 		/*
 		 * Hacemos la reserva del viaje1
 		 */
-		controlador.reservarViaje(viaje1.getId(), "Me gustaría reservar una plaza");
+		Reserva reserva1 = controlador.reservarViaje(viaje1.getId(), "Me gustaría reservar una plaza");
 
 		/*
 		 * Hacemos la reserva del viaje2
 		 */
-		controlador.reservarViaje(viaje2.getId(), "Me gustaría reservar una plaza");
-
+		Reserva reserva2 = controlador.reservarViaje(viaje2.getId(), "Me gustaría reservar una plaza");
 		/* Hacemos login otra vez con el usuario que oferta un viaje */
 		controlador.loginUsuario(usuario.getUsuario(), usuario.getPassword());
 
 		/* El usuario conductor valora al pasajero de un viaje terminado */
 		assertTrue(
 				controlador.valorarViajeConductor(viaje1.getId(), usuarioReservador.getUsuario(), "Muy amigable", 7));
+		reserva1 = controlador.findReserva(reserva1.getId());
+
+		/*
+		 * Comprobamos que efectivamente se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(1, reserva1.getValoraciones().size());
+
+		/*
+		 * El usuario conductor vuelve a valorar al pasajero de un viaje
+		 * terminado
+		 */
+		assertFalse(controlador.valorarViajeConductor(viaje1.getId(), usuarioReservador.getUsuario(),
+				"Muy amigable otra vez", 7));
+
+		reserva1 = controlador.findReserva(reserva1.getId());
+		/*
+		 * Comprobamos que efectivamente no se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(1, reserva1.getValoraciones().size());
+
 		/* El usuario conductor valora al pasajero de un viaje no terminado */
 		assertFalse(
 				controlador.valorarViajeConductor(viaje2.getId(), usuarioReservador.getUsuario(), "Muy amigable", 7));
+
+		reserva2 = controlador.findReserva(reserva2.getId());
+		/*
+		 * Comprobamos que efectivamente no se ha añadido una valoración a la
+		 * reserva
+		 */
+		assertEquals(0, reserva2.getValoraciones().size());
+		
 		/* El usuario conductor valora al pasajero de un viaje inexistente */
 		assertFalse(controlador.valorarViajeConductor(-5, usuarioReservador.getUsuario(), "Muy amigable", 7));
 
 	}
-	
 
 	/*
-	 * Separamos el test listarViajes porque no sabemos el orden de ejecución de los
-	 * testUnitarios y no podríamos contar el número de viajes correctamente en cada
-	 * caso. Véase la clase test 'ControladroListaViajesTest'
+	 * Separamos el test listarViajes porque no sabemos el orden de ejecución de
+	 * los testUnitarios y no podríamos contar el número de viajes correctamente
+	 * en cada caso. Véase la clase test 'ControladroListaViajesTest'
 	 */
 }

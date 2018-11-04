@@ -20,10 +20,10 @@ public class ControladorListarViajesTest {
 		 * controlador FECHA_SISTEMA = "26/02/2018";
 		 */
 		Controlador controlador = Controlador.getInstance();
-		Date sqlDate = Utils.fromStringToDate("20/01/1994");
+		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
-		Usuario usuario = controlador.registrarUsuario("usuario14", "123", sqlDate, "médico", "testUsuario@gmail.com",
+		Usuario usuario = controlador.registrarUsuario("usuario14", "123", date, "médico", "testUsuario@gmail.com",
 				"Carlos", "Martinez Serrano");
 		assertNotNull(usuario);
 
@@ -110,7 +110,7 @@ public class ControladorListarViajesTest {
 		}
 
 		/* Registramos a otro usuario que no tenga viajes propios */
-		usuario = controlador.registrarUsuario("usuario15", "123", sqlDate, "médico", "testUsuario@gmail.com", "Carlos",
+		usuario = controlador.registrarUsuario("usuario15", "123", date, "médico", "testUsuario@gmail.com", "Carlos",
 				"Martinez Serrano");
 		assertNotNull(usuario);
 
