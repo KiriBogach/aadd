@@ -112,7 +112,7 @@ public class ViajeJPADAO implements ViajeDAO {
 			query.setParameter("usuario", Controlador.getInstance().getUsuarioLogeado().getUsuario());
 		}
 
-		System.out.println(queryString);
+		//System.out.println(queryString);
 
 		return query.getResultList();
 	}

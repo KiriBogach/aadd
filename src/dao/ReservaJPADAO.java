@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import model.Reserva;
-import model.Viaje;
 
 public class ReservaJPADAO implements ReservaDAO {
 
