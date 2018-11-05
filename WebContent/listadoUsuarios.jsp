@@ -27,9 +27,9 @@
 			</tr>
 			<ad:listaUsuarios usuarios="${sessionScope.usuarios}">
 				<tr>
-					<td with="20%" align="center"><%=usuario%></td>
-					<td with="50%" align="center"><%=nombre%></td>
-					<td with="30%" align="center"><%=email%></td>
+					<td width="20%" align="center"><%=usuario%></td>
+					<td width="50%" align="center"><%=nombre%></td>
+					<td width="30%" align="center"><%=email%></td>
 				</tr>
 			</ad:listaUsuarios>
 		</table>
