@@ -1,0 +1,20 @@
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>aadd</shortname>
+	<uri>http://www.um.es/aadd/tlds</uri>
+	<info> Libreria de etiquetas de AADD </info>
+
+	<tag>
+		<name>listaUsuarios</name>
+		<tagclass>tags.UsuariosTag</tagclass>
+		<teiclass>tags.VarUsuariosTagTEI</teiclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Muestra iterativamente la informacion de los usuarios</info>
+		<attribute>
+			<name>usuarios</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

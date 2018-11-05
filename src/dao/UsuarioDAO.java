@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Collection;
 import java.util.Date;
 
 import model.Usuario;
@@ -14,5 +15,7 @@ public interface UsuarioDAO {
 	void update();
 	
 	void update(Usuario usuario);
+
+	Collection<Usuario> getAllUsuarios();
 
 }

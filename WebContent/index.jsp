@@ -7,6 +7,7 @@
 <title>Email del usuario</title>
 </head>
 <body>
-	<b>Email del usuario:</b> ${sessionScope.usuario.email}
+	<b>Email del usuario:</b> ${sessionScope.usuario.email}<br/>
+	<a href="AccionUsuario.ctrl"></a>
 </body>
 </html>

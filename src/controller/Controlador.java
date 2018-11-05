@@ -384,5 +384,10 @@ public class Controlador {
 		return daoViaje.getAllViajesBy(pendientes, realizados, propios, ordenFecha, ordenCiudad);
 
 	}
+	
+	public Collection<Usuario> getAllUsuarios(){
+		UsuarioDAO daoUsuario = FactoriaDAO.getInstancia().getUsuarioDAO();
+		return daoUsuario.getAllUsuarios();
+	}
 
 }
