@@ -19,10 +19,22 @@
 	</div>
 	<div id="section">
 		<html locale="true">
-
-<h3>
-	<b>Inicio TAB</b>
-</h3>
+<f:view>
+	<hr>
+	<h3>
+		<b><h:outputText value="#{msg.bienvenido1}" /></b>
+	</h3>
+	<p>
+		<h:outputText value="#{msg.bienvenido2}" />
+	</p>
+	<p>
+		<h:outputText value="#{msg.bienvenido3}" />
+	</p>
+	<p>
+		<h:outputText value="#{msg.bienvenido4}" />
+	</p>
+	<hr>
+</f:view>
 	</div>
 	<div id="footer">
 		<%@ include file="divFooter.jsp"%>

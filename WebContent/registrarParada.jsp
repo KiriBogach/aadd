@@ -21,7 +21,7 @@
 		<html locale="true">
 
 <h3>
-	<b>Inicio TAB</b>
+	<b>Registrar Parada TAB</b>
 </h3>
 	</div>
 	<div id="footer">
