@@ -22,7 +22,9 @@
 <f:view>
 	<hr>
 	<h3>
-		<b><h:outputText value="#{msg.bienvenido1}" /></b>
+		<b><h:outputFormat value="#{msg.bienvenido1}">
+		<f:param value="#{beanLogin.usuario}"/>
+		</h:outputFormat></b>
 	</h3>
 	<p>
 		<h:outputText value="#{msg.bienvenido2}" />
