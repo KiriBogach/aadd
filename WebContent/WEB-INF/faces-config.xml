@@ -14,6 +14,16 @@
 		<managed-bean-class>beans.BeanRegister</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanRegistrarParada</managed-bean-name>
+		<managed-bean-class>beans.BeanRegistrarParada</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanListarViaje</managed-bean-name>
+		<managed-bean-class>beans.BeanListarViaje</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<application>
 		<message-bundle>resources.messages</message-bundle>
 		<locale-config>

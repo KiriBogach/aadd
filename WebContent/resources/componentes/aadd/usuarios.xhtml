@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>This content will not be displayed</title>
+</h:head>
+<h:body>
+	<composite:interface>
+		<composite:attribute name="tabla" required="true" />
+	</composite:interface>
+	<composite:implementation>
+		<h:form>
+			<h:outputText value="Tabla: #{cc.attrs.tabla}"></h:outputText>
+			<h:dataTable id="usuarios" value="#{beanListarUsuarios.usuarios}"
+				var="usuario" border="1">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Usuario" />
+					</f:facet>
+					<h:outputText value="#{usuario.usuario}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Email" />
+					</f:facet>
+					<h:outputText value="#{usuario.email}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</composite:implementation>
+</h:body>
+</html>
