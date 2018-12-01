@@ -38,78 +38,78 @@
 		<%@ include file="divNav.jsp"%>
 	</div>
 	<div id="section">
-<f:view>
-	<h:form id="reservas">
-		<h:dataTable id="viajes" value="#{beanListarViaje.viajes}" var="viaje"
-			border="1">
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Viaje" />
-				</f:facet>
-				<h:outputText value="#{viaje.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Precio" />
-				</f:facet>
-				<h:outputText value="#{viaje.precio}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Plazas" />
-				</f:facet>
-				<h:outputText value="#{viaje.plazas}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Seleccionar" />
-				</f:facet>
-				<h:commandLink id="Seleccionar" action="selectViaje"
-					actionListener="#{beanListarViaje.selectViaje}">
-					<h:outputText value="Seleccionar" />
-					<f:param id="selectId" name="id" value="#{viaje.id}" />
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-		<h:outputText
-			value="Viaje seleccionado:
+		<f:view>
+			<h:form id="reservas">
+				<h:dataTable id="viajes" value="#{beanListarViaje.viajes}"
+					var="viaje" border="1">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Viaje" />
+						</f:facet>
+						<h:outputText value="#{viaje.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Precio" />
+						</f:facet>
+						<h:outputText value="#{viaje.precio}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Plazas" />
+						</f:facet>
+						<h:outputText value="#{viaje.plazas}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Seleccionar" />
+						</f:facet>
+						<h:commandLink id="Seleccionar" action="selectViaje"
+							actionListener="#{beanListarViaje.selectViaje}">
+							<h:outputText value="Seleccionar" />
+							<f:param id="selectId" name="id" value="#{viaje.id}" />
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+				<h:outputText
+					value="Viaje seleccionado:
 #{beanListarViaje.viajeSeleccionado}" />
-		<br>
-		<br>
-		<h:panelGrid columns="3">
-			<h:selectManyListbox id="ciudades"
-				value="#{beanRegistrarParada.ciudadesSeleccionadas}"
-				styleClass="switchlist">
-				<f:selectItems value="#{beanRegistrarParada.ciudadesOfrecidas}" />
-			</h:selectManyListbox>
-			<h:panelGroup id="buttonGroup" styleClass="switchlistButtons">
-				<h:commandButton binding="#{beanRegistrarParada.puedeSeleccionar}"
-					value="->" actionListener="#{beanRegistrarParada.moveDtoP}"
-					styleClass="switchlistButton" />
-				<h:commandButton actionListener="#{beanRegistrarParada.movePtoD}"
-					value="<-" styleClass="switchlistButton" />
-			</h:panelGroup>
-			<h:selectManyListbox id="paradaOrigen"
-				value="#{beanRegistrarParada.paradasSeleccionadas}"
-				styleClass="switchlist">
-				<f:selectItems value="#{beanRegistrarParada.paradasOfrecidas}" />
-			</h:selectManyListbox>
-		</h:panelGrid>
-		<h:outputText value="¿Puede seleccionar?:" />
-		<h:selectBooleanCheckbox
-			value="#{beanRegistrarParada.estadoAccionSeleccionar}"
-			valueChangeListener="#{beanRegistrarParada.puedeAsignarParada}" />
-		<h:commandButton value="recargar" type="submit" />
-		<br>
-		<br>
-		<h:outputLink value="index.jsp">
-			<h:graphicImage
-				value="https://www.um.es/informatica/images/fium-logo-negativo-web.png"
-				title="Bienvenido" height="30" />
-		</h:outputLink>
-		<h:messages />
-	</h:form>
-</f:view>
+				<br>
+				<br>
+				<h:panelGrid columns="3">
+					<h:selectManyListbox id="ciudades"
+						value="#{beanRegistrarParada.ciudadesSeleccionadas}"
+						styleClass="switchlist">
+						<f:selectItems value="#{beanRegistrarParada.ciudadesOfrecidas}" />
+					</h:selectManyListbox>
+					<h:panelGroup id="buttonGroup" styleClass="switchlistButtons">
+						<h:commandButton binding="#{beanRegistrarParada.puedeSeleccionar}"
+							value="->" actionListener="#{beanRegistrarParada.moveDtoP}"
+							styleClass="switchlistButton" />
+						<h:commandButton actionListener="#{beanRegistrarParada.movePtoD}"
+							value="<-" styleClass="switchlistButton" />
+					</h:panelGroup>
+					<h:selectManyListbox id="paradaOrigen"
+						value="#{beanRegistrarParada.paradasSeleccionadas}"
+						styleClass="switchlist">
+						<f:selectItems value="#{beanRegistrarParada.paradasOfrecidas}" />
+					</h:selectManyListbox>
+				</h:panelGrid>
+				<h:outputText value="¿Puede seleccionar?:" />
+				<h:selectBooleanCheckbox
+					value="#{beanRegistrarParada.estadoAccionSeleccionar}"
+					valueChangeListener="#{beanRegistrarParada.puedeAsignarParada}" />
+				<h:commandButton value="recargar" type="submit" />
+				<br>
+				<br>
+				<h:outputLink value="index.jsp">
+					<h:graphicImage
+						value="https://www.um.es/informatica/images/fium-logo-negativo-web.png"
+						title="Bienvenido" height="30" />
+				</h:outputLink>
+				<h:messages />
+			</h:form>
+		</f:view>
 	</div>
 	<div id="footer">
 		<%@ include file="divFooter.jsp"%>
