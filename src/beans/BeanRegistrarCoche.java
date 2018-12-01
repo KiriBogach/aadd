@@ -41,21 +41,20 @@ public class BeanRegistrarCoche {
 	}
 
 	public String registrar() {
-		//TODO: Probar que sea un int antes de llegar aquí
+		// TODO: Probar que sea un int antes de llegar aquí
 		int yearInt;
 		int confortInt;
 		try {
 			yearInt = Integer.valueOf(year);
 			confortInt = Integer.valueOf(confort);
-		}
-		catch (NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			return "faceletsFallo";
 		}
-		
+
 		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
 			return "faceletsWelcome";
 		} else {
-			//para resetear la vista
+			// para resetear la vista
 			setMatricula("");
 			setModelo("");
 			setYear("");

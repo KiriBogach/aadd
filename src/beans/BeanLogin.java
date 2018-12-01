@@ -26,7 +26,7 @@ public class BeanLogin {
 		if (Controlador.getInstance().loginUsuario(usuario, password)) {
 			return "success";
 		} else {
-			//para resetear la vista
+			// para resetear la vista
 			setUsuario("");
 			setClave("");
 			return "failure";

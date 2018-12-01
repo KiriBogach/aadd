@@ -53,8 +53,7 @@
 		<br>
 		<br>
 		<h:outputText value="Correo: " />
-		<h:inputText id="correo" value="#{beanRegister.email}"
-			required="true" />
+		<h:inputText id="correo" value="#{beanRegister.email}" required="true" />
 		<h:message for="correo" />
 		<br>
 		<br>

@@ -77,11 +77,11 @@ public class Viaje implements Serializable {
 	public void setNotas(ArrayList<String> notas) {
 		this.notas = notas;
 	}
-	
+
 	public void addNota(String nota) {
 		this.notas.add(nota);
 	}
-	
+
 	public boolean removeNota(String nota) {
 		return this.notas.remove(nota);
 	}

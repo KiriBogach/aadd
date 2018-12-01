@@ -13,18 +13,18 @@
 <h:body>
 	<ui:debug hotkey="x"
 		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
-	
+
 	<!--Top-->
 	<div id="header">
 		<ui:insert name="header">
 			<!--Header area. See comments below this line in the source.-->
 			<!-- include your header file or uncomment the include below
 and create header.xhtml in this directory -->
-		
+
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 	</div>
-	
+
 	<!--Izquierda-->
 	<div id="nav">
 		<ui:insert name="nav">
@@ -35,12 +35,12 @@ below and create navigation.xhtml in this directory -->
 			<ui:include src="nav.xhtml" />
 		</ui:insert>
 	</div>
-	
+
 	<!--Contenido-->
 	<div id="section">
 		<ui:insert name="content">
-		
-<!-- include your content file or uncomment the include below
+
+			<!-- include your content file or uncomment the include below
 and create content.xhtml in this directory -->
 			<!-- <div> -->
 			<!-- <ui:include src="content.xhtml"/> -->

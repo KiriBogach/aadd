@@ -59,8 +59,13 @@
 
 			<br></br>
 
+
+
 			<p:commandButton id="submitButton" value="Registrar"
-				action="#{beanRegistrarCoche.registrar}" />
+				action="#{beanRegistrarCoche.registrar}"
+				actionListener="#{beanLogin2.comprobarTieneCoche}"
+				update="publicar_viaje" oncomplete="PF('public_viaje').enable();" />
+
 
 		</h:form>
 

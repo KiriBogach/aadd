@@ -2,6 +2,7 @@ package beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import controller.Controlador;
 
@@ -10,46 +11,38 @@ import controller.Controlador;
 public class BeanLogin2 {
 	private String usuario;
 	private String password;
-	private boolean isConductor;
-	private boolean disablePublicarViaje;
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+	private boolean conductor;
 
 	public String getUsuario() {
 		return usuario;
 	}
 
-	public void setPassword(String clave) {
-		this.password = clave;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getPassword() {
 		return password;
 	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean isConductor() {
-		return isConductor;
+		return conductor;
 	}
 
-	public void setConductor(boolean isConductor) {
-		this.isConductor = isConductor;
+	public void setConductor(boolean conductor) {
+		this.conductor = conductor;
 	}
-	
-	public boolean isDisablePublicarViaje() {
-		return disablePublicarViaje;
-	}
-
-	public void setDisablePublicarViaje(boolean disablePublicarViaje) {
-		this.disablePublicarViaje = disablePublicarViaje;
-	}
-	
 
 	public String login() {
+		System.out.println("BeanLogin2.login()");
+		Controlador controlador = Controlador.getInstance();
 		try {
-			if (Controlador.getInstance().loginUsuario(usuario, password)) {
-				isConductor=Controlador.getInstance().usuarioLogeadoIsConductor();
-				disablePublicarViaje=!isConductor;
+			if (controlador.loginUsuario(usuario, password)) {
+				conductor = controlador.usuarioLogeadoIsConductor();
 				return "faceletsWelcome";
 			} else {
 				setPassword(new String());
@@ -60,4 +53,9 @@ public class BeanLogin2 {
 			return "faceletsFallo";
 		}
 	}
+
+	public void comprobarTieneCoche(ActionEvent event) {
+		conductor = Controlador.getInstance().usuarioLogeadoIsConductor();
+	}
+
 }

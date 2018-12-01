@@ -7,7 +7,7 @@ import javax.servlet.jsp.tagext.*;
 import model.Usuario;
 
 public class UsuariosTag extends BodyTagSupport {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Collection<Usuario> usuarios;
 	private Iterator<Usuario> it;

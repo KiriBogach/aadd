@@ -12,7 +12,7 @@
 		<p:separator/>
 		<p:button outcome="faceletsRegistroCoche.xhtml" value="Registrar Coche" icon="fa fa-car" style="margin-right:20px;"/>
 		<p:separator/>
-		<p:button outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje" disabled="#{beanLogin2.disablePublicarViaje}" icon="fa fa-plane" style="margin-right:20px;"/>
+		<p:button widgetVar="public_viaje" outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje" disabled="#{!beanLogin2.conductor}" icon="fa fa-plane" style="margin-right:20px;"/>
 		<p:separator/>
 		<p:button outcome="faceletsLogin.xhtml" value="Logout" icon="fa-sign-out" style="margin-right:20px;"/>
 		<p:separator/>

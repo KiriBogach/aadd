@@ -55,6 +55,4 @@ public class ReservaJPADAO implements ReservaDAO {
 		return this.em.find(Reserva.class, id);
 	}
 
-	
-
 }

@@ -26,14 +26,14 @@ public class EnlaceTag extends SimpleTagSupport {
 		JspWriter out = getJspContext().getOut();
 		PageContext pageContext = (PageContext) getJspContext();
 		JspFragment body = getJspBody();
-		
+
 		// Para imprimir una etiqueta dentro de mi etiqueta EnlaceTage
 		if (body != null) {
 			out.println("<p>");
 			body.invoke(null);
 			out.println("</p>");
 		}
-		
+
 		try {
 			HttpServletResponse respuesta = (HttpServletResponse) pageContext.getResponse();
 			pageContext.getOut().write("<a href=\"" + respuesta.encodeURL(url) + "\">" + texto + "</a>");

@@ -82,11 +82,11 @@ public class Reserva implements Serializable {
 	public boolean isUsuario(String usuario) {
 		return this.usuario.isUsuario(usuario);
 	}
-	
+
 	public Collection<Valoracion> getValoraciones() {
 		return valoraciones;
 	}
-	
+
 	public void setValoraciones(Collection<Valoracion> valoraciones) {
 		this.valoraciones = valoraciones;
 	}

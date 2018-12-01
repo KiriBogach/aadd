@@ -18,7 +18,7 @@ public class Utils {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA_HORA_MINUTOS);
 		return fromStringToDate(fecha, dateFormat);
 	}
-	
+
 	public static Date fromStringToDateTime2(String fecha) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA_HORA_MINUTOS_SEGUNDOS);
 		return fromStringToDate(fecha, dateFormat);
