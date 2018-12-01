@@ -34,6 +34,11 @@
 		<managed-bean-class>beans.BeanRegistrarCoche</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanUsuario</managed-bean-name>
+		<managed-bean-class>beans.BeanUsuario</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<application>
 		<message-bundle>resources.messages</message-bundle>
 		<locale-config>

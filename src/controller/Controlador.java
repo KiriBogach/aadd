@@ -398,4 +398,8 @@ public class Controlador {
 		return daoUsuario.getAllUsuarios();
 	}
 
+	public boolean usuarioLogeadoIsConductor() {
+		return this.usuarioLogeado.tieneCoche();
+	}
+
 }
