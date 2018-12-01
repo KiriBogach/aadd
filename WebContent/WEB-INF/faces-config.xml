@@ -24,6 +24,16 @@
 		<managed-bean-class>beans.BeanListarViaje</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanMessages</managed-bean-name>
+		<managed-bean-class>beans.BeanMessages</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanRegistrarCoche</managed-bean-name>
+		<managed-bean-class>beans.BeanRegistrarCoche</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<application>
 		<message-bundle>resources.messages</message-bundle>
 		<locale-config>

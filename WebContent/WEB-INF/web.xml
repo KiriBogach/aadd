@@ -14,6 +14,10 @@
 		<param-value>client</param-value>
 	</context-param>
 	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
 		<description>
 	This parameter tells MyFaces if javascript code should be allowed in
 	the rendered HTML output.

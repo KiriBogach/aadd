@@ -33,11 +33,11 @@ public class BeanLogin2 {
 				return "faceletsWelcome";
 			} else {
 				setPassword(new String());
-				return "faceletsLogin";
+				return "faceletsFallo";
 			}
 		} catch (Exception e) {
 			setPassword(new String());
-			return "faceletsLogin";
+			return "faceletsFallo";
 		}
 	}
 }

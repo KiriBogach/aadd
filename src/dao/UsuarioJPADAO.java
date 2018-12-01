@@ -55,7 +55,7 @@ public class UsuarioJPADAO implements UsuarioDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Usuario> getAllUsuarios() {
-		Query query = this.em.createQuery("SELECT u FROM Usuario u");
+		Query query = this.em.createNamedQuery("getAll");
 		return query.getResultList();
 	}
 

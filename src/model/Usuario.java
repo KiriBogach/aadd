@@ -7,10 +7,12 @@ import java.util.LinkedList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
+@NamedQuery (name ="getAll", query ="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
