@@ -38,7 +38,7 @@ public class BeanLogin2 {
 	}
 
 	public String login() {
-		System.out.println("BeanLogin2.login()");
+		
 		Controlador controlador = Controlador.getInstance();
 		try {
 			if (controlador.loginUsuario(usuario, password)) {

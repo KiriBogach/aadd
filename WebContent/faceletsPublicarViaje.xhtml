@@ -11,22 +11,28 @@
 	</ui:define>
 	<ui:define name="content">
 
-		<h3>Change Event</h3>
-		<p:accordionPanel>
-
+		<p:messages id="messagesPublicarViaje" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>  
+		
+		<h:form id="Viaje">
+		
+		<p:accordionPanel id="PanelAccordion" >
 
 			<p:tab title="Registrar Viaje">
-
+				
+				<br></br>
+				<!--PLAZAS -->
 				<div class="ui-inputgroup">
 					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
 					<h:outputLabel id="Plazas_output" for="Plazas_input" value="" />
 					<p:inputText id="Plazas_input" required="true"
 						value="#{beanRegistrarViaje.plazas}" placeholder="Plazas" />
-					<p:message id="Plazas_message" for="Plazas_input" />
+					<p:message id="Plazas_message" for="Plazas_input" display="text" />
 				</div>
 
 				<br></br>
-
+				<!--PRECIO-->
 				<div class="ui-inputgroup">
 					<span class="ui-inputgroup-addon"><i class="fa fa-eur"></i></span>
 					<h:outputLabel id="Precio_output" for="Precio_input" value="" />
@@ -34,32 +40,142 @@
 						value="#{beanRegistrarViaje.precio}" placeholder="Precio" />
 					<p:message id="Precio_message" for="Precio_input" />
 				</div>
+				<br></br>
 
 			</p:tab>
-
-
 
 
 			<p:tab title="Registrar parada origen">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-					<h:outputText
-						value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. 
-                In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, 
-                killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows." />
-				</h:panelGrid>
+				<!--  	<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
+					<h:outputLabel id="idViaje_output" for="idViaje_input" value="" />
+					<p:inputText id="idViaje_input" required="true"
+						value="#{beanRegistrarParadaOrigen.idViaje}" placeholder="Plazas" />
+					<p:message id="idViaje_message" for="idViaje_input" />
+				</div>-->
+
+				<br></br>
+
+				<!--CIUDAD  -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-building"></i></span>
+					<h:outputLabel id="ciudad_output" for="ciudad_input" value="" />
+					<p:inputText id="ciudad_input" required="true"
+						value="#{beanRegistrarParadaOrigen.ciudad}" placeholder="Ciudad" />
+					<p:message id="ciudad_message" for="ciudad_input" />
+				</div>
+
+				<br></br>
+
+				<!--CALLE-->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i
+						class="fa fa-street-view"></i></span>
+					<h:outputLabel id="calle_output" for="calle_input" value="" />
+					<p:inputText id="calle_input" required="true"
+						value="#{beanRegistrarParadaOrigen.calle}" placeholder="Calle" />
+					<p:message id="calle_message" for="calle_input" />
+				</div>
+
+				<br></br>
+
+				<!--CP -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-square"></i></span>
+					<h:outputLabel id="cp_output" for="cp_input" value="" />
+					<p:inputText id="cp_input" required="true"
+						value="#{beanRegistrarParadaOrigen.cp}" placeholder="CP" />
+					<p:message id="cp_message" for="cp_input" />
+				</div>
+
+				<br></br>
+
+				<!--FECHA -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+					<h:outputLabel id="fechaParadaOrigen_output"
+						for="fechaParadaOrigen_input" value="" />
+					<p:calendar id="fechaParadaOrigen_input" required="true"
+						value="#{beanRegistrarParadaOrigen.fecha}" showOn="button"
+						placeholder="Fecha de salida" />
+
+					<p:message id="fechaParadaOrigen_message"
+						for="fechaParadaOrigen_input" />
+				</div>
+
+				<br></br>
 			</p:tab>
+
 			<p:tab title="Registrar parada destino">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-					<h:outputText
-						value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
-                    Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
-				</h:panelGrid>
+				<!--  	<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
+					<h:outputLabel id="idViaje_output" for="idViaje_input" value="" />
+					<p:inputText id="idViaje_input" required="true"
+						value="#{beanRegistrarParadaOrigen.idViaje}" placeholder="Plazas" />
+					<p:message id="idViaje_message" for="idViaje_input" />
+				</div>-->
+
+				<br></br>
+
+				<!--CIUDAD  -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-building"></i></span>
+					<h:outputLabel id="ciudadDestino_output" for="ciudadDestino_input" value="" />
+					<p:inputText id="ciudadDestino_input" required="true"
+						value="#{beanRegistrarParadaDestino.ciudad}" placeholder="Ciudad" />
+					<p:message id="ciudadDestino_message" for="ciudadDestino_input" />
+				</div>
+
+				<br></br>
+
+				<!--CALLE-->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i
+						class="fa fa-street-view"></i></span>
+					<h:outputLabel id="calleDestino_output" for="calleDestino_input" value="" />
+					<p:inputText id="calleDestino_input" required="true"
+						value="#{beanRegistrarParadaDestino.calle}" placeholder="Calle" />
+					<p:message id="calleDestino_message" for="calleDestino_input" />
+				</div>
+
+				<br></br>
+
+				<!--CP -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-square"></i></span>
+					<h:outputLabel id="cpDestino_output" for="cpDestino_input" value="" />
+					<p:inputText id="cpDestino_input" required="true"
+						value="#{beanRegistrarParadaDestino.cp}" placeholder="CP" />
+					<p:message id="cpDestino_message" for="cpDestino_input" />
+				</div>
+
+				<br></br>
+
+				<!--FECHA -->
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+					<h:outputLabel id="fechaParadaDestino_output"
+						for="fechaParadaDestino_input" value="" />
+					<p:calendar id="fechaParadaDestino_input" required="true"
+						value="#{beanRegistrarParadaDestino.fecha}" showOn="button"
+						placeholder="Fecha de llegada" />
+
+					<p:message id="fechaParadaDestino_message"
+						for="fechaParadaDestino_input" />
+				</div>
+
+				<br></br>
 			</p:tab>
 		</p:accordionPanel>
-
-
+		
+		<br></br>
+		<p:commandButton id="submitButtonViaje" value="Registrar"
+					action="#{beanRegistrarViaje.registrarViaje}">
+		<!--<f:actionListener binding="#{beanRegistrarParadaOrigen.registrarParada(beanRegistrarViaje.idViaje,true)}" />
+		 <f:actionListener binding="#{beanRegistrarParadaDestino.registrarParada(beanRegistrarViaje.plazas,false)}" />   -->
+		</p:commandButton>
+		</h:form>
+		
 
 
 	</ui:define>
