@@ -96,11 +96,9 @@ public class Controlador {
 	 * que se haya logueado false en otro caso
 	 */
 	public boolean loginUsuario(String usuario, String password) {
-
 		Usuario u = findUsuario(usuario);
-
 		if (u != null && u.getPassword().equals(password)) {
-			usuarioLogeado = u;
+			this.usuarioLogeado = u;
 			return true;
 		}
 		return false;
@@ -112,7 +110,6 @@ public class Controlador {
 	 * otro caso
 	 */
 	public boolean addCoche(String matricula, String modelo, int year, int confort) {
-
 		if (findCoche(matricula) != null) {
 			return false;
 		}
@@ -139,7 +136,6 @@ public class Controlador {
 	 * o nulo en otro caso
 	 */
 	public Viaje registrarViaje(int plazas, double precio) {
-
 		if (!this.usuarioLogeado.tieneCoche()) {
 			return null;
 		}
@@ -154,6 +150,20 @@ public class Controlador {
 		daoCoche.update(this.usuarioLogeado.getCoche());
 
 		return viaje;
+	}
+	
+	public boolean addNotaViaje(int idViaje, String nota) {
+		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
+
+		Viaje viaje = daoViaje.findViaje(idViaje);
+		if (viaje == null) {
+			return false;
+		}
+		
+		viaje.addNota(nota);
+		daoViaje.update();
+
+		return true;
 	}
 
 	/*
@@ -398,7 +408,14 @@ public class Controlador {
 	}
 
 	public boolean usuarioLogeadoIsConductor() {
-		return this.usuarioLogeado.tieneCoche();
+		if (this.usuarioLogeado != null) {
+			return this.usuarioLogeado.tieneCoche();
+		}
+		return false;
+	}
+	
+	public void logout() {
+		this.usuarioLogeado = null;
 	}
 
 }

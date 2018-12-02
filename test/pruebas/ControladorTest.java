@@ -124,7 +124,12 @@ public class ControladorTest {
 		/* Registramos el coche del usuario logueado */
 		assertTrue(controlador.addCoche("12345A", "Seat", 2009, 5));
 		/* Registramos un viaje */
-		assertNotNull(controlador.registrarViaje(3, 125.0));
+		Viaje v = controlador.registrarViaje(3, 125.0);
+		assertNotNull(v);
+		
+		assertTrue(controlador.addNotaViaje(v.getId(), "Este viaje va a ser super divertido!"));
+		
+		assertTrue(controlador.addNotaViaje(v.getId(), "O eso espero!"));
 
 		Coche coche = controlador.findCoche("12345A");
 

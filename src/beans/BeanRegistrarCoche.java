@@ -1,8 +1,13 @@
 package beans;
 
+import javax.faces.bean.ManagedProperty;
+
 import controller.Controlador;
 
 public class BeanRegistrarCoche {
+	@ManagedProperty(value = "#{beanLogin2}")
+	private BeanLogin2 beanLogin;
+	
 	private String matricula;
 	private String modelo;
 	private String year;
@@ -41,6 +46,7 @@ public class BeanRegistrarCoche {
 	}
 
 	public String registrar() {
+
 		// TODO: Probar que sea un int antes de llegar aquí
 		int yearInt;
 		int confortInt;
@@ -52,6 +58,7 @@ public class BeanRegistrarCoche {
 		}
 
 		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
+			//beanLogin.setConductor(true);
 			return "faceletsWelcome";
 		} else {
 			// para resetear la vista

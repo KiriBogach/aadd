@@ -1,13 +1,9 @@
 package beans;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import controller.Controlador;
 
-@ManagedBean(name = "beanLogin2")
-@SessionScoped
 public class BeanLogin2 {
 	private String usuario;
 	private String password;
@@ -38,7 +34,6 @@ public class BeanLogin2 {
 	}
 
 	public String login() {
-		
 		Controlador controlador = Controlador.getInstance();
 		try {
 			if (controlador.loginUsuario(usuario, password)) {
@@ -52,6 +47,11 @@ public class BeanLogin2 {
 			setPassword(new String());
 			return "faceletsFallo";
 		}
+	}
+	
+	public String logout() {
+		Controlador.getInstance().logout();
+		return "faceletsLogin";
 	}
 
 	public void comprobarTieneCoche(ActionEvent event) {

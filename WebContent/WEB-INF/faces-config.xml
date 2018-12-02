@@ -2,8 +2,8 @@
 
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
-	version="1.2">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
 	<managed-bean>
 		<managed-bean-name>beanLogin</managed-bean-name>
 		<managed-bean-class>beans.BeanLogin</managed-bean-class>
@@ -40,11 +40,6 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>beanRegistrarViaje</managed-bean-name>
-		<managed-bean-class>beans.BeanRegistrarViaje</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>beanRegistrarParadaOrigen</managed-bean-name>
 		<managed-bean-class>beans.BeanRegistrarParadaViaje</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -52,6 +47,11 @@
 	<managed-bean>
 		<managed-bean-name>beanRegistrarParadaDestino</managed-bean-name>
 		<managed-bean-class>beans.BeanRegistrarParadaViaje</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanLogin2</managed-bean-name>
+		<managed-bean-class>beans.BeanLogin2</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<application>

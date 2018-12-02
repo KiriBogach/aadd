@@ -11,18 +11,37 @@
 
 		<p:button outcome="faceletsWelcome.xhtml" value="Inicio"
 			icon="fa fa-home" style="margin-right:20px;" />
-		<p:separator />
+
+		<p:separator/>
+
 		<p:button outcome="faceletsRegistroCoche.xhtml"
-			value="Registrar Coche" icon="fa fa-car" style="margin-right:20px;" />
-		<p:separator />
-		<p:button widgetVar="public_viaje"
+			value="Registrar Coche" icon="fa fa-car" />
+
+		<p:separator/>
+
+		<p:button widgetVar="publicar_viaje"
 			outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje"
 			disabled="#{!beanLogin2.conductor}" icon="fa fa-plane"
 			style="margin-right:20px;" />
-		<p:separator />
-		<p:button outcome="faceletsLogin.xhtml" value="Logout"
-			icon="fa-sign-out" style="margin-right:20px;" />
-		<p:separator />
+
+		<p:separator/>
+		
+		<p:button outcome="faceletsListarViajes.xhtml" value="Viajes Disponibles"
+			icon="fa fa-list" style="margin-right:20px;" />
+
+		<p:separator/>
+		
+		<p:button outcome="faceletsListarViajes.xhtml" value="Mis viajes"
+			icon="fa fa-user" style="margin-right:20px;" />
+
+		<p:separator/>
+
+		<p:commandButton action="#{beanLogin2.logout}" value="Logout"
+			icon="fa fa-arrow-left" style="margin-right:20px;" />
+
+		<p:separator/>
+
+
 
 	</div>
 </body>

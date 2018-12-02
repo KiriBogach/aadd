@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -54,6 +55,13 @@ public class Usuario implements Serializable {
 
 	public String getUsuario() {
 		return usuario;
+	}
+	
+	public int getEdad() {
+		Calendar now = Calendar.getInstance();
+		Calendar nacimiento = Calendar.getInstance();
+		nacimiento.setTime(this.fechaNacimiento);
+		return now.get(Calendar.YEAR) - nacimiento.get(Calendar.YEAR);
 	}
 
 	public void setUsuario(String usuario) {

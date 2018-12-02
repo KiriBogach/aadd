@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/app/main.xhtml">
+	<ui:define name="title">
+		Publicar Viaje
+	</ui:define>
+	<ui:define name="content">
+		<ui:repeat value="#{beanViaje.viajes}" var="viaje">
+			<p:panelGrid columns="2">
+				<h:outputText value="Precio:" />
+				<h:outputText value="#{viaje.precio} €" />
+
+				<h:outputText value="Origen:" />
+				<p:panelGrid columns="2" style="width:400px;">
+					<h:outputText value="Ciudad:" />
+					<h:outputText value="#{viaje.origen.ciudad}" />
+
+					<h:outputText value="Calle:" />
+					<h:outputText value="#{viaje.origen.direccion.calle}" />
+
+					<h:outputText value="Salida:" />
+					<h:outputText value="#{viaje.origen.fecha}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+					</h:outputText>
+
+					<h:outputText value="CP:" />
+					<h:outputText value="#{viaje.origen.direccion.CP}" />
+				</p:panelGrid>
+
+				<h:outputText value="Destino:" />
+				<p:panelGrid columns="2" style="width:400px;">
+					<h:outputText value="Ciudad:" />
+					<h:outputText value="#{viaje.destino.ciudad}" />
+
+					<h:outputText value="Calle:" />
+					<h:outputText value="#{viaje.destino.direccion.calle}" />
+
+					<h:outputText value="Llegada:" />
+					<h:outputText value="#{viaje.destino.fecha}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+					</h:outputText>
+
+					<h:outputText value="CP:" />
+					<h:outputText value="#{viaje.destino.direccion.CP}" />
+				</p:panelGrid>
+
+				<h:outputText value="Conductor:" />
+				<p:panelGrid columns="2">
+					<h:outputText value="Usuario:" />
+					<h:outputText value="#{viaje.coche.usuario.usuario}" />
+
+					<h:outputText value="Nombre:" />
+					<h:outputText value="#{viaje.coche.usuario.nombre}" />
+
+					<h:outputText value="Apellidos:" />
+					<h:outputText value="#{viaje.coche.usuario.apellidos}" />
+
+					<h:outputText value="Email:" />
+					<h:outputText value="#{viaje.coche.usuario.email}" />
+
+					<h:outputText value="Edad:" />
+					<h:outputText value="#{viaje.coche.usuario.edad}" />
+				</p:panelGrid>
+
+				<h:outputText value="Coche:" />
+				<p:panelGrid columns="2">
+					<h:outputText value="Matrícula" />
+					<h:outputText value="#{viaje.coche.matricula}" />
+
+					<h:outputText value="Modelo:" />
+					<h:outputText value="#{viaje.coche.modelo}" />
+
+					<h:outputText value="Confort:" />
+					<h:outputText value="#{viaje.coche.confort}" />
+
+					<h:outputText value="Año:" />
+					<h:outputText value="#{viaje.coche.year}" />
+				</p:panelGrid>
+
+				<h:outputText value="Notas:" />
+				<ui:repeat value="#{viaje.notas}" var="nota">
+					<p:panelGrid columns="2">
+						<h:outputText value="#{nota}" />
+					</p:panelGrid>
+				</ui:repeat>
+
+				<!--  <p:commandButton action="#{beanViaje.reservar(1, 'test')}"
+					value="Reservar" icon="fa fa-check-square"
+					style="margin-right:20px;" />
+					-->
+
+				<p:commandButton action="#{beanViaje.reservar}" value="Reservar" icon="fa fa-check-square" oncomplete="console.log('click');"
+					style="margin-right:20px;">
+					<f:setPropertyActionListener target="#{beanViaje.idViajeSeleccionado}" value="#{viaje.id}" />
+				</p:commandButton>
+
+				<p:inputText placeholder="Comentario"
+					value="#{beanViaje.comentario}" />
+
+			</p:panelGrid>
+
+			<p:separator />
+
+		</ui:repeat>
+
+	</ui:define>
+</ui:composition>
+</html>

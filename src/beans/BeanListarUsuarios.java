@@ -12,7 +12,7 @@ import model.Usuario;
 @SessionScoped
 public class BeanListarUsuarios {
 	private Collection<Usuario> usuarios;
-
+	
 	public Collection<Usuario> getUsuarios() {
 		usuarios = new LinkedList<Usuario>();
 		Collection<Usuario> todosUsuarios = Controlador.getInstance().getAllUsuarios();
