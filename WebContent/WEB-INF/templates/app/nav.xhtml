@@ -8,15 +8,22 @@
 	xmlns:p="http://primefaces.org/ui">
 <body>
 	<div>
-		<p:button outcome="faceletsWelcome.xhtml" value="Inicio" icon="fa fa-home" style="margin-right:20px;"/>
-		<p:separator/>
-		<p:button outcome="faceletsRegistroCoche.xhtml" value="Registrar Coche" icon="fa fa-car" style="margin-right:20px;"/>
-		<p:separator/>
-		<p:button id="publicar_viaje" widgetVar="public_viaje" outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje" disabled="#{!beanLogin2.conductor}" icon="fa fa-plane" style="margin-right:20px;"/>
-		<p:separator/>
-		<p:button outcome="faceletsLogin.xhtml" value="Logout" icon="fa fa-sign-out" style="margin-right:20px;"/>
-		<p:separator/>
-		
+
+		<p:button outcome="faceletsWelcome.xhtml" value="Inicio"
+			icon="fa fa-home" style="margin-right:20px;" />
+		<p:separator />
+		<p:button outcome="faceletsRegistroCoche.xhtml"
+			value="Registrar Coche" icon="fa fa-car" style="margin-right:20px;" />
+		<p:separator />
+		<p:button widgetVar="public_viaje"
+			outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje"
+			disabled="#{!beanLogin2.conductor}" icon="fa fa-plane"
+			style="margin-right:20px;" />
+		<p:separator />
+		<p:button outcome="faceletsLogin.xhtml" value="Logout"
+			icon="fa-sign-out" style="margin-right:20px;" />
+		<p:separator />
+
 	</div>
 </body>
 </html>
