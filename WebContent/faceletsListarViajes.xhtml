@@ -99,9 +99,10 @@
 					<f:setPropertyActionListener target="#{beanViaje.idViajeSeleccionado}" value="#{viaje.id}" />
 				</p:commandButton>
 
-				<p:inputText placeholder="Comentario"
+				<p:inputTextarea rows="2" cols="33"  counter="textoContador" maxlength="100" counterTemplate="{0} characters remaining."  placeholder="Comentario"
 					value="#{beanViaje.comentario}" />
-
+					<h:outputText  />
+				 <h:outputText id="textoContador" />
 			</p:panelGrid>
 
 			<p:separator />
