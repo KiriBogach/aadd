@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.component.html.HtmlCommandButton;
@@ -7,7 +8,7 @@ import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
-public class BeanRegistrarParada {
+public class BeanRegistrarParada implements Serializable {
 	private Map<String, String> ciudadesOfrecidas = new LinkedHashMap<String, String>();
 	private Map<String, String> paradasOfrecidas = new LinkedHashMap<String, String>();
 	private String[] ciudadesSeleccionadas = null;

@@ -1,10 +1,11 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import controller.Controlador;
 
-public class BeanRegister {
+public class BeanRegister implements Serializable {
 
 	private String usuario;
 	private String password;

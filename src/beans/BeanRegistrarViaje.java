@@ -1,5 +1,7 @@
 package beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -9,7 +11,7 @@ import model.Viaje;
 
 @ManagedBean(name = "beanRegistrarViaje")
 @SessionScoped
-public class BeanRegistrarViaje {
+public class BeanRegistrarViaje implements Serializable {
 	private String plazas;
 	private String precio;
 	public int idViaje;

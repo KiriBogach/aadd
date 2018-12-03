@@ -1,9 +1,11 @@
 package beans;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public class BeanMessages {
+public class BeanMessages implements Serializable {
 
 	public void info() {
 		FacesContext.getCurrentInstance().addMessage(null,

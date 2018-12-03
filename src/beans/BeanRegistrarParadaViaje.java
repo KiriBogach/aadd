@@ -1,11 +1,12 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import controller.Controlador;
 import model.Parada;
 
-public class BeanRegistrarParadaViaje {
+public class BeanRegistrarParadaViaje implements Serializable {
 
 	private String ciudad;
 	private String calle;

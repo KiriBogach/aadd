@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
@@ -10,7 +11,7 @@ import model.Usuario;
 
 @ManagedBean(name = "beanListarUsuarios")
 @SessionScoped
-public class BeanListarUsuarios {
+public class BeanListarUsuarios implements Serializable {
 	private Collection<Usuario> usuarios;
 	
 	public Collection<Usuario> getUsuarios() {

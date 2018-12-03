@@ -1,8 +1,10 @@
 package beans;
 
+import java.io.Serializable;
+
 import controller.Controlador;
 
-public class BeanLogin {
+public class BeanLogin implements Serializable {
 	private String usuario;
 	private String password;
 

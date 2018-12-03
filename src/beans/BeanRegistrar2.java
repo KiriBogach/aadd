@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,7 +11,7 @@ import controller.Controlador;
 
 @ManagedBean(name = "beanRegistrar2")
 @SessionScoped
-public class BeanRegistrar2 {
+public class BeanRegistrar2 implements Serializable {
 	@NotNull
 	@Size(min = 4, max = 10)
 	private String usuario;

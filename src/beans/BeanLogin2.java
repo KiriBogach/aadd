@@ -1,10 +1,13 @@
 package beans;
 
+import java.io.Serializable;
+
 import javax.faces.event.ActionEvent;
 
 import controller.Controlador;
 
-public class BeanLogin2 {
+public class BeanLogin2 implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String usuario;
 	private String password;
 	private boolean conductor;
@@ -34,6 +37,7 @@ public class BeanLogin2 {
 	}
 
 	public String login() {
+		System.out.println("TEST");
 		Controlador controlador = Controlador.getInstance();
 		try {
 			if (controlador.loginUsuario(usuario, password)) {

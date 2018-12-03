@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Collection;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
@@ -7,7 +8,7 @@ import javax.faces.event.ActionEvent;
 import controller.Controlador;
 import model.Viaje;
 
-public class BeanListarViaje {
+public class BeanListarViaje implements Serializable {
 	private Collection<Viaje> viajes;
 	private String viajeSeleccionado;
 

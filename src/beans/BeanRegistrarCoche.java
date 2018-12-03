@@ -1,10 +1,12 @@
 package beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedProperty;
 
 import controller.Controlador;
 
-public class BeanRegistrarCoche {
+public class BeanRegistrarCoche implements Serializable  {
 	@ManagedProperty(value = "#{beanLogin2}")
 	private BeanLogin2 beanLogin;
 	

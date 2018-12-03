@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.faces.bean.ManagedBean;
@@ -10,7 +11,7 @@ import model.Viaje;
 
 @ManagedBean(name = "beanViaje")
 @SessionScoped
-public class BeanViaje {
+public class BeanViaje implements Serializable {
 
 	private Collection<Viaje> viajes;
 	private String comentario;
