@@ -12,7 +12,7 @@ import model.Viaje;
 public class BeanRegistrarViaje {
 	private String plazas;
 	private String precio;
-	public static int idViaje;
+	public int idViaje;
 
 	@ManagedProperty(value = "#{beanRegistrarParadaOrigen}")
 	private BeanRegistrarParadaViaje origen;
@@ -36,12 +36,12 @@ public class BeanRegistrarViaje {
 		this.precio = precio;
 	}
 
-	public static int getIdViaje() {
+	public int getIdViaje() {
 		return idViaje;
 	}
 
-	public static void setIdViaje(int idViaje) {
-		BeanRegistrarViaje.idViaje = idViaje;
+	public void setIdViaje(int idViaje) {
+		this.idViaje = idViaje;
 	}
 
 	public BeanRegistrarParadaViaje getOrigen() {

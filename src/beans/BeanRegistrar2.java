@@ -93,7 +93,7 @@ public class BeanRegistrar2 {
 		if (password.equals(password2)) {
 			if (Controlador.getInstance().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
 					apellidos) != null)
-				return "faceletsWelcome";
+				return "faceletsLogin";
 		}
 		setNombre(new String());
 		setApellidos(new String());
