@@ -1,5 +1,7 @@
 package beans;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import controller.Controlador;
@@ -41,14 +43,16 @@ public class BeanLogin2 {
 				return "faceletsWelcome";
 			} else {
 				setPassword(new String());
-				return "faceletsFallo";
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario o clave incorrecto."));
+				return "faceletsLogin";
 			}
 		} catch (Exception e) {
 			setPassword(new String());
 			return "faceletsFallo";
 		}
 	}
-	
+
 	public String logout() {
 		Controlador.getInstance().logout();
 		return "faceletsLogin";
