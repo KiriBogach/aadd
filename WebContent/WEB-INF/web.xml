@@ -9,15 +9,31 @@
 		<param-value>resources.application</param-value>
 	</context-param>
 	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	 <context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
 	</context-param>
+	
 	<context-param>
-		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>Do not render comments in facelets (xhtml) pages. Default
+is false.</description>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	<context-param>
+	
+	
+	
+	<!-- <context-param>
 		<description>
 	This parameter tells MyFaces if javascript code should be allowed in
 	the rendered HTML output.
@@ -42,16 +58,8 @@
 		<param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
 		<param-value>false</param-value>
 	</context-param>
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
-	<context-param>
-		<description>Do not render comments in facelets (xhtml) pages. Default
-is false.</description>
-		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-		<param-value>true</param-value>
-	</context-param>
+	
+	
 	<context-param>
 		<description>
 	If true, a javascript function will be rendered that is able to restore the
@@ -65,7 +73,7 @@ is false.</description>
 	</context-param>
 	<listener>
 		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-	</listener>
+	</listener>-->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
