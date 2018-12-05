@@ -1,26 +1,27 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Collection;
-import javax.faces.component.UIParameter;
-import javax.faces.event.ActionEvent;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import controller.Controlador;
 import model.Viaje;
 
-public class BeanListarViaje {
+@ManagedBean(name = "beanListarViaje")
+@ViewScoped
+public class BeanListarViaje implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Collection<Viaje> viajes;
-	private String viajeSeleccionado;
+	private Viaje viajeSelected;
+	private String comentario;
 
 	public BeanListarViaje() {
 		viajes = Controlador.getInstance().listarViajes();
-		// Una vez se disponga del Registrar Viaje, este codigo sobra.
-		if (viajes.size() == 0) {
-			Controlador.getInstance().registrarViaje(5, 125.0);
-			Controlador.getInstance().registrarViaje(3, 25.2);
-			Controlador.getInstance().registrarViaje(4, 200.5);
-			Controlador.getInstance().registrarViaje(4, 75.0);
-			viajes = Controlador.getInstance().listarViajes();
-		}
+		System.out.println("BeanListarViaje.BeanListarViaje()");
 	}
 
 	public Collection<Viaje> getViajes() {
@@ -32,18 +33,32 @@ public class BeanListarViaje {
 		this.viajes = viajes;
 	}
 
-	public String getViajeSeleccionado() {
-		return viajeSeleccionado;
+	public Viaje getViajeSelected() {
+		return viajeSelected;
 	}
 
-	public void setViajeSeleccionado(String viajeSeleccionado) {
-		this.viajeSeleccionado = viajeSeleccionado;
+	public void setViajeSelected(Viaje viajeSelected) {
+		this.viajeSelected = viajeSelected;
+		System.out.println("BeanListarViaje.setViajeSelected()" + viajeSelected.getId());
+	}
+	
+	public String contratarSeleccionado() {
+		if (viajeSelected == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
+			return "faceletsMisViajes";
+		}
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
+		Controlador.getInstance().reservarViaje(viajeSelected.getId(), this.comentario);
+		System.out.println("contratarSeleccionado() " + viajeSelected.getId());
+		return "faceletsMisViajes";
 	}
 
-	public void selectViaje(ActionEvent event) {
-		System.out.println("BeanListarViaje.selectViaje()");
-		UIParameter component = (UIParameter) event.getComponent().findComponent("selectId");
-		String id = component.getValue().toString();
-		this.setViajeSeleccionado(id);
+	public String getComentario() {
+		return comentario;
 	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+	
 }

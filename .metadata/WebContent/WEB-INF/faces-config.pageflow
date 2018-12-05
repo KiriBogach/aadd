@@ -5,8 +5,8 @@
   <nodes xsi:type="pageflow:PFPage" name="failureLogin" x="411" y="312" id="pf15420436013635" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15420436013633" path="/failureLogin.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="register" x="96" y="336" id="pf15420446577718" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15420446577716 pf15420449901719" path="/register.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="falloRegister" x="228" y="420" id="pf154204499017110" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15420449901719" path="/falloRegister.jsp"/>
-  <links id="pf15420436013632" target="pf15420436013634" source="pf15420436013621"/>
-  <links id="pf15420436013633" target="pf15420436013635" source="pf15420436013621"/>
-  <links id="pf15420446577716" target="pf15420436013621" source="pf15420446577718"/>
-  <links id="pf15420449901719" target="pf154204499017110" source="pf15420446577718"/>
+  <links id="pf15420436013632" target="pf15420436013634" source="pf15420436013621" outcome="success"/>
+  <links id="pf15420436013633" target="pf15420436013635" source="pf15420436013621" outcome="failure"/>
+  <links id="pf15420446577716" target="pf15420436013621" source="pf15420446577718" outcome="success"/>
+  <links id="pf15420449901719" target="pf154204499017110" source="pf15420446577718" outcome="failure"/>
 </pageflow:Pageflow>
