@@ -3,15 +3,19 @@ package beans;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
 import model.Usuario;
 
 @ManagedBean(name = "beanListarUsuarios")
+
 @SessionScoped
 public class BeanListarUsuarios implements Serializable {
+
 	private Collection<Usuario> usuarios;
 	
 	public Collection<Usuario> getUsuarios() {

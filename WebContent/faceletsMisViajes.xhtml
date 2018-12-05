@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/app/main.xhtml">
+	<ui:define name="title">
+		Publicar Viaje
+	</ui:define>
+	<ui:define name="content">
+		<p:dataTable id="radioDT" var="viaje" value="#{beanListarViaje.viajes}"
+			selection="#{viajes.viajeSeleccionado}" rowKey="#{viaje.id}">
+			<f:facet name="header">
+            RadioButton
+        </f:facet>
+			<p:column selectionMode="single" style="width:16px;text-align:center" />
+			<p:column headerText="Id">
+				<h:outputText value="#{viaje.id}" />
+			</p:column>
+			<p:column headerText="Plazas">
+				<h:outputText value="#{viaje.plazas}" />
+			</p:column>
+			<p:column headerText="Precio">
+				<h:outputText value="#{viaje.precio}" />
+			</p:column>
+			<!-- <f:facet name="footer">
+				<p:commandButton process="radioDT" update=":form:carDetail"
+					icon="pi pi-search" value="View"
+					oncomplete="PF('carDialog').show()" />
+			</f:facet>
+			-->
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>
