@@ -11,13 +11,14 @@ Login Usuarios
 </ui:define>
 	<ui:define name="content">
 		<h:form>
+			<p:growl id="growl" showDetail="true"/> 
 			<h:panelGrid columns="2">
 				<h:outputText value="Usuario"></h:outputText>
 				<h:inputText value="#{beanLogin2.usuario}"></h:inputText>
 				<h:outputText value="Clave"></h:outputText>
 				<h:inputSecret value="#{beanLogin2.password}"></h:inputSecret>
 			</h:panelGrid>
-			<h:commandButton value="Login" action="#{beanLogin2.login}"></h:commandButton>
+			<p:commandButton value="Login" action="#{beanLogin2.login}" update="@form" />
 		</h:form>
 	</ui:define>
 </ui:composition>

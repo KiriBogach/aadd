@@ -20,38 +20,13 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>beanListarViaje</managed-bean-name>
-		<managed-bean-class>beans.BeanListarViaje</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>beanMessages</managed-bean-name>
 		<managed-bean-class>beans.BeanMessages</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>beanRegistrarCoche</managed-bean-name>
-		<managed-bean-class>beans.BeanRegistrarCoche</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>beanUsuario</managed-bean-name>
 		<managed-bean-class>beans.BeanUsuario</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>beanRegistrarParadaOrigen</managed-bean-name>
-		<managed-bean-class>beans.BeanRegistrarParadaViaje</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>beanRegistrarParadaDestino</managed-bean-name>
-		<managed-bean-class>beans.BeanRegistrarParadaViaje</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>beanLogin2</managed-bean-name>
-		<managed-bean-class>beans.BeanLogin2</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<application>

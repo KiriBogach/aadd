@@ -1,13 +1,18 @@
 package beans;
 
-import javax.faces.bean.ManagedProperty;
+
+
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
-
-public class BeanRegistrarCoche {
-	@ManagedProperty(value = "#{beanLogin2}")
-	private BeanLogin2 beanLogin;
+@ManagedBean(name = "beanRegistrarCoche")
+@SessionScoped
+public class BeanRegistrarCoche implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String modelo;
 	private String year;
@@ -58,7 +63,7 @@ public class BeanRegistrarCoche {
 		}
 
 		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
-			//beanLogin.setConductor(true);
+			
 			return "faceletsWelcome";
 		} else {
 			// para resetear la vista

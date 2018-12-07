@@ -1,11 +1,22 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
 import model.Parada;
 
-public class BeanRegistrarParadaViaje {
+@ManagedBean(name = "beanRegistrarParadaViaje")
+@SessionScoped
+public class BeanRegistrarParadaViaje implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private static BeanRegistrarParadaViaje origen = new BeanRegistrarParadaViaje();
+	private static BeanRegistrarParadaViaje destino = new BeanRegistrarParadaViaje();
 
 	private String ciudad;
 	private String calle;
@@ -44,7 +55,23 @@ public class BeanRegistrarParadaViaje {
 		this.fecha = fecha;
 	}
 
-	public String registrarParada(int idViaje, boolean paradaOrigen) {
+	public BeanRegistrarParadaViaje getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(BeanRegistrarParadaViaje _origen) {
+		origen = _origen;
+	}
+
+	public BeanRegistrarParadaViaje getDestino() {
+		return destino;
+	}
+
+	public void setDestino(BeanRegistrarParadaViaje _destino) {
+		destino = _destino;
+	}
+
+	public Parada registrarParada(int idViaje, boolean paradaOrigen) {
 
 		Controlador controlador = Controlador.getInstance();
 		int CP;
@@ -52,18 +79,15 @@ public class BeanRegistrarParadaViaje {
 		try {
 			CP = Integer.parseInt(cp);
 		} catch (NumberFormatException e) {
-			return "faceletsFallo";
+			return null;
 		}
 		if (paradaOrigen) {
 			parada = controlador.registrarParadaOrigen(idViaje, ciudad, calle, CP, fecha);
 		} else {
 			parada = controlador.registrarParadaDestino(idViaje, ciudad, calle, CP, fecha);
 		}
-		
-		if (parada != null) {
-			return "faceletsWelcome";
-		}
-		return "faceletsFallo";
+
+		return parada;
 
 	}
 

@@ -1,13 +1,20 @@
 package beans;
 
-import javax.faces.event.ActionEvent;
+import java.io.Serializable;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import controller.Controlador;
-
-public class BeanLogin2 {
+@ManagedBean(name = "beanLogin2")
+@SessionScoped
+public class BeanLogin2 implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private String usuario;
 	private String password;
-	private boolean conductor;
 
 	public String getUsuario() {
 		return usuario;
@@ -25,37 +32,30 @@ public class BeanLogin2 {
 		this.password = password;
 	}
 
-	public boolean isConductor() {
-		return conductor;
-	}
 
-	public void setConductor(boolean conductor) {
-		this.conductor = conductor;
-	}
 
 	public String login() {
 		Controlador controlador = Controlador.getInstance();
 		try {
 			if (controlador.loginUsuario(usuario, password)) {
-				conductor = controlador.usuarioLogeadoIsConductor();
 				return "faceletsWelcome";
 			} else {
 				setPassword(new String());
-				return "faceletsFallo";
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario o clave incorrecto."));
+				return "faceletsLogin";
 			}
 		} catch (Exception e) {
 			setPassword(new String());
 			return "faceletsFallo";
 		}
 	}
-	
+
 	public String logout() {
 		Controlador.getInstance().logout();
 		return "faceletsLogin";
 	}
 
-	public void comprobarTieneCoche(ActionEvent event) {
-		conductor = Controlador.getInstance().usuarioLogeadoIsConductor();
-	}
+
 
 }

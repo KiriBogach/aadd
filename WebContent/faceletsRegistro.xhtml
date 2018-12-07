@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/facade/main.xhtml">
 	<ui:define name="title">
 		Registro Usuarios
@@ -33,9 +34,9 @@
 				<h:outputText value="Repetir Clave"></h:outputText>
 				<h:inputSecret value="#{beanRegistrar2.password2}"></h:inputSecret>
 				<h:outputText value="Fecha Nacimiento"></h:outputText>
-				<h:inputText value="#{beanRegistrar2.fechaNacimiento}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:inputText>
+				<p:calendar id="fechaNacimiento_input" required="true"
+							value="#{beanRegistrar2.fechaNacimiento}" 
+							placeholder="Fecha de nacimiento" navigator="true" pattern="dd/MM/yyyy"/>
 			</h:panelGrid>
 			<h:commandButton value="Registrar"
 				action="#{beanRegistrar2.registro}"></h:commandButton>

@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:aadd="http://java.sun.com/jsf/composite/componentes/aadd">
 
 <ui:composition template="/WEB-INF/templates/app/main.xhtml">
@@ -13,7 +14,7 @@
 
 	<ui:define name="content">
 		<h:outputLabel value="Bienvenido #{beanLogin2.usuario}"></h:outputLabel>
-		<br />
+		<br/>
 		<aadd:usuarios tabla="Usuarios de Blablacar" />
 	</ui:define>
 </ui:composition>

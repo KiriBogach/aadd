@@ -51,7 +51,7 @@
 					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
 					<h:outputLabel id="idViaje_output" for="idViaje_input" value="" />
 					<p:inputText id="idViaje_input" required="true"
-						value="#{beanRegistrarParadaOrigen.idViaje}" placeholder="Plazas" />
+						value="#{beanRegistrarParadaViaje.origen.idViaje}" placeholder="Plazas" />
 					<p:message id="idViaje_message" for="idViaje_input" />
 				</div>-->
 
@@ -62,7 +62,7 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-building"></i></span>
 						<h:outputLabel id="ciudad_output" for="ciudad_input" value="" />
 						<p:inputText id="ciudad_input" required="true"
-							value="#{beanRegistrarParadaOrigen.ciudad}" placeholder="Ciudad" />
+							value="#{beanRegistrarParadaViaje.origen.ciudad}" placeholder="Ciudad" />
 						<p:message id="ciudad_message" for="ciudad_input" />
 					</div>
 
@@ -74,7 +74,7 @@
 							class="fa fa-street-view"></i></span>
 						<h:outputLabel id="calle_output" for="calle_input" value="" />
 						<p:inputText id="calle_input" required="true"
-							value="#{beanRegistrarParadaOrigen.calle}" placeholder="Calle" />
+							value="#{beanRegistrarParadaViaje.origen.calle}" placeholder="Calle" />
 						<p:message id="calle_message" for="calle_input" />
 					</div>
 
@@ -85,7 +85,7 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-square"></i></span>
 						<h:outputLabel id="cp_output" for="cp_input" value="" />
 						<p:inputText id="cp_input" required="true"
-							value="#{beanRegistrarParadaOrigen.cp}" placeholder="CP" />
+							value="#{beanRegistrarParadaViaje.origen.cp}" placeholder="CP" />
 						<p:message id="cp_message" for="cp_input" />
 					</div>
 
@@ -97,7 +97,7 @@
 						<h:outputLabel id="fechaParadaOrigen_output"
 							for="fechaParadaOrigen_input" value="" />
 						<p:calendar id="fechaParadaOrigen_input" required="true"
-							value="#{beanRegistrarParadaOrigen.fecha}" showOn="button"
+							value="#{beanRegistrarParadaViaje.origen.fecha}" showOn="button"
 							placeholder="Fecha de salida" pattern="dd/MM/yyyy HH:mm:ss" />
 
 						<p:message id="fechaParadaOrigen_message"
@@ -124,7 +124,7 @@
 						<h:outputLabel id="ciudadDestino_output" for="ciudadDestino_input"
 							value="" />
 						<p:inputText id="ciudadDestino_input" required="true"
-							value="#{beanRegistrarParadaDestino.ciudad}" placeholder="Ciudad" />
+							value="#{beanRegistrarParadaViaje.destino.ciudad}" placeholder="Ciudad" />
 						<p:message id="ciudadDestino_message" for="ciudadDestino_input" />
 					</div>
 
@@ -137,7 +137,7 @@
 						<h:outputLabel id="calleDestino_output" for="calleDestino_input"
 							value="" />
 						<p:inputText id="calleDestino_input" required="true"
-							value="#{beanRegistrarParadaDestino.calle}" placeholder="Calle" />
+							value="#{beanRegistrarParadaViaje.destino.calle}" placeholder="Calle" />
 						<p:message id="calleDestino_message" for="calleDestino_input" />
 					</div>
 
@@ -149,7 +149,7 @@
 						<h:outputLabel id="cpDestino_output" for="cpDestino_input"
 							value="" />
 						<p:inputText id="cpDestino_input" required="true"
-							value="#{beanRegistrarParadaDestino.cp}" placeholder="CP" />
+							value="#{beanRegistrarParadaViaje.destino.cp}" placeholder="CP" />
 						<p:message id="cpDestino_message" for="cpDestino_input" />
 					</div>
 
@@ -161,7 +161,7 @@
 						<h:outputLabel id="fechaParadaDestino_output"
 							for="fechaParadaDestino_input" value="" />
 						<p:calendar id="fechaParadaDestino_input" required="true"
-							value="#{beanRegistrarParadaDestino.fecha}" showOn="button"
+							value="#{beanRegistrarParadaViaje.destino.fecha}" showOn="button"
 							placeholder="Fecha de llegada" pattern="dd/MM/yyyy HH:mm:ss"/>
 
 						<p:message id="fechaParadaDestino_message"

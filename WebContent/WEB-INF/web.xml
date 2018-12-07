@@ -47,6 +47,10 @@
 		<param-value>Development</param-value>
 	</context-param>
 	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
 		<description>Do not render comments in facelets (xhtml) pages. Default
 is false.</description>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>

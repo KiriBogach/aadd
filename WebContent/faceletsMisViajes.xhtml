@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputStylesheet
+	name="webjars/font-awesome/3.2.1/css/font-awesome.css" />
+<ui:composition template="/WEB-INF/templates/app/main.xhtml">
+	<ui:define name="title">
+		Publicar Viaje
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" />
+			<p:dataTable id="dataTable" var="viaje"
+				value="#{beanListarViaje.viajes}" selectionMode="single"
+				selection="#{beanListarViaje.viajeSelected}" rowKey="#{viaje.id}"
+				resizableColumns="true" style="width:900px">
+				<f:facet name="header">
+            Viajes Disponibles
+        	</f:facet>
+				<p:column headerText="Precio" style="text-align:center">
+					<h:outputText value="#{viaje.precio} €" />
+				</p:column>
+				<p:column headerText="Plazas" style="text-align:center">
+					<h:outputText value="#{viaje.plazas}" />
+				</p:column>
+				<p:column headerText="Origen" style="width:164px;text-align:center">
+					<p:commandButton
+						value="#{beanListarViaje.viajeSelected.origen.ciudad}"
+						process="dataTable" update=":form:detallesOrigen"
+						oncomplete="PF('origen').show()" icon="fa fa-arrow-circle-o-left">
+						<f:setPropertyActionListener value="#{viaje}"
+							target="#{beanListarViaje.viajeSelected}"
+							update=":form:dataTable" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Destino" style="width:164px;text-align:center">
+					<p:commandButton
+						value="#{beanListarViaje.viajeSelected.destino.ciudad}"
+						process="dataTable" update=":form:detallesDestino"
+						oncomplete="PF('destino').show()"
+						icon="fa fa-arrow-circle-o-right">
+						<f:setPropertyActionListener value="#{viaje}"
+							target="#{beanListarViaje.viajeSelected}"
+							update=":form:dataTable" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Coductor" style="width:72px;text-align:center">
+					<p:commandButton process="dataTable"
+						update=":form:detallesConductor"
+						oncomplete="PF('conductor').show()" icon="fa fa-user-plus">
+						<f:setPropertyActionListener value="#{viaje}"
+							target="#{beanListarViaje.viajeSelected}"
+							update=":form:dataTable" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Coche" style="width:72px;text-align:center">
+					<p:commandButton process="dataTable" update=":form:detallesCoche"
+						oncomplete="PF('coche').show()" icon="fa fa-car">
+						<f:setPropertyActionListener value="#{viaje}"
+							target="#{beanListarViaje.viajeSelected}"
+							update=":form:dataTable" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Notas" style="width:72px;text-align:center">
+					<p:commandButton process="dataTable" update=":form:detallesNotas"
+						oncomplete="PF('notas').show()" icon="fa fa-paste">
+						<f:setPropertyActionListener value="#{viaje}"
+							target="#{beanListarViaje.viajeSelected}"
+							update=":form:dataTable" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Origen" widgetVar="origen" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesOrigen" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+						<h:outputText value="Ciudad:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.origen.ciudad}" />
+
+						<h:outputText value="Calle:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.origen.direccion.calle}" />
+
+						<h:outputText value="Salida:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.origen.fecha}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+						</h:outputText>
+
+						<h:outputText value="CP:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.origen.direccion.CP}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Destino" widgetVar="destino" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesDestino" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+						<h:outputText value="Ciudad:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.destino.ciudad}" />
+
+						<h:outputText value="Calle:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.destino.direccion.calle}" />
+
+						<h:outputText value="Salida:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.destino.fecha}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+						</h:outputText>
+
+						<h:outputText value="CP:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.destino.direccion.CP}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Conductor" widgetVar="conductor" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesConductor" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<h:outputText value="Usuario" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.usuario.usuario}" />
+
+						<h:outputText value="Nombre" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.usuario.nombre}" />
+
+						<h:outputText value="Apellidos" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.usuario.apellidos}" />
+
+						<h:outputText value="Email" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.usuario.email}" />
+
+						<h:outputText value="Edad" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.usuario.edad}" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Coche" widgetVar="coche" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesCoche" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<h:outputText value="Matrícula" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.matricula}" />
+
+						<h:outputText value="Modelo:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.modelo}" />
+
+						<h:outputText value="Confort:" />
+						<h:outputText
+							value="#{beanListarViaje.viajeSelected.coche.confort}" />
+
+						<h:outputText value="Año:" />
+						<h:outputText value="#{beanListarViaje.viajeSelected.coche.year}" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			<p:dialog header="Notas" widgetVar="notas" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesNotas" style="text-align:center;">
+					<p:panelGrid columns="1">
+						<ui:repeat value="#{beanListarViaje.viajeSelected.notas}"
+							var="nota">
+							<h:outputText value="#{nota}" />
+						</ui:repeat>
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:separator />
+
+			<p:dialog header="Comentario para el conductor" widgetVar="contratar"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesContrato" style="text-align:center;">
+					<p:inputTextarea value="#{beanListarViaje.comentario}" rows="5"
+						cols="30" counter="display" maxlength="128"
+						counterTemplate="{0} caracteres restantes." autoResize="false" />
+					<br />
+					<h:outputText id="display" />
+					<p:separator />
+					<p:commandButton value="Aceptar"
+						action="#{beanListarViaje.contratarSeleccionado}"
+						oncomplete="PF('contratar').hide()"
+						update="@form" />
+				</p:outputPanel>
+			</p:dialog>
+			<p:commandButton value="Contratar"
+				oncomplete="PF('contratar').show()">
+			</p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,23 +1,28 @@
 package beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
+import model.Parada;
 import model.Viaje;
 
 @ManagedBean(name = "beanRegistrarViaje")
 @SessionScoped
-public class BeanRegistrarViaje {
+public class BeanRegistrarViaje implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private String plazas;
 	private String precio;
 	public int idViaje;
 
-	@ManagedProperty(value = "#{beanRegistrarParadaOrigen}")
+	@ManagedProperty(value = "#{beanRegistrarParadaViaje.origen}")
 	private BeanRegistrarParadaViaje origen;
 
-	@ManagedProperty(value = "#{beanRegistrarParadaDestino}")
+	@ManagedProperty(value = "#{beanRegistrarParadaViaje.destino}")
 	private BeanRegistrarParadaViaje destino;
 
 	public String getPlazas() {
@@ -73,11 +78,13 @@ public class BeanRegistrarViaje {
 			return "faceletsFallo";
 		}
 		viaje = controlador.registrarViaje(plazasEntero, precioViaje);
+		Parada paradaOrigen, paradaDestino;
 		if (viaje != null) {
 			idViaje = viaje.getId();
-			origen.registrarParada(idViaje, true);
-			destino.registrarParada(idViaje, false);
-			return "faceletsWelcome";
+			paradaOrigen = origen.registrarParada(idViaje, true);
+			paradaDestino = destino.registrarParada(idViaje, false);
+			if (paradaOrigen != null && paradaDestino != null)
+				return "faceletsWelcome";
 		}
 		return "faceletsFallo";
 	}
