@@ -1,11 +1,12 @@
 package beans;
 
-import java.io.Serializable;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import controller.Controlador;
+
 /*Este bean se utiliza para saber si el botón "Publicar Viajes"
  * de la sección nav debe estar activo o no"*/
 @ManagedBean(name = "beanRequest")
