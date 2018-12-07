@@ -3,6 +3,7 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -15,14 +16,22 @@ public class BeanRegistrarParadaViaje implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static BeanRegistrarParadaViaje origen = new BeanRegistrarParadaViaje();
-	private static BeanRegistrarParadaViaje destino = new BeanRegistrarParadaViaje();
+	private BeanRegistrarParadaViaje origen;
+	private BeanRegistrarParadaViaje destino;
 
 	private String ciudad;
 	private String calle;
 	private String cp;
 	private Date fecha;
-
+	
+	@PostConstruct
+	public void init(){
+		origen=new BeanRegistrarParadaViaje();
+		destino=new BeanRegistrarParadaViaje();
+	}
+	
+	
+	
 	public String getCiudad() {
 		return ciudad;
 	}
