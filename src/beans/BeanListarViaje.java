@@ -1,8 +1,10 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,8 +21,12 @@ public class BeanListarViaje implements Serializable {
 	private Viaje viajeSelected;
 	private String comentario;
 
-	public BeanListarViaje() {
+	@PostConstruct
+	public void init() {
 		viajes = Controlador.getInstance().listarViajes();
+		// Ponemos el primer elemento de la colección como el selecionado por defecto
+		ArrayList<Viaje> viajesList = (ArrayList<Viaje>) viajes;
+		viajeSelected = (viajesList.isEmpty() ? null : viajesList.get(0));
 		System.out.println("BeanListarViaje.BeanListarViaje()");
 	}
 
@@ -41,13 +47,15 @@ public class BeanListarViaje implements Serializable {
 		this.viajeSelected = viajeSelected;
 		System.out.println("BeanListarViaje.setViajeSelected()" + viajeSelected.getId());
 	}
-	
+
 	public String contratarSeleccionado() {
 		if (viajeSelected == null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
 			return "faceletsMisViajes";
 		}
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
 		Controlador.getInstance().reservarViaje(viajeSelected.getId(), this.comentario);
 		System.out.println("contratarSeleccionado() " + viajeSelected.getId());
 		return "faceletsMisViajes";
@@ -60,5 +68,5 @@ public class BeanListarViaje implements Serializable {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
+
 }

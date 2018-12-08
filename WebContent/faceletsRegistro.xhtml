@@ -11,37 +11,67 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputText value="Nombre (6-128 max.)"></h:outputText>
-				<h:inputText id="nombre" value="#{beanRegistrar2.nombre}">
-					<!-- 
-					<f:validateBean/> 
+			<p:growl id="growl" />
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<!-- Nombre -->
+				<p:outputLabel for="nombre" value="Nombre" />
+				<p:inputText id="nombre" value="#{beanRegistrar2.nombre}"
+					required="true" requiredMessage="El nombre es obligatorio">
+					<!-- <f:validateBean />
 					<f:ajax execute="nombre" render="nameError" />
-					-->
-				</h:inputText>
-				<h:outputText value="Apellidos"></h:outputText>
-				<h:inputText value="#{beanRegistrar2.apellidos}"></h:inputText>
-				<h:outputText value="Profesion"></h:outputText>
-				<h:inputText value="#{beanRegistrar2.profesion}"></h:inputText>
-				<h:outputText value="Correo"></h:outputText>
-				<h:inputText value="#{beanRegistrar2.email}"></h:inputText>
-				<h:outputText value="Usuario (4-10 max.)"></h:outputText>
-				<h:inputText value="#{beanRegistrar2.usuario}">
+					 -->
+				</p:inputText>
+
+				<!-- Apellido -->
+				<p:outputLabel for="apellido" value="Apellido" />
+				<p:inputText id="apellido" value="#{beanRegistrar2.apellidos}"
+					required="true" requiredMessage="El apellido es obligatorio" />
+
+				<!-- Profesion -->
+				<p:outputLabel value="Profesion" />
+				<p:inputText value="#{beanRegistrar2.profesion}" />
+
+				<!-- Correo -->
+				<p:outputLabel value="Correo" />
+				<p:inputText value="#{beanRegistrar2.email}" />
+
+				<!-- Usuario -->
+				<p:outputLabel for="usuario" value="Usuario" />
+				<p:inputText id="usuario" value="#{beanRegistrar2.usuario}">
 					<!--  <f:validateBean/> -->
-				</h:inputText>
-				<h:outputText value="Clave"></h:outputText>
-				<h:inputSecret value="#{beanRegistrar2.password}"></h:inputSecret>
-				<h:outputText value="Repetir Clave"></h:outputText>
-				<h:inputSecret value="#{beanRegistrar2.password2}"></h:inputSecret>
-				<h:outputText value="Fecha Nacimiento"></h:outputText>
-				<p:calendar id="fechaNacimiento_input" required="true"
-							value="#{beanRegistrar2.fechaNacimiento}" 
-							placeholder="Fecha de nacimiento" navigator="true" pattern="dd/MM/yyyy"/>
+				</p:inputText>
+
+				<!-- Clave 1 -->
+				<p:outputLabel for="password1" value="Clave" />
+				<p:password id="password1" value="#{beanRegistrar2.password}"
+					required="true" requiredMessage="La clave es obligatoria" />
+
+				<!-- Clave 2 -->
+				<p:outputLabel for="password2" value="Repetir Clave" />
+				<p:password id="password2" value="#{beanRegistrar2.password2}"
+					required="true" match="password1"
+					requiredMessage="La repeticion de clave es obligatoria"
+					validatorMessage="Las claves deben coincidir" />
+
+				<!-- Fecha Nacimiento -->
+				<p:outputLabel for="fechaNacimiento_input" value="Fecha Nacimiento" />
+				<p:calendar id="fechaNacimiento_input"
+					value="#{beanRegistrar2.fechaNacimiento}"
+					placeholder="Fecha de nacimiento" navigator="true"
+					pattern="dd/MM/yyyy" required="true"
+					requiredMessage="La fecha de nacimiento es obligatoria" />
 			</h:panelGrid>
-			<h:commandButton value="Registrar"
-				action="#{beanRegistrar2.registro}"></h:commandButton>
+
+			<p:separator />
+
+			<!-- Boton Registro -->
+			<p:commandButton value="Registrar"
+				action="#{beanRegistrar2.registro}" update="@form" />
+			<!--
 			<h:message id="nameError" for="usuario"
 				style="color:red;padding:10px;" />
+				-->
 		</h:form>
 	</ui:define>
 </ui:composition>

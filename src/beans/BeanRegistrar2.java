@@ -2,8 +2,11 @@ package beans;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -105,6 +108,8 @@ public class BeanRegistrar2 implements Serializable {
 		setUsuario(new String());
 		setApellidos(new String());
 		setFechaNacimiento(new Date());
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha podido registrar el usuario"));
 		return "faceletsFallo";
 	}
 }

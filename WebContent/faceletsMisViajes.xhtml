@@ -29,7 +29,7 @@
 				</p:column>
 				<p:column headerText="Origen" style="width:164px;text-align:center">
 					<p:commandButton
-						value="#{beanListarViaje.viajeSelected.origen.ciudad}"
+						value="#{viaje.origen.ciudad}"
 						process="dataTable" update=":form:detallesOrigen"
 						oncomplete="PF('origen').show()" icon="fa fa-arrow-circle-o-left">
 						<f:setPropertyActionListener value="#{viaje}"
@@ -39,7 +39,7 @@
 				</p:column>
 				<p:column headerText="Destino" style="width:164px;text-align:center">
 					<p:commandButton
-						value="#{beanListarViaje.viajeSelected.destino.ciudad}"
+						value="#{viaje.destino.ciudad}"
 						process="dataTable" update=":form:detallesDestino"
 						oncomplete="PF('destino').show()"
 						icon="fa fa-arrow-circle-o-right">
@@ -177,13 +177,14 @@
 					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
-			<p:dialog header="Notas" widgetVar="notas" modal="true"
+			<p:dialog header="Notas del conductor" widgetVar="notas" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="detallesNotas" style="text-align:center;">
 					<p:panelGrid columns="1">
 						<ui:repeat value="#{beanListarViaje.viajeSelected.notas}"
 							var="nota">
 							<h:outputText value="#{nota}" />
+							<p:separator/>
 						</ui:repeat>
 					</p:panelGrid>
 				</p:outputPanel>

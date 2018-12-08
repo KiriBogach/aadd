@@ -11,14 +11,22 @@ Login Usuarios
 </ui:define>
 	<ui:define name="content">
 		<h:form>
-			<p:growl id="growl" showDetail="true"/> 
-			<h:panelGrid columns="2">
-				<h:outputText value="Usuario"></h:outputText>
-				<h:inputText value="#{beanLogin2.usuario}"></h:inputText>
-				<h:outputText value="Clave"></h:outputText>
-				<h:inputSecret value="#{beanLogin2.password}"></h:inputSecret>
+			<p:growl id="growl" />
+			<h:panelGrid columns="2" style="width: 100%">
+
+				<p:outputLabel value="Usuario" style="font-weight:bold" />
+				<p:inputText required="true" value="#{beanLogin2.usuario}"
+					requiredMessage="El usuario es obligatorio"
+					placeholder="Identificador" />
+
+				<p:outputLabel value="Clave" style="font-weight:bold" />
+				<p:password required="true" value="#{beanLogin2.password}"
+					requiredMessage="La clave es obligatoria" placeholder="Contraseña" />
+
 			</h:panelGrid>
-			<p:commandButton value="Login" action="#{beanLogin2.login}" update="@form" />
+			<p:separator/>
+			<p:commandButton value="Login" action="#{beanLogin2.login}"
+				update="@form" />
 		</h:form>
 	</ui:define>
 </ui:composition>
