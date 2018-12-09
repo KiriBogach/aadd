@@ -4,11 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title><ui:insert name="title">Titulo Por Defecto</ui:insert></title>
+	<title><ui:insert name="title">BlaBlaCar</ui:insert></title>
 	<link rel="stylesheet" href="css/app/style.css" />
 </h:head>
+
+<f:event type="preRenderView"
+	listener="#{beanLogin2.isUserLogged}" />
 
 <h:body>
 	<ui:debug hotkey="x"

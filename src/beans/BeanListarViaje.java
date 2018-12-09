@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.component.datatable.DataTable;
+
 import controller.Controlador;
 import model.Viaje;
 
@@ -18,16 +20,24 @@ import model.Viaje;
 public class BeanListarViaje implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Collection<Viaje> viajes;
-	private Viaje viajeSelected;
+	private Viaje viajeSeleccionado;
 	private String comentario;
+	private boolean filtroPendiente;
+	private boolean filtroRealizado;
+	private boolean filtroPropio;
+	private boolean filtroOrdenFecha;
+	private boolean filtroOrdenCiudad;
+
+	private void setFirstElement() {
+		ArrayList<Viaje> viajesList = new ArrayList<Viaje>(viajes);
+		viajeSeleccionado = (viajesList.isEmpty() ? null : viajesList.get(0));
+	}
 
 	@PostConstruct
 	public void init() {
 		viajes = Controlador.getInstance().listarViajes();
 		// Ponemos el primer elemento de la colección como el selecionado por defecto
-		ArrayList<Viaje> viajesList = (ArrayList<Viaje>) viajes;
-		viajeSelected = (viajesList.isEmpty() ? null : viajesList.get(0));
-		System.out.println("BeanListarViaje.BeanListarViaje()");
+		setFirstElement();
 	}
 
 	public Collection<Viaje> getViajes() {
@@ -40,25 +50,11 @@ public class BeanListarViaje implements Serializable {
 	}
 
 	public Viaje getViajeSelected() {
-		return viajeSelected;
+		return viajeSeleccionado;
 	}
 
 	public void setViajeSelected(Viaje viajeSelected) {
-		this.viajeSelected = viajeSelected;
-		System.out.println("BeanListarViaje.setViajeSelected()" + viajeSelected.getId());
-	}
-
-	public String contratarSeleccionado() {
-		if (viajeSelected == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
-			return "faceletsMisViajes";
-		}
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
-		Controlador.getInstance().reservarViaje(viajeSelected.getId(), this.comentario);
-		System.out.println("contratarSeleccionado() " + viajeSelected.getId());
-		return "faceletsMisViajes";
+		this.viajeSeleccionado = viajeSelected;
 	}
 
 	public String getComentario() {
@@ -67,6 +63,80 @@ public class BeanListarViaje implements Serializable {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+
+	public Viaje getViajeSeleccionado() {
+		return viajeSeleccionado;
+	}
+
+	public void setViajeSeleccionado(Viaje viajeSeleccionado) {
+		this.viajeSeleccionado = viajeSeleccionado;
+	}
+
+	public boolean isFiltroPendiente() {
+		return filtroPendiente;
+	}
+
+	public void setFiltroPendiente(boolean filtroPendientes) {
+		this.filtroPendiente = filtroPendientes;
+	}
+
+	public boolean isFiltroRealizado() {
+		return filtroRealizado;
+	}
+
+	public void setFiltroRealizado(boolean filtroRealizados) {
+		this.filtroRealizado = filtroRealizados;
+	}
+
+	public boolean isFiltroPropio() {
+		return filtroPropio;
+	}
+
+	public void setFiltroPropio(boolean filtroPropio) {
+		this.filtroPropio = filtroPropio;
+	}
+
+	public boolean isFiltroOrdenFecha() {
+		return filtroOrdenFecha;
+	}
+
+	public void setFiltroOrdenFecha(boolean filtroOrdenFecha) {
+		this.filtroOrdenFecha = filtroOrdenFecha;
+	}
+
+	public boolean isFiltroOrdenCiudad() {
+		return filtroOrdenCiudad;
+	}
+
+	public void setFiltroOrdenCiudad(boolean filtroOrdenCiudad) {
+		this.filtroOrdenCiudad = filtroOrdenCiudad;
+	}
+
+	public String contratarSeleccionado() {
+		if (viajeSeleccionado == null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
+			return "faceletsListarViajes";
+		}
+		if (Controlador.getInstance().reservarViaje(viajeSeleccionado.getId(), this.comentario) == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+					"El viaje seleccionado no se puede contratar"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
+		}
+		return "faceletsListarViajes";
+	}
+
+	public void filtrar() {
+		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
+				.findComponent("form:dataTable");
+
+		viajes = Controlador.getInstance().listarViajes(filtroPendiente, filtroRealizado, filtroPropio,
+				filtroOrdenFecha, filtroOrdenCiudad);
+		setFirstElement();
+		dataTable.updateValue(viajes);
 	}
 
 }

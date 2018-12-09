@@ -1,17 +1,20 @@
 package beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
+
 @ManagedBean(name = "beanLogin2")
 @SessionScoped
 public class BeanLogin2 implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String usuario;
 	private String password;
@@ -32,12 +35,9 @@ public class BeanLogin2 implements Serializable {
 		this.password = password;
 	}
 
-
-
 	public String login() {
-		Controlador controlador = Controlador.getInstance();
 		try {
-			if (controlador.loginUsuario(usuario, password)) {
+			if (Controlador.getInstance().loginUsuario(usuario, password)) {
 				return "faceletsWelcome";
 			} else {
 				setPassword(new String());
@@ -51,11 +51,26 @@ public class BeanLogin2 implements Serializable {
 		}
 	}
 
-	public String logout() {
-		Controlador.getInstance().logout();
-		return "faceletsLogin";
+	private void redirectToLogin() {
+		try {
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			ec.redirect(ec.getRequestContextPath() + "/faceletsLogin.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-
+	public void isUserLogged() {
+		System.out.println("Usuario logeado = " + Controlador.getInstance().getUsuarioLogeado() != null);
+		if (Controlador.getInstance().getUsuarioLogeado() == null) {
+			redirectToLogin();
+		}
+	}
+	
+	public String logout() {
+		System.out.println("BeanLogin2.logout()");
+		Controlador.getInstance().logout();
+		return "faceletsRegistro.xhtml";
+    }
 
 }

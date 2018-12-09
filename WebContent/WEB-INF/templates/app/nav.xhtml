@@ -8,7 +8,8 @@
 	xmlns:p="http://primefaces.org/ui">
 <body>
 	<div>
-
+		<p:separator />
+		
 		<p:button outcome="faceletsWelcome.xhtml" value="Inicio"
 			icon="fa fa-home" style="margin-right:20px;" />
 
@@ -37,12 +38,10 @@
 
 		<p:separator />
 
-		<p:commandButton id="botonLogout" action="#{beanLogin2.logout}"
-			value="Logout" icon="fa fa-arrow-left" style="margin-right:20px;" />
+		<p:button outcome="faceletsLogin.xhtml" value="Logout"
+			icon="fa fa-arrow-left" style="margin-right:20px;" />
 
 		<p:separator />
-
-
 
 	</div>
 </body>
