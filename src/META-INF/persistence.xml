@@ -4,6 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="aadd" transaction-type="RESOURCE_LOCAL">
+	<jta-data-source>jdbc/aadd</jta-data-source>
 		<class>model.Coche</class>
 		<class>model.Direccion</class>
 		<class>model.Parada</class>
