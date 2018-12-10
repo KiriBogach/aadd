@@ -38,27 +38,26 @@
 
 				<!-- Usuario -->
 				<p:outputLabel for="usuario" value="Usuario" />
-				<p:inputText id="usuario" value="#{beanRegistrar2.usuario}">
+				<p:inputText id="usuario" value="#{beanRegistrar2.usuario}"
+					required="true" requiredMessage="El usuario es obligatorio">
 					<!--  <f:validateBean/> -->
 				</p:inputText>
 
 				<!-- Clave 1 -->
 				<p:outputLabel for="password1" value="Clave" />
 				<p:password id="password1" value="#{beanRegistrar2.password}"
+					match="password2" validatorMessage="Las claves deben coincidir"
 					required="true" requiredMessage="La clave es obligatoria" />
 
 				<!-- Clave 2 -->
 				<p:outputLabel for="password2" value="Repetir Clave" />
 				<p:password id="password2" value="#{beanRegistrar2.password2}"
-					required="true" match="password1"
-					requiredMessage="La repeticion de clave es obligatoria"
-					validatorMessage="Las claves deben coincidir" />
+					required="true" />
 
 				<!-- Fecha Nacimiento -->
 				<p:outputLabel for="fechaNacimiento_input" value="Fecha Nacimiento" />
 				<p:calendar id="fechaNacimiento_input"
-					value="#{beanRegistrar2.fechaNacimiento}"
-					placeholder="Fecha de nacimiento" navigator="true"
+					value="#{beanRegistrar2.fechaNacimiento}" navigator="true"
 					pattern="dd/MM/yyyy" required="true"
 					requiredMessage="La fecha de nacimiento es obligatoria" />
 			</h:panelGrid>
