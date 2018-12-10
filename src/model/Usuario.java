@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @NamedQuery(name = "getAll", query = "SELECT u FROM Usuario u")
@@ -21,6 +23,7 @@ public class Usuario implements Serializable {
 	@Id
 	private String usuario;
 	private String password;
+	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 	private String profesion;
 	private String email;

@@ -95,9 +95,8 @@ public class BeanRegistrar2 implements Serializable {
 	}
 
 	public String registro() {
-		java.sql.Date fecha = new java.sql.Date(fechaNacimiento.getTime());
 		if (password.equals(password2)) {
-			if (Controlador.getInstance().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
+			if (Controlador.getInstance().registrarUsuario(usuario, password, fechaNacimiento, profesion, email, nombre,
 					apellidos) != null)
 				return "faceletsLogin";
 		}
