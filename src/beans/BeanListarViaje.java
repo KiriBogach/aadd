@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -27,6 +27,8 @@ public class BeanListarViaje implements Serializable {
 	private boolean filtroPropio;
 	private boolean filtroOrdenFecha;
 	private boolean filtroOrdenCiudad;
+	@ManagedProperty(value = "#{beanMessages}")
+	private BeanMessages beanMessages;
 
 	private void setFirstElement() {
 		ArrayList<Viaje> viajesList = new ArrayList<Viaje>(viajes);
@@ -36,7 +38,8 @@ public class BeanListarViaje implements Serializable {
 	@PostConstruct
 	public void init() {
 		viajes = Controlador.getInstance().listarViajes();
-		// Ponemos el primer elemento de la colección como el selecionado por defecto
+		// Ponemos el primer elemento de la colección como el selecionado por
+		// defecto
 		setFirstElement();
 	}
 
@@ -113,18 +116,26 @@ public class BeanListarViaje implements Serializable {
 		this.filtroOrdenCiudad = filtroOrdenCiudad;
 	}
 
+	public BeanMessages getBeanMessages() {
+		return beanMessages;
+	}
+
+	public void setBeanMessages(BeanMessages beanMessages) {
+		this.beanMessages = beanMessages;
+	}
+
 	public String contratarSeleccionado() {
 		if (viajeSeleccionado == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione un viaje"));
+			
+			beanMessages.error("Seleccione un viaje");
 			return "faceletsListarViajes";
 		}
 		if (Controlador.getInstance().reservarViaje(viajeSeleccionado.getId(), this.comentario) == null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-					"El viaje seleccionado no se puede contratar"));
+			
+			beanMessages.error("No se puede contratar el viaje seleccionado");
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Viaje contratado"));
+			
+			beanMessages.info("Exito","Viaje contratado");
 		}
 		return "faceletsListarViajes";
 	}

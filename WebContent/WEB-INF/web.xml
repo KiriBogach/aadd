@@ -52,7 +52,7 @@
 	</context-param>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>redmond</param-value>
+		<param-value>start</param-value>
 	</context-param>
 	<context-param>
 		<description>Do not render comments in facelets (xhtml) pages. Default

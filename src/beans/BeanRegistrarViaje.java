@@ -12,18 +12,21 @@ import model.Viaje;
 
 @ManagedBean(name = "beanRegistrarViaje")
 @SessionScoped
-public class BeanRegistrarViaje implements Serializable{
+public class BeanRegistrarViaje implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String plazas;
 	private String precio;
 	public int idViaje;
 
-	@ManagedProperty(value = "#{beanRegistrarParadaViaje.origen}")
-	private BeanRegistrarParadaViaje origen;
+	@ManagedProperty(value = "#{beanRegistrarParada.origen}")
+	private BeanRegistrarParada origen;
 
-	@ManagedProperty(value = "#{beanRegistrarParadaViaje.destino}")
-	private BeanRegistrarParadaViaje destino;
+	@ManagedProperty(value = "#{beanRegistrarParada.destino}")
+	private BeanRegistrarParada destino;
+
+	@ManagedProperty(value = "#{beanMessages}")
+	private BeanMessages beanMessages;
 
 	public String getPlazas() {
 		return plazas;
@@ -49,20 +52,28 @@ public class BeanRegistrarViaje implements Serializable{
 		this.idViaje = idViaje;
 	}
 
-	public BeanRegistrarParadaViaje getOrigen() {
+	public BeanRegistrarParada getOrigen() {
 		return origen;
 	}
 
-	public void setOrigen(BeanRegistrarParadaViaje origen) {
+	public void setOrigen(BeanRegistrarParada origen) {
 		this.origen = origen;
 	}
 
-	public BeanRegistrarParadaViaje getDestino() {
+	public BeanRegistrarParada getDestino() {
 		return destino;
 	}
 
-	public void setDestino(BeanRegistrarParadaViaje destino) {
+	public void setDestino(BeanRegistrarParada destino) {
 		this.destino = destino;
+	}
+
+	public BeanMessages getBeanMessages() {
+		return beanMessages;
+	}
+
+	public void setBeanMessages(BeanMessages beanMessages) {
+		this.beanMessages = beanMessages;
 	}
 
 	/* Método que se encarga del registro del viaje */
@@ -83,10 +94,24 @@ public class BeanRegistrarViaje implements Serializable{
 			idViaje = viaje.getId();
 			paradaOrigen = origen.registrarParada(idViaje, true);
 			paradaDestino = destino.registrarParada(idViaje, false);
-			if (paradaOrigen != null && paradaDestino != null)
-				return "faceletsWelcome";
+			if (paradaOrigen != null && paradaDestino != null) {
+				limpiarCampos();
+				origen.limpiarCampos();
+				destino.limpiarCampos();
+				beanMessages.infoCabecera("Viaje registrado con exito");
+				return "faceletsPublicarViaje";
+			}
+
 		}
-		return "faceletsFallo";
+		beanMessages.errorCabecera("No se ha podido registrar el viaje");
+		limpiarCampos();
+		origen.limpiarCampos();
+		destino.limpiarCampos();
+		return "faceletsPublicarViaje";
 	}
 
+	public void limpiarCampos() {
+		plazas = "";
+		precio = "";
+	}
 }

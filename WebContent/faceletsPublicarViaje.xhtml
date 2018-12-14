@@ -11,12 +11,9 @@
 	</ui:define>
 	<ui:define name="content">
 
-		<p:messages id="messagesPublicarViaje" showDetail="true"
-			closable="true">
-			<p:autoUpdate />
-		</p:messages>
 
 		<h:form id="Viaje">
+			<p:growl id="growlPublicarViaje" showDetail="false" />
 
 			<p:accordionPanel id="PanelAccordion">
 
@@ -28,8 +25,8 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
 						<h:outputLabel id="Plazas_output" for="Plazas_input" value="" />
 						<p:inputText id="Plazas_input" required="true"
+							requiredMessage="El numero de plazas es requerido"
 							value="#{beanRegistrarViaje.plazas}" placeholder="Plazas" />
-						<p:message id="Plazas_message" for="Plazas_input" display="text" />
 					</div>
 
 					<br></br>
@@ -38,8 +35,9 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-eur"></i></span>
 						<h:outputLabel id="Precio_output" for="Precio_input" value="" />
 						<p:inputText id="Precio_input" required="true"
+							requiredMessage="El precio de la plaza es requerido"
 							value="#{beanRegistrarViaje.precio}" placeholder="Precio" />
-						<p:message id="Precio_message" for="Precio_input" />
+
 					</div>
 					<br></br>
 
@@ -47,13 +45,6 @@
 
 
 				<p:tab title="Registrar parada origen">
-					<!--  	<div class="ui-inputgroup">
-					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
-					<h:outputLabel id="idViaje_output" for="idViaje_input" value="" />
-					<p:inputText id="idViaje_input" required="true"
-						value="#{beanRegistrarParadaViaje.origen.idViaje}" placeholder="Plazas" />
-					<p:message id="idViaje_message" for="idViaje_input" />
-				</div>-->
 
 					<br></br>
 
@@ -62,8 +53,8 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-building"></i></span>
 						<h:outputLabel id="ciudad_output" for="ciudad_input" value="" />
 						<p:inputText id="ciudad_input" required="true"
-							value="#{beanRegistrarParadaViaje.origen.ciudad}" placeholder="Ciudad" />
-						<p:message id="ciudad_message" for="ciudad_input" />
+							requiredMessage="La ciudad de la parada origen es requerida"
+							value="#{beanRegistrarParada.origen.ciudad}" placeholder="Ciudad" />
 					</div>
 
 					<br></br>
@@ -74,8 +65,9 @@
 							class="fa fa-street-view"></i></span>
 						<h:outputLabel id="calle_output" for="calle_input" value="" />
 						<p:inputText id="calle_input" required="true"
-							value="#{beanRegistrarParadaViaje.origen.calle}" placeholder="Calle" />
-						<p:message id="calle_message" for="calle_input" />
+							requiredMessage="La calle de la parada origen es requerida"
+							value="#{beanRegistrarParada.origen.calle}" placeholder="Calle" />
+
 					</div>
 
 					<br></br>
@@ -85,8 +77,9 @@
 						<span class="ui-inputgroup-addon"><i class="fa fa-square"></i></span>
 						<h:outputLabel id="cp_output" for="cp_input" value="" />
 						<p:inputText id="cp_input" required="true"
-							value="#{beanRegistrarParadaViaje.origen.cp}" placeholder="CP" />
-						<p:message id="cp_message" for="cp_input" />
+							requiredMessage="El CP de la parada origen es requerido"
+							value="#{beanRegistrarParada.origen.cp}" placeholder="CP" />
+
 					</div>
 
 					<br></br>
@@ -97,24 +90,17 @@
 						<h:outputLabel id="fechaParadaOrigen_output"
 							for="fechaParadaOrigen_input" value="" />
 						<p:calendar id="fechaParadaOrigen_input" required="true"
-							value="#{beanRegistrarParadaViaje.origen.fecha}" showOn="button"
+							requiredMessage="La fecha de la parada origen es requerida"
+							value="#{beanRegistrarParada.origen.fecha}" showOn="button"
 							placeholder="Fecha de salida" pattern="dd/MM/yyyy HH:mm:ss" />
 
-						<p:message id="fechaParadaOrigen_message"
-							for="fechaParadaOrigen_input" />
+
 					</div>
 
 					<br></br>
 				</p:tab>
 
 				<p:tab title="Registrar parada destino">
-					<!--  	<div class="ui-inputgroup">
-					<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
-					<h:outputLabel id="idViaje_output" for="idViaje_input" value="" />
-					<p:inputText id="idViaje_input" required="true"
-						value="#{beanRegistrarParadaOrigen.idViaje}" placeholder="Plazas" />
-					<p:message id="idViaje_message" for="idViaje_input" />
-				</div>-->
 
 					<br></br>
 
@@ -124,8 +110,10 @@
 						<h:outputLabel id="ciudadDestino_output" for="ciudadDestino_input"
 							value="" />
 						<p:inputText id="ciudadDestino_input" required="true"
-							value="#{beanRegistrarParadaViaje.destino.ciudad}" placeholder="Ciudad" />
-						<p:message id="ciudadDestino_message" for="ciudadDestino_input" />
+							requiredMessage="La ciudad de la parada destino es requerida"
+							value="#{beanRegistrarParada.destino.ciudad}"
+							placeholder="Ciudad" />
+
 					</div>
 
 					<br></br>
@@ -137,8 +125,9 @@
 						<h:outputLabel id="calleDestino_output" for="calleDestino_input"
 							value="" />
 						<p:inputText id="calleDestino_input" required="true"
-							value="#{beanRegistrarParadaViaje.destino.calle}" placeholder="Calle" />
-						<p:message id="calleDestino_message" for="calleDestino_input" />
+							requiredMessage="La calle de la parada destino es requerida"
+							value="#{beanRegistrarParada.destino.calle}" placeholder="Calle" />
+
 					</div>
 
 					<br></br>
@@ -149,8 +138,9 @@
 						<h:outputLabel id="cpDestino_output" for="cpDestino_input"
 							value="" />
 						<p:inputText id="cpDestino_input" required="true"
-							value="#{beanRegistrarParadaViaje.destino.cp}" placeholder="CP" />
-						<p:message id="cpDestino_message" for="cpDestino_input" />
+							requiredMessage="El CP de la parada destino es requerido"
+							value="#{beanRegistrarParada.destino.cp}" placeholder="CP" />
+
 					</div>
 
 					<br></br>
@@ -161,11 +151,11 @@
 						<h:outputLabel id="fechaParadaDestino_output"
 							for="fechaParadaDestino_input" value="" />
 						<p:calendar id="fechaParadaDestino_input" required="true"
-							value="#{beanRegistrarParadaViaje.destino.fecha}" showOn="button"
-							placeholder="Fecha de llegada" pattern="dd/MM/yyyy HH:mm:ss"/>
+							requiredMessage="La fecha de la parada destino es requerida"
+							value="#{beanRegistrarParada.destino.fecha}" showOn="button"
+							placeholder="Fecha de llegada" pattern="dd/MM/yyyy HH:mm:ss" />
 
-						<p:message id="fechaParadaDestino_message"
-							for="fechaParadaDestino_input" />
+
 					</div>
 
 					<br></br>
@@ -174,7 +164,7 @@
 
 			<br></br>
 			<p:commandButton id="submitButtonViaje" value="Registrar"
-				action="#{beanRegistrarViaje.registrarViaje}">
+				update="@form" action="#{beanRegistrarViaje.registrarViaje}">
 			</p:commandButton>
 		</h:form>
 

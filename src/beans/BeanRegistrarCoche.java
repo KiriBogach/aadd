@@ -1,22 +1,24 @@
 package beans;
 
-
-
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
+
 @ManagedBean(name = "beanRegistrarCoche")
 @SessionScoped
 public class BeanRegistrarCoche implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String modelo;
 	private String year;
 	private String confort;
+	@ManagedProperty(value = "#{beanMessages}")
+	private BeanMessages beanMessages;
 
 	public String getMatricula() {
 		return matricula;
@@ -50,6 +52,14 @@ public class BeanRegistrarCoche implements Serializable {
 		this.confort = confort;
 	}
 
+	public BeanMessages getBeanMessages() {
+		return beanMessages;
+	}
+
+	public void setBeanMessages(BeanMessages beanMessages) {
+		this.beanMessages = beanMessages;
+	}
+
 	public String registrar() {
 
 		// TODO: Probar que sea un int antes de llegar aquí
@@ -63,15 +73,20 @@ public class BeanRegistrarCoche implements Serializable {
 		}
 
 		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
-			
-			return "faceletsWelcome";
+
+			beanMessages.infoCabecera("Se ha registrado el coche con exito");
 		} else {
-			// para resetear la vista
-			setMatricula("");
-			setModelo("");
-			setYear("");
-			setConfort("");
-			return "faceletsFallo";
+
+			beanMessages.infoCabecera("No se ha podido registrar el coche");
 		}
+		limpiarCampos();
+		return "faceletsRegistroCoche";
+	}
+
+	public void limpiarCampos() {
+		setMatricula("");
+		setModelo("");
+		setYear("");
+		setConfort("");
 	}
 }

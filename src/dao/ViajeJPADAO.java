@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import controller.Controlador;
+import model.Usuario;
 import model.Viaje;
 
 public class ViajeJPADAO implements ViajeDAO {
@@ -64,9 +65,10 @@ public class ViajeJPADAO implements ViajeDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, boolean propios, boolean ordenFecha,
+	public Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, Usuario usuario, boolean ordenFecha,
 			boolean ordenCiudad) {
 		LinkedList<String> filtros = new LinkedList<>();
+		boolean propios = usuario != null;
 
 		String queryString = "SELECT v FROM Viaje v";
 		if (pendientes || realizados || propios) {
@@ -90,14 +92,26 @@ public class ViajeJPADAO implements ViajeDAO {
 			queryString += filtros.getLast();
 		}
 
+		if (ordenFecha || ordenCiudad) {
+			queryString += " ORDER BY ";
+		}
+		filtros.clear();
+
 		if (ordenFecha) {
-			// Filtramos por el origen
-			queryString += " ORDER BY v.origen.fecha ";
+
+			filtros.add(" v.origen.fecha ");
+		}
+		if (ordenCiudad) {
+			
+			filtros.add(" v.origen.ciudad ");
 		}
 
-		if (ordenCiudad) {
-			// Filtramos por el origen
-			queryString += " ORDER BY v.origen.ciudad ";
+		for (int i = 0; i < filtros.size() - 1; i++) {
+			queryString += filtros.get(i) + ",";
+		}
+
+		if (filtros.size() != 0) {
+			queryString += filtros.getLast();
 		}
 
 		Query query = this.em.createQuery(queryString);
@@ -109,7 +123,7 @@ public class ViajeJPADAO implements ViajeDAO {
 		}
 
 		if (propios) {
-			query.setParameter("usuario", Controlador.getInstance().getUsuarioLogeado().getUsuario());
+			query.setParameter("usuario", usuario);
 		}
 
 		// System.out.println(queryString);

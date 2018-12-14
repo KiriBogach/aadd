@@ -9,7 +9,7 @@
 <body>
 	<div>
 		<p:separator />
-		
+
 		<p:button outcome="faceletsWelcome.xhtml" value="Inicio"
 			icon="fa fa-home" style="margin-right:20px;" />
 
@@ -22,7 +22,7 @@
 
 		<p:button widgetVar="publicar_viaje"
 			outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje"
-			disabled="#{!beanRequest.botonActivo}" icon="fa fa-plane"
+			disabled="#{!beanComprobarBoton.botonActivo}" icon="fa fa-plane"
 			style="margin-right:20px;" />
 
 		<p:separator />
@@ -37,10 +37,10 @@
 			icon="fa fa-user" style="margin-right:20px;" />
 
 		<p:separator />
-
-		<p:button outcome="faceletsLogin.xhtml" value="Logout"
+		<h:form>
+		<p:commandButton action="#{beanLogin.logout}" value="Logout"
 			icon="fa fa-arrow-left" style="margin-right:20px;" />
-
+		</h:form>
 		<p:separator />
 
 	</div>

@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 
 import controller.Controlador;
 
-@ManagedBean(name = "beanRegistrar2")
+@ManagedBean(name = "beanRegistrar")
 @SessionScoped
-public class BeanRegistrar2 implements Serializable {
+public class BeanRegistrar implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@NotNull

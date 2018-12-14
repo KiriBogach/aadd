@@ -388,13 +388,15 @@ public class Controlador {
 			boolean ordenCiudad) {
 
 		/*
-		 * La construcción de la query se delega al DAO concreto para abstraer la
-		 * sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por ejemplo,
-		 * estaríamos obligados a usar JPQL en nuestro sistema o usar otro método de
-		 * listarViajes diferente en función del lenguaje
+		 * La construcción de la query se delega al DAO concreto para abstraer
+		 * la sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por
+		 * ejemplo, estaríamos obligados a usar JPQL en nuestro sistema o usar
+		 * otro método de listarViajes diferente en función del lenguaje
 		 */
+		Usuario usuario = (propios) ? this.getUsuarioLogeado() : null;
+
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
-		return daoViaje.getAllViajesBy(pendientes, realizados, propios, ordenFecha, ordenCiudad);
+		return daoViaje.getAllViajesBy(pendientes, realizados, usuario, ordenFecha, ordenCiudad);
 
 	}
 
