@@ -61,29 +61,28 @@ public class BeanRegistrarCoche implements Serializable {
 	}
 
 	public String registrar() {
-
-		// TODO: Probar que sea un int antes de llegar aquí
 		int yearInt;
 		int confortInt;
 		try {
 			yearInt = Integer.valueOf(year);
 			confortInt = Integer.valueOf(confort);
 		} catch (NumberFormatException ex) {
-			return "faceletsFallo";
+			limpiarCampos();
+			beanMessages.errorCabecera("Los datos introducidos son incorrectos");
+			return "faceletsRegistroCoche";
 		}
 
 		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
-
 			beanMessages.infoCabecera("Se ha registrado el coche con exito");
 		} else {
-
-			beanMessages.infoCabecera("No se ha podido registrar el coche");
+			beanMessages.errorCabecera("No se ha podido registrar el coche");
 		}
+		
 		limpiarCampos();
 		return "faceletsRegistroCoche";
 	}
 
-	public void limpiarCampos() {
+	private void limpiarCampos() {
 		setMatricula("");
 		setModelo("");
 		setYear("");

@@ -7,13 +7,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import controller.Controlador;
 import model.*;
 
 @ManagedBean(name = "beanMisViajes")
-@SessionScoped
+@ViewScoped
 public class BeanMisViajes implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -69,13 +69,12 @@ public class BeanMisViajes implements Serializable {
 		System.out.println("BeanMisViajes.aceptarReserva()");
 		Viaje aceptada = Controlador.getInstance().aceptarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
-		/*DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
-				.findComponent(":formMisViajes:detallesReservas");
-		dataTable.updateValue(viajeSeleccionado.getReservas());*/
-		if (aceptada != null)
+		if (aceptada != null) {
 			beanMessages.info("La reserva ha sido aceptada con exito");
-		else
+		}
+		else {
 			beanMessages.info("La reserva no se ha podido aceptar");
+		}
 		return "faceletsMisViajes";
 
 	}
@@ -84,10 +83,12 @@ public class BeanMisViajes implements Serializable {
 		System.out.println("BeanMisViajes.rechazarReserva()");
 		Viaje rechazada = Controlador.getInstance().rechazarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
-		if (rechazada != null)
+		if (rechazada != null) {
 			beanMessages.info("La reserva ha sido rechazada con exito");
-		else
+		}
+		else {
 			beanMessages.info("La reserva no se ha podido rechazar");
+		}
 		return "faceletsMisViajes";
 	}
 

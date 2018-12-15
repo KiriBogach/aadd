@@ -15,6 +15,8 @@ import model.Utils;
 import model.Viaje;
 
 public class ControladorTest {
+	
+	// TEST PARA EL CONTROLADOR CON public static final String FECHA_SISTEMA = "26/02/2018";
 
 	@Test
 	public void testRegistrarUsuario() {

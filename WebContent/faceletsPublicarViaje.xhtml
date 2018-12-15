@@ -24,9 +24,12 @@
 					<div class="ui-inputgroup">
 						<span class="ui-inputgroup-addon"><i class="fa fa-group"></i></span>
 						<h:outputLabel id="Plazas_output" for="Plazas_input" value="" />
-						<p:inputText id="Plazas_input" required="true"
+						<p:inputNumber id="Plazas_input"
+							value="#{beanRegistrarViaje.plazas}" required="true"
 							requiredMessage="El numero de plazas es requerido"
-							value="#{beanRegistrarViaje.plazas}" placeholder="Plazas" />
+							thousandSeparator="" decimalSeparator="." decimalPlaces="0"
+							placeholder="Plazas">
+						</p:inputNumber>
 					</div>
 
 					<br></br>
@@ -34,9 +37,11 @@
 					<div class="ui-inputgroup">
 						<span class="ui-inputgroup-addon"><i class="fa fa-eur"></i></span>
 						<h:outputLabel id="Precio_output" for="Precio_input" value="" />
-						<p:inputText id="Precio_input" required="true"
+						<p:inputNumber id="Precio_input"
+							value="#{beanRegistrarViaje.precio}" required="true"
 							requiredMessage="El precio de la plaza es requerido"
-							value="#{beanRegistrarViaje.precio}" placeholder="Precio" />
+							placeholder="Precio">
+						</p:inputNumber>
 
 					</div>
 					<br></br>
@@ -91,10 +96,8 @@
 							for="fechaParadaOrigen_input" value="" />
 						<p:calendar id="fechaParadaOrigen_input" required="true"
 							requiredMessage="La fecha de la parada origen es requerida"
-							value="#{beanRegistrarParada.origen.fecha}" showOn="button"
+							value="#{beanRegistrarParada.origen.fecha}"
 							placeholder="Fecha de salida" pattern="dd/MM/yyyy HH:mm:ss" />
-
-
 					</div>
 
 					<br></br>
@@ -152,9 +155,8 @@
 							for="fechaParadaDestino_input" value="" />
 						<p:calendar id="fechaParadaDestino_input" required="true"
 							requiredMessage="La fecha de la parada destino es requerida"
-							value="#{beanRegistrarParada.destino.fecha}" showOn="button"
+							value="#{beanRegistrarParada.destino.fecha}"
 							placeholder="Fecha de llegada" pattern="dd/MM/yyyy HH:mm:ss" />
-
 
 					</div>
 

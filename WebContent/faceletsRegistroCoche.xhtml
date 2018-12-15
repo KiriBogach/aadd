@@ -12,7 +12,7 @@
 	<ui:define name="content">
 
 
-		
+
 		<br></br>
 		<h:form id="Coche">
 			<p:growl id="growlPublicarViaje" showDetail="false" />
@@ -20,56 +20,66 @@
 			<p:panel id="panelCoche" header="Registrar coche"
 				style="text-align:center">
 				<br></br>
-					<div class="ui-inputgroup">
-						<span class="ui-inputgroup-addon"><i class="fa fa-gears"></i></span>
-						<h:outputLabel id="Matricula_output" for="Matricula_input"
-							value="" />
-						<p:inputText id="Matricula_input" required="true"
-							requiredMessage="La matricula es requerida"
-							value="#{beanRegistrarCoche.matricula}" placeholder="Matrícula" />
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-gears"></i></span>
+					<h:outputLabel id="Matricula_output" for="Matricula_input" value="" />
+					<p:inputText id="Matricula_input" required="true"
+						requiredMessage="La matricula es requerida"
+						value="#{beanRegistrarCoche.matricula}" placeholder="Matrícula" />
+				</div>
 
-					</div>
+				<br></br>
 
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-car"></i></span>
+					<h:outputLabel id="Modelo_output" for="Modelo_input" value="" />
+					<p:inputText id="Modelo_input" placeholder="Modelo" required="true"
+						value="#{beanRegistrarCoche.modelo}"
+						requiredMessage="El modelo es requerido" />
+				</div>
 
-					<br></br>
+				<br></br>
 
-					<div class="ui-inputgroup">
-						<span class="ui-inputgroup-addon"><i class="fa fa-car"></i></span>
-						<h:outputLabel id="Modelo_output" for="Modelo_input" value="" />
-						<p:inputText id="Modelo_input" placeholder="Modelo"
-							required="true" value="#{beanRegistrarCoche.modelo}"
-							requiredMessage="El modelo es requerido" />
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+					<h:outputLabel id="Year_output" for="Year_input" value="" />
+					<p:inputNumber id="Year_input" value="#{beanRegistrarCoche.year}"
+						required="true" requiredMessage="El campo year es requerido"
+						placeholder="Año" thousandSeparator="" decimalSeparator="."
+						decimalPlaces="0">
+					</p:inputNumber>
+				</div>
 
-					</div>
+				<br></br>
 
-					<br></br>
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-smile-o"></i></span>
+					<h:outputLabel id="Confort_output" for="Confort_input" value="" />
+					<p:inputText id="Confort_input" required="true"
+						requiredMessage="El confort del coche es requerido"
+						value="#{beanRegistrarCoche.confort}" placeholder="Confort [1-5]" />
+				</div>
+				<p:separator />
+				<p:slider for="Confort_input" minValue="1" maxValue="5" step="1" />
 
-					<div class="ui-inputgroup">
-						<span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
-						<h:outputLabel id="Year_output" for="Year_input" value="" />
-						<p:inputText id="Year_input" placeholder="Año" required="true"
-							requiredMessage="El campo year es requerido"
-							value="#{beanRegistrarCoche.year}" />
+				<br></br>
 
-					</div>
+				<!-- 
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="fa fa-smile-o"></i></span>
+					<h:outputLabel id="Confort_output" for="Confort_input" value="" />
+					<p:inputText id="Confort_input" required="true"
+						requiredMessage="El confort del coche es requerido"
+						value="#{beanRegistrarCoche.confort}" placeholder="Confort [1-5]" />
 
+				</div>
+				 -->
 
-					<br></br>
+				<br></br>
 
-					<div class="ui-inputgroup">
-						<span class="ui-inputgroup-addon"><i class="fa fa-smile-o"></i></span>
-						<h:outputLabel id="Confort_output" for="Confort_input" value="" />
-						<p:inputText id="Confort_input" required="true"
-							requiredMessage="El confort del coche es requerido"
-							value="#{beanRegistrarCoche.confort}" placeholder="Confort [1-5]" />
+				<p:commandButton id="submitButton" value="Registrar"
+					action="#{beanRegistrarCoche.registrar}" update="@form" />
 
-					</div>
-
-					<br></br>
-
-					<p:commandButton id="submitButton" value="Registrar"
-						action="#{beanRegistrarCoche.registrar}" update="@form" />
-					
 			</p:panel>
 		</h:form>
 
