@@ -393,7 +393,7 @@ public class Controlador {
 		 * ejemplo, estaríamos obligados a usar JPQL en nuestro sistema o usar
 		 * otro método de listarViajes diferente en función del lenguaje
 		 */
-		Usuario usuario = (propios) ? this.getUsuarioLogeado() : null;
+		String usuario = (propios) ? this.getUsuarioLogeado().getUsuario() : null;
 
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 		return daoViaje.getAllViajesBy(pendientes, realizados, usuario, ordenFecha, ordenCiudad);

@@ -10,7 +10,6 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import controller.Controlador;
-import model.Usuario;
 import model.Viaje;
 
 public class ViajeJPADAO implements ViajeDAO {
@@ -65,7 +64,7 @@ public class ViajeJPADAO implements ViajeDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, Usuario usuario, boolean ordenFecha,
+	public Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, String usuario, boolean ordenFecha,
 			boolean ordenCiudad) {
 		LinkedList<String> filtros = new LinkedList<>();
 		boolean propios = usuario != null;

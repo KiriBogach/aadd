@@ -2,7 +2,6 @@ package dao;
 
 import java.util.Collection;
 
-import model.Usuario;
 import model.Viaje;
 
 public interface ViajeDAO {
@@ -13,7 +12,7 @@ public interface ViajeDAO {
 
 	Collection<Viaje> getAllViajes();
 
-	Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, Usuario usuario, boolean ordenFecha,
+	Collection<Viaje> getAllViajesBy(boolean pendientes, boolean realizados, String usuario, boolean ordenFecha,
 			boolean ordenCiudad);
 
 	void update();
