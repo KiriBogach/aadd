@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputStylesheet
+	name="webjars/font-awesome/3.2.1/css/font-awesome.css" />
+<ui:composition template="/WEB-INF/templates/app/main.xhtml">
+	<ui:define name="title">
+		Mis viajes
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formMisReservas">
+
+			<p:growl id="growl" showDetail="true" />
+
+			<p:dataTable widgetVar="detallesReservas" id="detallesReservas"
+				var="reserva" value="#{beanMisReservas.reservas}"
+				rowKey="#{reserva.id}" resizableColumns="true" style="width:1000px">
+				<f:facet name="header">
+            		Mis Reservas
+        		</f:facet>
+				<!-- Viaje -->
+				<p:column headerText="Viajes" style="text-align:center">
+					<p:commandButton
+						value="#{reserva.viaje.origen.ciudad}-#{reserva.viaje.destino.ciudad}"
+						oncomplete="PF('infViaje').show()" icon="fa fa-plane"
+						update=":formMisReservas:detallesViaje">
+						<f:setPropertyActionListener value="#{reserva}"
+							target="#{beanMisReservas.reservaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
+				<!-- Estado de la reserva-->
+				<p:column headerText="Estado" style="text-align:center">
+					<h:outputText value="#{reserva.estado}" />
+				</p:column>
+				<!--Comentario -->
+				<p:column headerText="Comentario" style="text-align:center">
+					<p:commandButton oncomplete="PF('infComentario').show()"
+						icon="fa fa-comment" update=":formMisReservas:detalleComentario">
+						<f:setPropertyActionListener value="#{reserva}"
+							target="#{beanMisReservas.reservaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
+				<!-- Valoraciones-->
+				<p:column headerText="Valoraciones" style="text-align:center">
+					<p:commandButton oncomplete="PF('infValoraciones').show()"
+						icon="fa fa-eject" update=":formMisReservas:detallesValoraciones">
+						<f:setPropertyActionListener value="#{reserva}"
+							target="#{beanMisReservas.reservaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
+				<!-- Valorar -->
+				<p:column headerText="Valorar" style="text-align:center">
+					<p:commandButton icon="fa fa-check"
+						oncomplete="PF('valorar').show()"
+						update=":formMisReservas:valorar">
+						<f:setPropertyActionListener value="#{reserva}"
+							target="#{beanMisReservas.reservaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Informacion del viaje" widgetVar="infViaje"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detallesViaje" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<!-- Plazas -->
+						<h:outputText value="Plazas disponibles:" />
+						<h:outputText value="#{beanMisReservas.reservaSeleccionada.viaje.plazas}" />
+
+						<!-- Precio por plaza -->
+						<h:outputText value="Precio por plaza:" />
+						<h:outputText value="#{beanMisReservas.reservaSeleccionada.viaje.precio}" />
+
+						<!-- Ciudad de salida -->
+						<h:outputText value="Ciudad origen:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.origen.ciudad}" />
+
+						<!-- Calle de salida -->
+						<h:outputText value="Calle origen:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.origen.direccion.calle}" />
+
+						<!-- Fecha de salida -->
+						<h:outputText value="Fecha de salida:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.origen.fecha}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+						</h:outputText>
+						<!-- Ciudad de llegada -->
+						<h:outputText value="Ciudad destino:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.destino.ciudad}" />
+
+						<!-- Calle de llegada -->
+						<h:outputText value="Calle destino:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.destino.direccion.calle}" />
+
+						<!-- Fecha de llegada -->
+						<h:outputText value="Fecha de llegada:" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.destino.fecha}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm" />
+						</h:outputText>
+					</p:panelGrid>
+				</p:outputPanel>
+
+			</p:dialog>
+
+			<p:dialog header="Comentario" widgetVar="infComentario" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="detalleComentario">
+					<p:scrollPanel style="width:250px;height:200px">
+						<p>#{beanMisReservas.reservaSeleccionada.comentario}</p>
+					</p:scrollPanel>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Valoraciones" widgetVar="infValoraciones"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dataTable widgetVar="detallesValoraciones"
+					id="detallesValoraciones" var="valoracion"
+					value="#{beanMisReservas.reservaSeleccionada.valoraciones}"
+					resizableColumns="true" style="width:1000px">
+					<f:facet name="header">
+            		Valoraciones de la reserva
+        		</f:facet>
+					<!-- Usuario emisor -->
+					<p:column headerText="Emisor" style="text-align:center">
+
+						<h:outputText value="#{valoracion.emisor}" />
+					</p:column>
+					<!--puntuacion -->
+					<p:column headerText="Puntuacion" style="text-align:center">
+
+						<h:outputText value="#{valoracion.puntuacion}" />
+					</p:column>
+					<!-- Comentario -->
+					<p:column headerText="Comentario" style="text-align:center">
+						<p:scrollPanel style="width:250px;height:200px">
+							<p>#{valoracion.comentario}</p>
+						</p:scrollPanel>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dialog header="Valoración para el conductor" widgetVar="valorar"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="valorar" style="text-align:center;">
+					<p:inputTextarea value="#{beanMisReservas.comentario}" rows="5"
+						cols="30" counter="display" maxlength="128"
+						counterTemplate="{0} caracteres restantes." autoResize="false" />
+					<br />
+					<p:rating style="font-size:32px;" value="#{beanMisReservas.puntuacion}" stars="10" />
+					<br />
+					<h:outputText id="display" />
+					<p:separator />
+					<p:commandButton value="Aceptar"
+						action="#{beanMisReservas.valorar}"
+						oncomplete="PF('valorar').hide()" update="@form" />
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
