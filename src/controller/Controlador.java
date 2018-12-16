@@ -23,7 +23,7 @@ public class Controlador {
 	private static Controlador unicaInstancia = null;
 	private Usuario usuarioLogeado = null;
 
-	public static final String FECHA_SISTEMA = "26/02/2019";
+	public static final String FECHA_SISTEMA = "26/02/2018";
 	public static Date FECHA_SISTEMA_DATE = null;
 
 	private Controlador() {
