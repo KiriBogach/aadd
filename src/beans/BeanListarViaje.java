@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.datatable.DataTable;
@@ -16,7 +16,7 @@ import controller.Controlador;
 import model.Viaje;
 
 @ManagedBean(name = "beanListarViaje")
-@ViewScoped
+@SessionScoped
 public class BeanListarViaje implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Collection<Viaje> viajes;
@@ -29,6 +29,8 @@ public class BeanListarViaje implements Serializable {
 	private boolean filtroOrdenCiudad;
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+	@ManagedProperty(value = "#{beanMisReservas}")
+	private BeanMisReservas beanMisReservas;
 
 	private void setFirstElement() {
 		ArrayList<Viaje> viajesList = new ArrayList<Viaje>(viajes);
@@ -37,14 +39,15 @@ public class BeanListarViaje implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		viajes = Controlador.getInstance().listarViajes();
-		// Ponemos el primer elemento de la colección como el selecionado por
-		// defecto
+		System.out.println("BeanListarViaje.init()");
+		viajes = Controlador.getInstance().listarViajes(filtroPendiente, filtroRealizado, filtroPropio,
+				filtroOrdenFecha, filtroOrdenCiudad);
+		System.out.println(filtroPropio);
+		// Ponemos el primer elemento de la colección como el selecionado por defecto
 		setFirstElement();
 	}
 
 	public Collection<Viaje> getViajes() {
-		viajes = Controlador.getInstance().listarViajes();
 		return viajes;
 	}
 
@@ -57,6 +60,10 @@ public class BeanListarViaje implements Serializable {
 	}
 
 	public void setViajeSelected(Viaje viajeSelected) {
+		System.out.println("BeanListarViaje.setViajeSelected()");
+		if (viajeSelected != null) {
+			System.out.println(viajeSelected.getId());
+		}
 		this.viajeSeleccionado = viajeSelected;
 	}
 
@@ -73,6 +80,7 @@ public class BeanListarViaje implements Serializable {
 	}
 
 	public void setViajeSeleccionado(Viaje viajeSeleccionado) {
+		System.out.println("BeanListarViaje.setViajeSeleccionado()");
 		this.viajeSeleccionado = viajeSeleccionado;
 	}
 
@@ -123,31 +131,39 @@ public class BeanListarViaje implements Serializable {
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
 	}
+	
+	public BeanMisReservas getBeanMisReservas() {
+		return beanMisReservas;
+	}
+	
+	public void setBeanMisReservas(BeanMisReservas beanMisReservas) {
+		this.beanMisReservas = beanMisReservas;
+	}
 
 	public String contratarSeleccionado() {
 		if (viajeSeleccionado == null) {
-			
 			beanMessages.error("Seleccione un viaje");
 			return "faceletsListarViajes";
 		}
 		if (Controlador.getInstance().reservarViaje(viajeSeleccionado.getId(), this.comentario) == null) {
-			
 			beanMessages.error("No se puede contratar el viaje seleccionado");
 		} else {
-			
-			beanMessages.info("Exito","Viaje contratado");
+			beanMessages.info("Exito", "Viaje contratado");
+			beanMisReservas.reload();
 		}
 		return "faceletsListarViajes";
 	}
 
-	public void filtrar() {
+	public String filtrar() {
 		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
 				.findComponent("form:dataTable");
 
 		viajes = Controlador.getInstance().listarViajes(filtroPendiente, filtroRealizado, filtroPropio,
 				filtroOrdenFecha, filtroOrdenCiudad);
-		setFirstElement();
 		dataTable.updateValue(viajes);
+		setFirstElement();
+		
+		return "faceletsListarViajes";
 	}
 
 }

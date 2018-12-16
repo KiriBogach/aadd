@@ -27,6 +27,11 @@ public class BeanRegistrarViaje implements Serializable {
 
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+	
+
+	@ManagedProperty(value = "#{beanMisViajes}")
+	private BeanMisViajes beanMisViajes;
+
 
 	public String getPlazas() {
 		return plazas;
@@ -75,6 +80,14 @@ public class BeanRegistrarViaje implements Serializable {
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
 	}
+	
+	public BeanMisViajes getBeanMisViajes() {
+		return beanMisViajes;
+	}
+	
+	public void setBeanMisViajes(BeanMisViajes beanMisViajes) {
+		this.beanMisViajes = beanMisViajes;
+	}
 
 	/* Método que se encarga del registro del viaje */
 	public String registrarViaje() {
@@ -99,9 +112,9 @@ public class BeanRegistrarViaje implements Serializable {
 				origen.limpiarCampos();
 				destino.limpiarCampos();
 				beanMessages.infoCabecera("Viaje registrado con exito");
+				beanMisViajes.reload();
 				return "faceletsPublicarViaje";
 			}
-
 		}
 		beanMessages.errorCabecera("No se ha podido registrar el viaje");
 		limpiarCampos();

@@ -1,40 +1,43 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
 import model.*;
 
 @ManagedBean(name = "beanMisViajes")
-@ViewScoped
+@SessionScoped
 public class BeanMisViajes implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private List<Viaje> viajesPropios;
-
 	private Viaje viajeSeleccionado;
-
 	private Reserva reservaSeleccionada;
+	private String comentario;
+	private int puntuacion;
 
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
 
 	@PostConstruct
 	public void init() {
-		viajesPropios = new LinkedList<>();
+		System.out.println("BeanMisViajes.init()");
+		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
 	}
 
 	public List<Viaje> getViajesPropios() {
-		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
 		return viajesPropios;
+	}
+	
+	public void reload() {
+		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
 	}
 
 	public void setViajesPropios(List<Viaje> viajesPropios) {
@@ -46,6 +49,7 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public void setViajeSeleccionado(Viaje viajeSeleccionado) {
+		System.out.println("BeanMisViajes.setViajeSeleccionado()");
 		this.viajeSeleccionado = viajeSeleccionado;
 	}
 
@@ -55,6 +59,22 @@ public class BeanMisViajes implements Serializable {
 
 	public void setReservaSeleccionada(Reserva reservaSeleccionada) {
 		this.reservaSeleccionada = reservaSeleccionada;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	public int getPuntuacion() {
+		return puntuacion;
+	}
+
+	public void setPuntuacion(int puntuacion) {
+		this.puntuacion = puntuacion;
 	}
 
 	public BeanMessages getBeanMessages() {
@@ -71,8 +91,7 @@ public class BeanMisViajes implements Serializable {
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (aceptada != null) {
 			beanMessages.info("La reserva ha sido aceptada con exito");
-		}
-		else {
+		} else {
 			beanMessages.info("La reserva no se ha podido aceptar");
 		}
 		return "faceletsMisViajes";
@@ -85,10 +104,24 @@ public class BeanMisViajes implements Serializable {
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (rechazada != null) {
 			beanMessages.info("La reserva ha sido rechazada con exito");
-		}
-		else {
+		} else {
 			beanMessages.info("La reserva no se ha podido rechazar");
 		}
+		return "faceletsMisViajes";
+	}
+
+	public String valorar() {
+		System.out.println("BeanMisReservas.valorar()");
+		Viaje viaje = this.reservaSeleccionada.getViaje();
+		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(), this.reservaSeleccionada.getUsuario().getUsuario(),
+				comentario, puntuacion)) {
+			System.out.println("EXITO");
+			beanMessages.info("La valoracion ha sido realizada con exito");
+		} else {
+			System.out.println("ERROR");
+			beanMessages.error("La valoracion no se ha podido realizar");
+		}
+
 		return "faceletsMisViajes";
 	}
 

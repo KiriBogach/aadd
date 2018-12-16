@@ -36,7 +36,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Reserva> reservas;
 
-	
 	private Collection<Valoracion> valoraciones;
 
 	public Usuario() {

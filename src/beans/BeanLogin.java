@@ -79,6 +79,7 @@ public class BeanLogin implements Serializable {
 	}
 
 	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		System.out.println("BeanLogin.logout()");
 		Controlador.getInstance().logout();
 		return "faceletsLogin.xhtml";

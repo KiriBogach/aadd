@@ -97,8 +97,8 @@
 				modal="false" showEffect="fade" hideEffect="fade" resizable="false">
 
 				<p:dataTable widgetVar="detallesReservas" id="detallesReservas"
-					var="reserva" value="#{beanMisViajes.viajeSeleccionado.reservas}" rowKey="#{reserva.id}"
-					resizableColumns="true" style="width:1000px">
+					var="reserva" value="#{beanMisViajes.viajeSeleccionado.reservas}"
+					rowKey="#{reserva.id}" resizableColumns="true" style="width:1000px">
 					<f:facet name="header">
             		Reservas del viaje
         		</f:facet>
@@ -139,16 +139,19 @@
 						</p:commandButton>
 						<p:commandButton icon="fa fa-close"
 							action="#{beanMisViajes.rechazarReserva}"
-							oncomplete="PF('infReservas').hide()"
-							update=":formMisViajes:detallesReservas">
+							oncomplete="PF('infReservas').hide()" update="@form">
 							<f:setPropertyActionListener value="#{reserva}"
 								target="#{beanMisViajes.reservaSeleccionada}" />
 						</p:commandButton>
-
-
-
-
 					</p:column>
+					<p:column headerText="Valorar" style="text-align:center">
+					<p:commandButton icon="fa fa-check"
+						oncomplete="PF('valorar').show()"
+						update=":formMisViajes:valorar">
+						<f:setPropertyActionListener value="#{reserva}"
+							target="#{beanMisViajes.reservaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
 				</p:dataTable>
 			</p:dialog>
 
@@ -174,12 +177,10 @@
         		</f:facet>
 					<!-- Usuario emisor -->
 					<p:column headerText="Emisor" style="text-align:center">
-
-						<h:outputText value="#{valoracion.emisor}" />
+						<h:outputText value="#{valoracion.emisor.usuario}" />
 					</p:column>
 					<!--puntuacion -->
 					<p:column headerText="Puntuacion" style="text-align:center">
-
 						<h:outputText value="#{valoracion.puntuacion}" />
 					</p:column>
 					<!-- Comentario -->
@@ -189,6 +190,23 @@
 						</p:scrollPanel>
 					</p:column>
 				</p:dataTable>
+			</p:dialog>
+			
+			<p:dialog header="Valoración para el conductor" widgetVar="valorar"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="valorar" style="text-align:center;">
+					<p:inputTextarea value="#{beanMisViajes.comentario}" rows="5"
+						cols="30" counter="display" maxlength="128"
+						counterTemplate="{0} caracteres restantes." autoResize="false" />
+					<br />
+					<p:rating style="font-size:32px;" value="#{beanMisViajes.puntuacion}" stars="10" />
+					<br />
+					<h:outputText id="display" />
+					<p:separator />
+					<p:commandButton value="Aceptar"
+						action="#{beanMisViajes.valorar}"
+						oncomplete="PF('valorar').hide()" update="@form" />
+				</p:outputPanel>
 			</p:dialog>
 
 		</h:form>

@@ -1,19 +1,18 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import controller.Controlador;
 import model.*;
 
 @ManagedBean(name = "beanMisReservas")
-@ViewScoped
+@SessionScoped
 public class BeanMisReservas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,9 +20,9 @@ public class BeanMisReservas implements Serializable {
 	private List<Reserva> reservas;
 
 	private Reserva reservaSeleccionada;
-	
+
 	private String comentario;
-	
+
 	private int puntuacion;
 
 	@ManagedProperty(value = "#{beanMessages}")
@@ -31,11 +30,14 @@ public class BeanMisReservas implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		reservas = new LinkedList<>();
+		reservas = (List<Reserva>) Controlador.getInstance().getReservasUsuarioLogeado();
+	}
+
+	public void reload() {
+		reservas = (List<Reserva>) Controlador.getInstance().getReservasUsuarioLogeado();
 	}
 
 	public List<Reserva> getReservas() {
-		reservas = (List<Reserva>) Controlador.getInstance().getReservasUsuarioLogeado();
 		return reservas;
 	}
 
@@ -50,19 +52,19 @@ public class BeanMisReservas implements Serializable {
 	public void setReservaSeleccionada(Reserva reservaSeleccionada) {
 		this.reservaSeleccionada = reservaSeleccionada;
 	}
-	
+
 	public String getComentario() {
 		return comentario;
 	}
-	
+
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
+
 	public int getPuntuacion() {
 		return puntuacion;
 	}
-	
+
 	public void setPuntuacion(int puntuacion) {
 		this.puntuacion = puntuacion;
 	}
@@ -76,14 +78,18 @@ public class BeanMisReservas implements Serializable {
 	}
 
 	public String valorar() {
+		System.out.println("BeanMisReservas.valorar()");
 		Viaje viaje = this.reservaSeleccionada.getViaje();
-		if (Controlador.getInstance().valorarViajePasajero(viaje.getId(), viaje.getCoche().getUsuario().getUsuario(), comentario, puntuacion)) {
+		if (Controlador.getInstance().valorarViajePasajero(viaje.getId(), viaje.getCoche().getUsuario().getUsuario(),
+				comentario, puntuacion)) {
+			System.out.println("EXITO");
 			beanMessages.info("La valoracion ha sido realizada con exito");
 			reservas = (List<Reserva>) Controlador.getInstance().getReservasUsuarioLogeado();
 		} else {
+			System.out.println("ERROR");
 			beanMessages.error("La valoracion no se ha podido realizar");
 		}
-		
+
 		return "faceletsMisReservas";
 	}
 
