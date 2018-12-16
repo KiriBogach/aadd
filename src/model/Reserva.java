@@ -109,7 +109,7 @@ public class Reserva implements Serializable {
 
 	public boolean haValorado(Usuario usuarioLogeado) {
 		for (Valoracion valoracion : this.valoraciones) {
-			if (valoracion.isEmisor(usuarioLogeado)) {
+			if (valoracion.isEmisor(usuarioLogeado.getUsuario())) {
 				return true;
 			}
 		}

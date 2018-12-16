@@ -10,9 +10,6 @@
 		Registro Coche
 	</ui:define>
 	<ui:define name="content">
-
-
-
 		<br></br>
 		<h:form id="Coche">
 			<p:growl id="growlPublicarViaje" showDetail="false" />
@@ -63,22 +60,11 @@
 				<p:slider for="Confort_input" minValue="1" maxValue="5" step="1" />
 
 				<br></br>
-
-				<!-- 
-				<div class="ui-inputgroup">
-					<span class="ui-inputgroup-addon"><i class="fa fa-smile-o"></i></span>
-					<h:outputLabel id="Confort_output" for="Confort_input" value="" />
-					<p:inputText id="Confort_input" required="true"
-						requiredMessage="El confort del coche es requerido"
-						value="#{beanRegistrarCoche.confort}" placeholder="Confort [1-5]" />
-
-				</div>
-				 -->
-
 				<br></br>
 
 				<p:commandButton id="submitButton" value="Registrar"
-					action="#{beanRegistrarCoche.registrar}" update="@form" />
+					action="#{beanRegistrarCoche.registrar}"
+					update="@form, publicar_viaje, mis_viajes" />
 
 			</p:panel>
 		</h:form>
@@ -86,11 +72,6 @@
 		<br></br>
 
 		<p:separator />
-
-
-
-
-
 	</ui:define>
 </ui:composition>
 </html>

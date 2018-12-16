@@ -76,6 +76,7 @@ public class Controlador {
 		ReservaDAO daoReserva = FactoriaDAO.getInstancia().getReservaDAO();
 		return daoReserva.findReserva(id);
 	}
+
 	/*
 	 * Este método recupera todas las reservas del usuario logeado
 	 */
@@ -157,7 +158,7 @@ public class Controlador {
 
 		return viaje;
 	}
-	
+
 	public boolean addNotaViaje(int idViaje, String nota) {
 		ViajeDAO daoViaje = FactoriaDAO.getInstancia().getViajeDAO();
 
@@ -165,7 +166,7 @@ public class Controlador {
 		if (viaje == null) {
 			return false;
 		}
-		
+
 		viaje.addNota(nota);
 		daoViaje.update();
 
@@ -394,10 +395,10 @@ public class Controlador {
 			boolean ordenCiudad) {
 
 		/*
-		 * La construcción de la query se delega al DAO concreto para abstraer
-		 * la sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por
-		 * ejemplo, estaríamos obligados a usar JPQL en nuestro sistema o usar
-		 * otro método de listarViajes diferente en función del lenguaje
+		 * La construcción de la query se delega al DAO concreto para abstraer la
+		 * sintaxis de la BBDD. Si la contruyéramos aquí, en JPQL, por ejemplo,
+		 * estaríamos obligados a usar JPQL en nuestro sistema o usar otro método de
+		 * listarViajes diferente en función del lenguaje
 		 */
 		String usuario = (propios) ? this.getUsuarioLogeado().getUsuario() : null;
 
@@ -421,7 +422,7 @@ public class Controlador {
 		}
 		return false;
 	}
-	
+
 	public void logout() {
 		this.usuarioLogeado = null;
 	}

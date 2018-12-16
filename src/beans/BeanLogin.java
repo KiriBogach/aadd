@@ -53,7 +53,7 @@ public class BeanLogin implements Serializable {
 
 				setPassword(new String());
 				setUsuario(new String());
-				 
+
 				beanMessages.errorCabecera("Usuario o clave incorrecto.");
 				return "faceletsLogin";
 			}

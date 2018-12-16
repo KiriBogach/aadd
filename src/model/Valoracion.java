@@ -10,14 +10,14 @@ public class Valoracion implements Serializable {
 
 	private String comentario;
 	private int puntuacion;
-	private Usuario receptor;
-	private Usuario emisor;
+	private String idReceptor;
+	private String idEmisor;
 	private Reserva reserva;
 
-	public Valoracion(String comentario, int puntuacion, Usuario receptor, Usuario emisor, Reserva reserva) {
+	public Valoracion(String comentario, int puntuacion, String idReceptor, String idEmisor, Reserva reserva) {
 		this(comentario, puntuacion);
-		this.receptor = receptor;
-		this.emisor = emisor;
+		this.idReceptor = idReceptor;
+		this.idEmisor = idEmisor;
 		this.reserva = reserva;
 	}
 
@@ -50,20 +50,20 @@ public class Valoracion implements Serializable {
 		this.puntuacion = puntuacion;
 	}
 
-	public Usuario getReceptor() {
-		return receptor;
+	public String getIdReceptor() {
+		return idReceptor;
 	}
 
-	public void setReceptor(Usuario receptor) {
-		this.receptor = receptor;
+	public void setIdReceptor(String idReceptor) {
+		this.idReceptor = idReceptor;
 	}
 
-	public Usuario getEmisor() {
-		return emisor;
+	public String getIdEmisor() {
+		return idEmisor;
 	}
 
-	public void setEmisor(Usuario emisor) {
-		this.emisor = emisor;
+	public void setIdEmisor(String idEmisor) {
+		this.idEmisor = idEmisor;
 	}
 
 	public Reserva getReserva() {
@@ -75,8 +75,8 @@ public class Valoracion implements Serializable {
 	}
 
 	// ¿Usar equals superficial?
-	public boolean isEmisor(Usuario usuarioLogeado) {
-		return usuarioLogeado.getUsuario().equals(this.emisor.getUsuario());
+	public boolean isEmisor(String idUsuarioLogeado) {
+		return idUsuarioLogeado.equals(this.idEmisor);
 	}
 
 }

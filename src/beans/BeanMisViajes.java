@@ -28,16 +28,15 @@ public class BeanMisViajes implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("BeanMisViajes.init()");
+		this.reload();
+	}
+	
+	public void reload() {
 		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
 	}
 
 	public List<Viaje> getViajesPropios() {
 		return viajesPropios;
-	}
-	
-	public void reload() {
-		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
 	}
 
 	public void setViajesPropios(List<Viaje> viajesPropios) {
@@ -86,11 +85,11 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public String aceptarReserva() {
-		System.out.println("BeanMisViajes.aceptarReserva()");
 		Viaje aceptada = Controlador.getInstance().aceptarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (aceptada != null) {
 			beanMessages.info("La reserva ha sido aceptada con exito");
+			this.reload();
 		} else {
 			beanMessages.info("La reserva no se ha podido aceptar");
 		}
@@ -99,11 +98,11 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public String rechazarReserva() {
-		System.out.println("BeanMisViajes.rechazarReserva()");
 		Viaje rechazada = Controlador.getInstance().rechazarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (rechazada != null) {
 			beanMessages.info("La reserva ha sido rechazada con exito");
+			this.reload();
 		} else {
 			beanMessages.info("La reserva no se ha podido rechazar");
 		}
@@ -111,14 +110,12 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public String valorar() {
-		System.out.println("BeanMisReservas.valorar()");
 		Viaje viaje = this.reservaSeleccionada.getViaje();
-		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(), this.reservaSeleccionada.getUsuario().getUsuario(),
-				comentario, puntuacion)) {
-			System.out.println("EXITO");
+		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(),
+				this.reservaSeleccionada.getUsuario().getUsuario(), comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
+			this.reload();
 		} else {
-			System.out.println("ERROR");
 			beanMessages.error("La valoracion no se ha podido realizar");
 		}
 

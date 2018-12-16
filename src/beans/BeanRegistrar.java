@@ -28,7 +28,7 @@ public class BeanRegistrar implements Serializable {
 	@Size(min = 6, max = 128)
 	private String nombre;
 	private String apellidos;
-	
+
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
 
@@ -95,15 +95,15 @@ public class BeanRegistrar implements Serializable {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	
+
 	public BeanMessages getBeanMessages() {
 		return beanMessages;
 	}
-	
+
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
 	}
-	
+
 	private void cleanFields() {
 		setNombre(new String());
 		setApellidos(new String());
@@ -120,7 +120,7 @@ public class BeanRegistrar implements Serializable {
 			if (Controlador.getInstance().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
 					apellidos) != null)
 				cleanFields();
-				return "faceletsLogin";
+			return "faceletsLogin";
 		}
 		cleanFields();
 		beanMessages.errorCabecera("No se ha podido registrar el usuario");

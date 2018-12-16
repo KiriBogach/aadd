@@ -37,10 +37,10 @@ public class BeanMessages implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", mensaje));
 	}
+
 	public void errorCabecera(String cabecera) {
 
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, cabecera, ""));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, cabecera, ""));
 	}
 
 	public void fatal(String mensaje) {

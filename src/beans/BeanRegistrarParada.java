@@ -23,15 +23,13 @@ public class BeanRegistrarParada implements Serializable {
 	private String calle;
 	private String cp;
 	private Date fecha;
-	
+
 	@PostConstruct
-	public void init(){
-		origen=new BeanRegistrarParada();
-		destino=new BeanRegistrarParada();
+	public void init() {
+		origen = new BeanRegistrarParada();
+		destino = new BeanRegistrarParada();
 	}
-	
-	
-	
+
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -99,12 +97,13 @@ public class BeanRegistrarParada implements Serializable {
 		return parada;
 
 	}
-	public void limpiarCampos(){
-		ciudad="";
-		calle="";
-		cp="";
-		fecha=null;
-		
+
+	public void limpiarCampos() {
+		ciudad = "";
+		calle = "";
+		cp = "";
+		fecha = null;
+
 	}
 
 }

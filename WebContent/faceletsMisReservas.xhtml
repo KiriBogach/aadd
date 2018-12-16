@@ -69,11 +69,13 @@
 					<p:panelGrid columns="2">
 						<!-- Plazas -->
 						<h:outputText value="Plazas disponibles:" />
-						<h:outputText value="#{beanMisReservas.reservaSeleccionada.viaje.plazas}" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.plazas}" />
 
 						<!-- Precio por plaza -->
 						<h:outputText value="Precio por plaza:" />
-						<h:outputText value="#{beanMisReservas.reservaSeleccionada.viaje.precio}" />
+						<h:outputText
+							value="#{beanMisReservas.reservaSeleccionada.viaje.precio}" />
 
 						<!-- Ciudad de salida -->
 						<h:outputText value="Ciudad origen:" />
@@ -133,7 +135,7 @@
 					<!-- Usuario emisor -->
 					<p:column headerText="Emisor" style="text-align:center">
 
-						<h:outputText value="#{valoracion.emisor.usuario}" />
+						<h:outputText value="#{valoracion.idEmisor}" />
 					</p:column>
 					<!--puntuacion -->
 					<p:column headerText="Puntuacion" style="text-align:center">
@@ -156,7 +158,8 @@
 						cols="30" counter="display" maxlength="128"
 						counterTemplate="{0} caracteres restantes." autoResize="false" />
 					<br />
-					<p:rating style="font-size:32px;" value="#{beanMisReservas.puntuacion}" stars="10" />
+					<p:rating style="font-size:32px;"
+						value="#{beanMisReservas.puntuacion}" stars="10" />
 					<br />
 					<h:outputText id="display" />
 					<p:separator />

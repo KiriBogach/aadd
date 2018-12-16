@@ -101,7 +101,7 @@ public class ViajeJPADAO implements ViajeDAO {
 			filtros.add(" v.origen.fecha ");
 		}
 		if (ordenCiudad) {
-			
+
 			filtros.add(" v.origen.ciudad ");
 		}
 

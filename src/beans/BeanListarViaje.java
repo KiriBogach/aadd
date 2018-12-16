@@ -131,11 +131,11 @@ public class BeanListarViaje implements Serializable {
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
 	}
-	
+
 	public BeanMisReservas getBeanMisReservas() {
 		return beanMisReservas;
 	}
-	
+
 	public void setBeanMisReservas(BeanMisReservas beanMisReservas) {
 		this.beanMisReservas = beanMisReservas;
 	}
@@ -162,7 +162,7 @@ public class BeanListarViaje implements Serializable {
 				filtroOrdenFecha, filtroOrdenCiudad);
 		dataTable.updateValue(viajes);
 		setFirstElement();
-		
+
 		return "faceletsListarViajes";
 	}
 

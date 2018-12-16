@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
 import controller.Controlador;
 
 @ManagedBean(name = "beanRegistrarCoche")
@@ -77,7 +76,7 @@ public class BeanRegistrarCoche implements Serializable {
 		} else {
 			beanMessages.errorCabecera("No se ha podido registrar el coche");
 		}
-		
+
 		limpiarCampos();
 		return "faceletsRegistroCoche";
 	}
