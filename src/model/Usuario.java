@@ -36,7 +36,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Reserva> reservas;
 
-	
 	private Collection<Valoracion> valoraciones;
 
 	public Usuario() {
@@ -59,7 +58,7 @@ public class Usuario implements Serializable {
 	public String getUsuario() {
 		return usuario;
 	}
-	
+
 	public int getEdad() {
 		Calendar now = Calendar.getInstance();
 		Calendar nacimiento = Calendar.getInstance();
@@ -164,9 +163,10 @@ public class Usuario implements Serializable {
 			return null;
 		}
 
-		valoracion.setEmisor(this);
-		valoracion.setReceptor(receptor);
+		valoracion.setIdEmisor(this.getUsuario());
+		valoracion.setIdReceptor(receptor.getUsuario());
 		valoracion.setReserva(reserva);
+		valoracion.setRolReceptor(reserva.rolReceptorValorado(receptor.getUsuario()));
 
 		receptor.addValoracion(valoracion);
 		this.addValoracion(valoracion);

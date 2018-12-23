@@ -5,12 +5,12 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="aadd" transaction-type="RESOURCE_LOCAL">
 	<jta-data-source>jdbc/aadd</jta-data-source>
-		<class>model.Coche</class>
-		<class>model.Direccion</class>
-		<class>model.Parada</class>
-		<class>model.Reserva</class>
-		<class>model.Usuario</class>
-		<class>model.Viaje</class>
+	<class>model.Coche</class>
+	<class>model.Direccion</class>
+	<class>model.Parada</class>
+	<class>model.Reserva</class>
+	<class>model.Usuario</class>
+	<class>model.Viaje</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aadd" />

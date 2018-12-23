@@ -15,11 +15,10 @@ import model.Utils;
 import model.Viaje;
 
 public class Controlador {
-
-	private static Controlador unicaInstancia = null;
 	private ControladorRemote controladorRemoto;
+	private static Controlador unicaInstancia = null;
 
-	public static final String FECHA_SISTEMA = "26/02/2018";
+	public static final String FECHA_SISTEMA = "26/02/2019";
 	public static Date FECHA_SISTEMA_DATE = null;
 
 	private Controlador() {
@@ -74,6 +73,13 @@ public class Controlador {
 	 */
 	public Reserva findReserva(int id) {
 		return controladorRemoto.findReserva(id);
+	}
+
+	/*
+	 * Este método recupera todas las reservas del usuario logeado
+	 */
+	public Collection<Reserva> getReservasUsuarioLogeado() {
+		return controladorRemoto.getReservasUsuarioLogeado();
 	}
 
 	/*
@@ -138,7 +144,6 @@ public class Controlador {
 	 */
 	public Reserva reservarViaje(int idViaje, String comentario) {
 		return controladorRemoto.reservarViaje(idViaje, comentario);
-
 	}
 
 	/*
@@ -173,7 +178,6 @@ public class Controlador {
 			boolean ordenCiudad) {
 
 		return controladorRemoto.listarViajes(pendientes, realizados, propios, ordenFecha, ordenCiudad);
-
 	}
 
 	public Collection<Viaje> listarViajes() {

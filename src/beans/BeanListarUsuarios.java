@@ -1,6 +1,5 @@
 package beans;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -12,10 +11,9 @@ import model.Usuario;
 
 @ManagedBean(name = "beanListarUsuarios")
 @RequestScoped
-public class BeanListarUsuarios implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class BeanListarUsuarios {
 	private Collection<Usuario> usuarios;
-	
+
 	public Collection<Usuario> getUsuarios() {
 		usuarios = new LinkedList<Usuario>();
 		Collection<Usuario> todosUsuarios = Controlador.getInstance().getAllUsuarios();

@@ -3,18 +3,17 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import controller.Controlador;
 
-@ManagedBean(name = "beanRegistrar2")
+@ManagedBean(name = "beanRegistrar")
 @SessionScoped
-public class BeanRegistrar2 implements Serializable {
+public class BeanRegistrar implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@NotNull
@@ -29,6 +28,9 @@ public class BeanRegistrar2 implements Serializable {
 	@Size(min = 6, max = 128)
 	private String nombre;
 	private String apellidos;
+
+	@ManagedProperty(value = "#{beanMessages}")
+	private BeanMessages beanMessages;
 
 	public String getUsuario() {
 		return usuario;
@@ -94,21 +96,34 @@ public class BeanRegistrar2 implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public String registro() {
-		if (password.equals(password2)) {
-			if (Controlador.getInstance().registrarUsuario(usuario, password, fechaNacimiento, profesion, email, nombre,
-					apellidos) != null)
-				return "faceletsLogin";
-		}
+	public BeanMessages getBeanMessages() {
+		return beanMessages;
+	}
+
+	public void setBeanMessages(BeanMessages beanMessages) {
+		this.beanMessages = beanMessages;
+	}
+
+	private void cleanFields() {
 		setNombre(new String());
 		setApellidos(new String());
 		setProfesion(new String());
 		setEmail(new String());
 		setUsuario(new String());
 		setApellidos(new String());
-		setFechaNacimiento(new Date());
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha podido registrar el usuario"));
-		return "faceletsFallo";
+		setFechaNacimiento(null);
+	}
+
+	public String registro() {
+		Date fecha = new Date(fechaNacimiento.getTime());
+		if (password.equals(password2)) {
+			if (Controlador.getInstance().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
+					apellidos) != null)
+				cleanFields();
+			return "faceletsLogin";
+		}
+		cleanFields();
+		beanMessages.errorCabecera("No se ha podido registrar el usuario");
+		return "faceletsRegistro";
 	}
 }

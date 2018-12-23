@@ -1,1 +1,0 @@
-<b>Aplicaciones distribuidas 18/19</b>

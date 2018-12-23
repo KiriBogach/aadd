@@ -16,7 +16,7 @@
 
 				<!-- Nombre -->
 				<p:outputLabel for="nombre" value="Nombre" />
-				<p:inputText id="nombre" value="#{beanRegistrar2.nombre}"
+				<p:inputText id="nombre" value="#{beanRegistrar.nombre}"
 					required="true" requiredMessage="El nombre es obligatorio">
 					<!-- <f:validateBean />
 					<f:ajax execute="nombre" render="nameError" />
@@ -25,40 +25,39 @@
 
 				<!-- Apellido -->
 				<p:outputLabel for="apellido" value="Apellido" />
-				<p:inputText id="apellido" value="#{beanRegistrar2.apellidos}"
+				<p:inputText id="apellido" value="#{beanRegistrar.apellidos}"
 					required="true" requiredMessage="El apellido es obligatorio" />
 
 				<!-- Profesion -->
 				<p:outputLabel value="Profesion" />
-				<p:inputText value="#{beanRegistrar2.profesion}" />
+				<p:inputText value="#{beanRegistrar.profesion}" />
 
 				<!-- Correo -->
 				<p:outputLabel value="Correo" />
-				<p:inputText value="#{beanRegistrar2.email}" />
+				<p:inputText value="#{beanRegistrar.email}" />
 
 				<!-- Usuario -->
 				<p:outputLabel for="usuario" value="Usuario" />
-				<p:inputText id="usuario" value="#{beanRegistrar2.usuario}"
+				<p:inputText id="usuario" value="#{beanRegistrar.usuario}"
 					required="true" requiredMessage="El usuario es obligatorio">
 					<!--  <f:validateBean/> -->
 				</p:inputText>
 
 				<!-- Clave 1 -->
 				<p:outputLabel for="password1" value="Clave" />
-				<p:password id="password1" value="#{beanRegistrar2.password}"
-					match="password2" validatorMessage="Las contraseñas no coinciden"
+				<p:password id="password1" value="#{beanRegistrar.password}"
+					match="password2" validatorMessage="Las claves deben coincidir"
 					required="true" requiredMessage="La clave es obligatoria" />
 
 				<!-- Clave 2 -->
 				<p:outputLabel for="password2" value="Repetir Clave" />
-				<p:password id="password2" value="#{beanRegistrar2.password2}"
-					required="true"
-					requiredMessage="La repeticion de clave es obligatoria" />
+				<p:password id="password2" value="#{beanRegistrar.password2}"
+					required="true" />
 
 				<!-- Fecha Nacimiento -->
 				<p:outputLabel for="fechaNacimiento_input" value="Fecha Nacimiento" />
 				<p:calendar id="fechaNacimiento_input"
-					value="#{beanRegistrar2.fechaNacimiento}" navigator="true"
+					value="#{beanRegistrar.fechaNacimiento}" navigator="true"
 					pattern="dd/MM/yyyy" required="true"
 					requiredMessage="La fecha de nacimiento es obligatoria" />
 			</h:panelGrid>
@@ -67,7 +66,7 @@
 
 			<!-- Boton Registro -->
 			<p:commandButton value="Registrar"
-				action="#{beanRegistrar2.registro}" update="@form" />
+				action="#{beanRegistrar.registro}" update="@form" />
 			<!--
 			<h:message id="nameError" for="usuario"
 				style="color:red;padding:10px;" />

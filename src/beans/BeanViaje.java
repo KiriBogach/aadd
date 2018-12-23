@@ -50,8 +50,9 @@ public class BeanViaje implements Serializable {
 
 	public void reservar() {
 		System.out.println("BeanViaje.reservar()");
-		//Controlador.getInstance().reservarViaje(idViajeSeleccionado, this.comentario);
-		//return "faceletesWelcome";
+		// Controlador.getInstance().reservarViaje(idViajeSeleccionado,
+		// this.comentario);
+		// return "faceletesWelcome";
 	}
 
 }

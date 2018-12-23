@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 @Entity
 public class Reserva implements Serializable {
+	private static final String ROL_CONDUCTOR="Conductor";
+	private static final String ROL_PASAJERO="Pasajero";
 
 	private static final long serialVersionUID = 1L;
 
@@ -109,11 +111,22 @@ public class Reserva implements Serializable {
 
 	public boolean haValorado(Usuario usuarioLogeado) {
 		for (Valoracion valoracion : this.valoraciones) {
-			if (valoracion.isEmisor(usuarioLogeado)) {
+			if (valoracion.isEmisor(usuarioLogeado.getUsuario())) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public String rolReceptorValorado(String usuario){
+		if(viaje.isConductor(usuario))
+			return ROL_CONDUCTOR;
+		return ROL_PASAJERO;
+	}
+	
+	public boolean isAceptada(){
+		return this.estado==EstadoReserva.ACEPTADA;
+	}
+	
 
 }

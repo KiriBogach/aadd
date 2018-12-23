@@ -9,7 +9,7 @@
 	name="webjars/font-awesome/3.2.1/css/font-awesome.css" />
 <ui:composition template="/WEB-INF/templates/app/main.xhtml">
 	<ui:define name="title">
-		Publicar Viaje
+		Reservar Viaje
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form">
@@ -19,7 +19,7 @@
 			<p:panelGrid columns="5" style="width:100%;">
 				<p:selectBooleanCheckbox value="#{beanListarViaje.filtroPendiente}"
 					itemLabel="Pendiente" />
-				<p:selectBooleanCheckbox value="#{beanListarViaje.filtroPendiente}"
+				<p:selectBooleanCheckbox value="#{beanListarViaje.filtroRealizado}"
 					itemLabel="Realizado" />
 				<p:selectBooleanCheckbox value="#{beanListarViaje.filtroPropio}"
 					itemLabel="Propios" />

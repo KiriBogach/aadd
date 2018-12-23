@@ -9,21 +9,9 @@
 <body>
 	<div>
 		<p:separator />
-		
+
 		<p:button outcome="faceletsWelcome.xhtml" value="Inicio"
 			icon="fa fa-home" style="margin-right:20px;" />
-
-		<p:separator />
-
-		<p:button outcome="faceletsRegistroCoche.xhtml"
-			value="Registrar Coche" icon="fa fa-car" />
-
-		<p:separator />
-
-		<p:button widgetVar="publicar_viaje"
-			outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje"
-			disabled="#{!beanRequest.botonActivo}" icon="fa fa-plane"
-			style="margin-right:20px;" />
 
 		<p:separator />
 
@@ -33,14 +21,34 @@
 
 		<p:separator />
 
-		<p:button outcome="faceletsMisViajes.xhtml" value="Mis viajes"
-			icon="fa fa-user" style="margin-right:20px;" />
+		<p:button outcome="faceletsRegistroCoche.xhtml"
+			value="Registrar Coche" icon="fa fa-car" />
 
 		<p:separator />
 
-		<p:button outcome="faceletsLogin.xhtml" value="Logout"
-			icon="fa fa-arrow-left" style="margin-right:20px;" />
+		<p:button widgetVar="publicar_viaje" id="publicar_viaje"
+			outcome="faceletsPublicarViaje.xhtml" value="Publicar Viaje"
+			disabled="#{!beanComprobarBoton.botonActivo}" icon="fa fa-plane"
+			style="margin-right:20px;" />
 
+		<p:separator />
+
+		<p:button widgetVar="mis_viajes" id="mis_viajes"
+			outcome="faceletsMisViajes.xhtml" value="Mis viajes"
+			disabled="#{!beanComprobarBoton.botonActivo}" icon="fa fa-user"
+			style="margin-right:20px;" />
+
+		<p:separator />
+
+		<p:button outcome="faceletsMisReservas.xhtml" value="Mis Reservas"
+			icon="fa fa-book" style="margin-right:20px;" />
+
+		<p:separator />
+
+		<h:form>
+			<p:commandButton action="#{beanLogin.logout}" value="Logout"
+				icon="fa fa-arrow-left" style="margin-right:20px;" />
+		</h:form>
 		<p:separator />
 
 	</div>

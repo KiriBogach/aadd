@@ -12,12 +12,9 @@
 </h:head>
 
 <f:event type="preRenderView"
-	listener="#{beanLogin2.isUserLogged}" />
+	listener="#{beanLogin.isUserLogged}" />
 
 <h:body>
-	<ui:debug hotkey="x"
-		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
-
 	<!--Top-->
 	<div id="header">
 		<ui:insert name="header">
