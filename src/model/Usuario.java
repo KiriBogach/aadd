@@ -166,6 +166,7 @@ public class Usuario implements Serializable {
 		valoracion.setIdEmisor(this.getUsuario());
 		valoracion.setIdReceptor(receptor.getUsuario());
 		valoracion.setReserva(reserva);
+		valoracion.setRolReceptor(reserva.rolReceptorValorado(receptor.getUsuario()));
 
 		receptor.addValoracion(valoracion);
 		this.addValoracion(valoracion);

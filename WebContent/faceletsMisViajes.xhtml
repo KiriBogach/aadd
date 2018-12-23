@@ -175,9 +175,13 @@
 					<f:facet name="header">
             		Valoraciones de la reserva
         		</f:facet>
-					<!-- Usuario emisor -->
-					<p:column headerText="Emisor" style="text-align:center">
-						<h:outputText value="#{valoracion.idEmisor}" />
+					<!-- Usuario receptor -->
+					<p:column headerText="Receptor" style="text-align:center">
+						<h:outputText value="#{valoracion.idReceptor}" />
+					</p:column>
+					<!-- Rol usuario receptor -->
+					<p:column headerText="Rol" style="text-align:center">
+						<h:outputText value="#{valoracion.rolReceptor}" />
 					</p:column>
 					<!--puntuacion -->
 					<p:column headerText="Puntuacion" style="text-align:center">

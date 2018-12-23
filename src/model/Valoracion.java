@@ -13,12 +13,14 @@ public class Valoracion implements Serializable {
 	private String idReceptor;
 	private String idEmisor;
 	private Reserva reserva;
+	private String rolReceptor;
 
 	public Valoracion(String comentario, int puntuacion, String idReceptor, String idEmisor, Reserva reserva) {
 		this(comentario, puntuacion);
 		this.idReceptor = idReceptor;
 		this.idEmisor = idEmisor;
 		this.reserva = reserva;
+		this.rolReceptor = reserva.rolReceptorValorado(idReceptor);
 	}
 
 	public Valoracion() {
@@ -72,6 +74,14 @@ public class Valoracion implements Serializable {
 
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
+	}
+
+	public String getRolReceptor() {
+		return rolReceptor;
+	}
+
+	public void setRolReceptor(String rolReceptor) {
+		this.rolReceptor = rolReceptor;
 	}
 
 	// ¿Usar equals superficial?

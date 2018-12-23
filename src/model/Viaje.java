@@ -131,7 +131,7 @@ public class Viaje implements Serializable {
 		return null;
 	}
 
-	public boolean isConductor(Usuario usuario) {
+	public boolean isConductor(String usuario) {
 		if (this.coche == null) {
 			return false;
 		}

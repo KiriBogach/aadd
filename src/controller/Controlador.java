@@ -23,7 +23,7 @@ public class Controlador {
 	private static Controlador unicaInstancia = null;
 	private Usuario usuarioLogeado = null;
 
-	public static final String FECHA_SISTEMA = "26/02/2018";
+	public static final String FECHA_SISTEMA = "26/02/2019";
 	public static Date FECHA_SISTEMA_DATE = null;
 
 	private Controlador() {
@@ -233,7 +233,7 @@ public class Controlador {
 			return null;
 		}
 
-		if (viaje.isConductor(this.usuarioLogeado)) {
+		if (viaje.isConductor(this.usuarioLogeado.getUsuario())) {
 			return null;
 		}
 
@@ -328,7 +328,7 @@ public class Controlador {
 			return false;
 		}
 
-		if (reserva.haValorado(this.usuarioLogeado)) {
+		if (reserva.haValorado(this.usuarioLogeado)||!reserva.isAceptada()) {
 			return false;
 		}
 
@@ -372,7 +372,7 @@ public class Controlador {
 			return false;
 		}
 
-		if (reserva.haValorado(this.usuarioLogeado)) {
+		if (reserva.haValorado(this.usuarioLogeado)||!reserva.isAceptada()) {
 			return false;
 		}
 
