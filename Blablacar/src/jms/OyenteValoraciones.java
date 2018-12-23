@@ -34,10 +34,10 @@ public class OyenteValoraciones implements MessageListener {
 				beanValoraciones = (BeanValoraciones) session.get("beanValoraciones");
 				if (beanValoraciones != null) {
 					System.out.println(beanValoraciones.toString());
+					beanValoraciones.addMensajeRecibido(texto);
 				} else {
 					System.out.println("NULL BLYAT SUKA SAYUIBAL!");
 				}
-				beanValoraciones.addMensajeRecibido(texto);
 			} catch (JMSException e) {
 				System.out.println("CATCH!");
 				e.printStackTrace();
