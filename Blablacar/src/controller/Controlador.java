@@ -196,4 +196,8 @@ public class Controlador {
 		controladorRemoto.logout();
 	}
 
+	public Collection<Viaje> listen() {
+		return controladorRemoto.listen();
+	}
+
 }

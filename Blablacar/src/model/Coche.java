@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,7 +24,7 @@ public class Coche implements Serializable {
 	private int year;
 	@OneToOne
 	private Usuario usuario;
-	@OneToMany(mappedBy = "coche")
+	@OneToMany(mappedBy = "coche", fetch = FetchType.EAGER)
 	private Collection<Viaje> viajes;
 
 	public Coche() {

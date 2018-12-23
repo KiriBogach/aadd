@@ -26,6 +26,9 @@ public class BeanMisViajes implements Serializable {
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
 
+	@ManagedProperty(value = "#{beanValoraciones}")
+	private BeanValoraciones beanValoraciones;
+
 	@PostConstruct
 	public void init() {
 		this.reload();
@@ -83,6 +86,14 @@ public class BeanMisViajes implements Serializable {
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
 	}
+	
+	public BeanValoraciones getBeanValoraciones() {
+		return beanValoraciones;
+	}
+	
+	public void setBeanValoraciones(BeanValoraciones beanValoraciones) {
+		this.beanValoraciones = beanValoraciones;
+	}
 
 	public String aceptarReserva() {
 		Viaje aceptada = Controlador.getInstance().aceptarViaje(viajeSeleccionado.getId(),
@@ -114,6 +125,7 @@ public class BeanMisViajes implements Serializable {
 		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(),
 				this.reservaSeleccionada.getUsuario().getUsuario(), comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
+			//beanValoraciones.e
 			this.reload();
 		} else {
 			beanMessages.error("La valoracion no se ha podido realizar");

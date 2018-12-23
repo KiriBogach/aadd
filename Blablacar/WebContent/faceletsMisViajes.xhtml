@@ -120,14 +120,6 @@
 								target="#{beanMisViajes.reservaSeleccionada}" />
 						</p:commandButton>
 					</p:column>
-					<!-- Valoraciones-->
-					<p:column headerText="Valoraciones" style="text-align:center">
-						<p:commandButton oncomplete="PF('infValoraciones').show()"
-							icon="fa fa-eject" update=":formMisViajes:detallesValoraciones">
-							<f:setPropertyActionListener value="#{reserva}"
-								target="#{beanMisViajes.reservaSeleccionada}" />
-						</p:commandButton>
-					</p:column>
 					<!-- Aceptar o rechazar-->
 					<p:column headerText="Aceptar/Rechazar" style="text-align:center">
 
@@ -163,37 +155,6 @@
 						<p>#{beanMisViajes.reservaSeleccionada.comentario}</p>
 					</p:scrollPanel>
 				</p:outputPanel>
-			</p:dialog>
-
-			<!-- Detalles de las valoraciones de la reserva que se está mostrando -->
-			<p:dialog header="Valoraciones" widgetVar="infValoraciones"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-				<p:dataTable widgetVar="detallesValoraciones"
-					id="detallesValoraciones" var="valoracion"
-					value="#{beanMisViajes.reservaSeleccionada.valoraciones}"
-					resizableColumns="true" style="width:1000px">
-					<f:facet name="header">
-            		Valoraciones de la reserva
-        		</f:facet>
-					<!-- Usuario receptor -->
-					<p:column headerText="Receptor" style="text-align:center">
-						<h:outputText value="#{valoracion.idReceptor}" />
-					</p:column>
-					<!-- Rol usuario receptor -->
-					<p:column headerText="Rol" style="text-align:center">
-						<h:outputText value="#{valoracion.rolReceptor}" />
-					</p:column>
-					<!--puntuacion -->
-					<p:column headerText="Puntuacion" style="text-align:center">
-						<h:outputText value="#{valoracion.puntuacion}" />
-					</p:column>
-					<!-- Comentario -->
-					<p:column headerText="Comentario" style="text-align:center">
-						<p:scrollPanel style="width:250px;height:200px">
-							<p>#{valoracion.comentario}</p>
-						</p:scrollPanel>
-					</p:column>
-				</p:dataTable>
 			</p:dialog>
 			
 			<p:dialog header="Valoración para el conductor" widgetVar="valorar"

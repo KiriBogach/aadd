@@ -12,8 +12,42 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<p:outputLabel id="test" value="Bienvenido #{beanLogin.usuario}"/>
+		<p:outputLabel id="test" value="Bienvenido #{beanLogin.usuario}" />
 		<br />
+
+
+		<h:form>
+			<p:dataList value="#{beanValoraciones.mensajesRecibidos}"
+				var="mensaje">
+				<f:facet name="header">
+            Mensaje
+        	</f:facet>
+        #{mensaje}
+    </p:dataList>
+
+			<p:separator />
+
+			<p:dataList value="#{beanValoraciones.suscrito}" var="suscripcion">
+				<f:facet name="header">
+            Suscrito
+        	</f:facet>
+        #{suscripcion}
+    </p:dataList>
+
+			<p:separator />
+
+			<p:growl id="growl" showDetail="false" />
+			<p:outputLabel> Enviar Mensaje </p:outputLabel>
+			<p:separator />
+			<p:outputLabel value="mensaje" />
+			<p:inputTextarea value="#{beanValoraciones.valoracion}" />
+			<p:separator />
+			<p:outputLabel value="id" />
+			<p:inputTextarea value="#{beanValoraciones.viajeToSend}" />
+			<p:commandButton value="Enviar" action="#{beanValoraciones.enviarTexto}"
+				update="@form" />
+		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>

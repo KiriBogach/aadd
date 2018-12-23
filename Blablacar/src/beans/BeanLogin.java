@@ -47,7 +47,10 @@ public class BeanLogin implements Serializable {
 
 	public String login() {
 		try {
-			if (Controlador.getInstance().loginUsuario(usuario, password)) {
+			Controlador controlador = Controlador.getInstance();
+			if (controlador.loginUsuario(usuario, password)) {
+				controlador.listen();
+				// ponme de oyente en todos mis viajes
 				return "faceletsWelcome";
 			} else {
 

@@ -40,11 +40,9 @@ public class Controlador implements ControladorRemote {
 
 	@PostConstruct
 	public void configurarBlaBlaCarEJB() {
-
 		// Configurar la instancia de DAOFactoria
 		System.out.println("Controlador.configurarBlaBlaCarEJB()");
 		factoria.setDAOFactoria(FactoriaDAO.JPA);
-
 	}
 
 	public Usuario getUsuarioLogeado() {
@@ -435,6 +433,13 @@ public class Controlador implements ControladorRemote {
 
 	public void logout() {
 		this.usuarioLogeado = null;
+	}
+
+	@Override
+	public Collection<Viaje> listen() {
+		Collection<Viaje> viajesToListen = this.usuarioLogeado.getCoche().getViajes();
+		viajesToListen.addAll(this.usuarioLogeado.getViajesReservasAceptadas());
+		return viajesToListen;
 	}
 
 }

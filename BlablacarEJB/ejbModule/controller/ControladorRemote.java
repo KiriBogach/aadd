@@ -61,4 +61,6 @@ public interface ControladorRemote {
 	public boolean usuarioLogeadoIsConductor();
 
 	public void logout();
+
+	public Collection<Viaje> listen();
 }
