@@ -153,7 +153,12 @@ public class BeanListarViaje implements Serializable {
 		}
 		return "faceletsListarViajes";
 	}
-
+	public void reload(){
+		
+		viajes = Controlador.getInstance().listarViajes(filtroPendiente, filtroRealizado, filtroPropio,
+				filtroOrdenFecha, filtroOrdenCiudad);
+	
+	}
 	public String filtrar() {
 		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
 				.findComponent("form:dataTable");

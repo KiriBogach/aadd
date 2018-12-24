@@ -95,6 +95,10 @@ public class Reserva implements Serializable {
 		this.valoraciones = valoraciones;
 	}
 
+	public String getNombreUsuario() {
+		return this.usuario.getUsuario();
+	}
+
 	public boolean setEstadoAceptado() {
 		boolean aceptado = viaje.aceptarReserva();
 		if (aceptado) {
@@ -104,6 +108,9 @@ public class Reserva implements Serializable {
 	}
 
 	public void setEstadoRechazado() {
+		if (this.estado == EstadoReserva.ACEPTADA){
+			viaje.sumarUnaPlaza();
+		}
 		this.estado = EstadoReserva.RECHAZADA;
 	}
 

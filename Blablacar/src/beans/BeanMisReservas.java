@@ -88,8 +88,13 @@ public class BeanMisReservas implements Serializable {
 		if (Controlador.getInstance().valorarViajePasajero(viaje.getId(), viaje.getCoche().getUsuario().getUsuario(),
 				comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
-			beanValoraciones.enviarTexto(beanValoraciones.buildMessage(viaje.getCoche().getUsuario().getUsuario(),
-					"conductor", puntuacion, comentario), viaje.getId());
+
+			String nombreViaje = viaje.getCiudadOrigen() + "-" + viaje.getCiudadDestino();
+			String nombreReceptor = viaje.getUsuarioConductor();
+			String mensaje = beanValoraciones.buildMessage(nombreViaje, "conductor", nombreReceptor);
+
+			beanValoraciones.enviarTexto(mensaje, viaje.getId());
+
 			this.reload();
 		} else {
 			beanMessages.error("La valoracion no se ha podido realizar");

@@ -44,8 +44,16 @@
 			<p:separator />
 			<p:outputLabel value="id" />
 			<p:inputTextarea value="#{beanValoraciones.viajeToSend}" />
-			<p:commandButton value="Enviar" action="#{beanValoraciones.enviarTexto}"
+			<p:commandButton value="Enviar"
+				action="#{beanValoraciones.enviarTexto}" update="@form" />
+			<p:separator />
+			<p:outputLabel> Enviar sugerencias</p:outputLabel>
+			<p:separator />
+			<p:inputTextarea value="#{beanValoraciones.sugerencia}" />
+			<p:commandButton value="Enviar sugerencia"
+				action="#{beanValoraciones.enviarTextoBuzonSugerencias}"
 				update="@form" />
+
 		</h:form>
 
 	</ui:define>

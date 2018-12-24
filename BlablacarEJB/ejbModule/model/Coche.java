@@ -93,6 +93,9 @@ public class Coche implements Serializable {
 	public boolean isConductor(String usuario) {
 		return this.usuario.isUsuario(usuario);
 	}
+	public String getUsuarioConductor(){
+		return usuario.getUsuario();
+	}
 
 	public void addViaje(Viaje viaje) {
 		viaje.setCoche(this);

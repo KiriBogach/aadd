@@ -121,6 +121,16 @@ public class Viaje implements Serializable {
 	public void setCoche(Coche coche) {
 		this.coche = coche;
 	}
+	public String getCiudadOrigen(){
+		return this.origen.getCiudad();
+	}
+	public String getCiudadDestino(){
+		return this.destino.getCiudad();
+	}
+	
+	public String getUsuarioConductor(){
+		return coche.getUsuarioConductor();
+	}
 
 	public Reserva getReservaUsuario(String usuario) {
 		for (Reserva reserva : this.reservas) {
@@ -149,6 +159,10 @@ public class Viaje implements Serializable {
 		}
 
 		return false;
+	}
+
+	public void sumarUnaPlaza() {
+		plazas++;	
 	}
 
 }

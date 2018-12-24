@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -64,4 +65,7 @@ public interface ControladorRemote {
 
 	public Collection<Viaje> listen();
 
+	public void addSugerencia(String sugerencia);
+
+	public List<String> getSugerencias();
 }

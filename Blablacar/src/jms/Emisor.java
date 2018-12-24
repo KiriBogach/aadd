@@ -3,6 +3,11 @@ package jms;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSender;
+import javax.jms.QueueSession;
 import javax.jms.TopicSession;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -12,9 +17,10 @@ import javax.jms.TopicPublisher;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class PublicadorValoraciones {
 
-	public static void enviar(String texto, int idViaje) throws NamingException, JMSException {
+public class Emisor {
+
+	public static void publicar(String texto, int idViaje) throws NamingException, JMSException {
 		InitialContext iniCtx = new InitialContext();
 		Object tmp = iniCtx.lookup("jms/TopicConnectionFactory");
 		TopicConnectionFactory qcf = (TopicConnectionFactory) tmp;
@@ -29,4 +35,19 @@ public class PublicadorValoraciones {
 		topicPublisher.publish(message, DeliveryMode.PERSISTENT, Message.DEFAULT_PRIORITY, 7 * 24 * 3600 * 1000L);
 		conn.close();
 	}
+
+	public static void enviarBuzonSugerencias(String texto) throws NamingException, JMSException {
+		InitialContext iniCtx = new InitialContext();
+		Object tmp = iniCtx.lookup("jms/QueueConnectionFactory");
+		QueueConnectionFactory qcf = (QueueConnectionFactory) tmp;
+		QueueConnection conn = qcf.createQueueConnection();
+		Queue queue = (Queue) iniCtx.lookup("queue/buzonSugerencias");
+		QueueSession session = conn.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+		TextMessage message = session.createTextMessage();
+		message.setText(texto);
+		QueueSender queueSender = session.createSender(queue);
+		queueSender.send(message);
+		conn.close();
+	}
+
 }

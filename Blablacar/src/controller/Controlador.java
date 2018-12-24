@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -194,6 +195,14 @@ public class Controlador {
 
 	public Collection<Viaje> listen() {
 		return controladorRemoto.listen();
+	}
+
+	public void addSugerencia(String sugerencia) {
+		controladorRemoto.addSugerencia(sugerencia);
+	}
+
+	public List<String> getSugerencias() {
+		return controladorRemoto.getSugerencias();
 	}
 
 }

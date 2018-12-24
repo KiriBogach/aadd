@@ -29,6 +29,9 @@ public class BeanMisViajes implements Serializable {
 	@ManagedProperty(value = "#{beanValoraciones}")
 	private BeanValoraciones beanValoraciones;
 
+	@ManagedProperty(value = "#{beanListarViaje}")
+	private BeanListarViaje beanListarViaje;
+
 	@PostConstruct
 	public void init() {
 		this.reload();
@@ -95,14 +98,23 @@ public class BeanMisViajes implements Serializable {
 		this.beanValoraciones = beanValoraciones;
 	}
 
+	public BeanListarViaje getBeanListarViaje() {
+		return beanListarViaje;
+	}
+
+	public void setBeanListarViaje(BeanListarViaje beanListarViaje) {
+		this.beanListarViaje = beanListarViaje;
+	}
+
 	public String aceptarReserva() {
 		Viaje aceptada = Controlador.getInstance().aceptarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (aceptada != null) {
 			beanMessages.info("La reserva ha sido aceptada con exito");
 			this.reload();
+			beanListarViaje.reload();
 		} else {
-			beanMessages.info("La reserva no se ha podido aceptar");
+			beanMessages.error("La reserva ya está aceptada o no hay plazas disponibles");
 		}
 		return "faceletsMisViajes";
 
@@ -114,8 +126,9 @@ public class BeanMisViajes implements Serializable {
 		if (rechazada != null) {
 			beanMessages.info("La reserva ha sido rechazada con exito");
 			this.reload();
+			beanListarViaje.reload();
 		} else {
-			beanMessages.info("La reserva no se ha podido rechazar");
+			beanMessages.error("La reserva no se ha podido rechazar");
 		}
 		return "faceletsMisViajes";
 	}
@@ -125,8 +138,12 @@ public class BeanMisViajes implements Serializable {
 		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(),
 				this.reservaSeleccionada.getUsuario().getUsuario(), comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
-			beanValoraciones.enviarTexto(beanValoraciones.buildMessage(reservaSeleccionada.getUsuario().getUsuario(),
-					"pasajero", puntuacion, comentario), viaje.getId());
+
+			String nombreViaje = viaje.getCiudadOrigen() + "-" + viaje.getCiudadDestino();
+			String nombreReceptor = reservaSeleccionada.getNombreUsuario();
+			String mensaje = beanValoraciones.buildMessage(nombreViaje, "pasajero", nombreReceptor);
+
+			beanValoraciones.enviarTexto(mensaje, viaje.getId());
 			this.reload();
 		} else {
 			beanMessages.error("La valoracion no se ha podido realizar");

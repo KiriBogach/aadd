@@ -12,10 +12,11 @@ import javax.jms.JMSException;
 import javax.naming.NamingException;
 
 import controller.Controlador;
-import jms.PublicadorValoraciones;
-import jms.SuscriptorValoraciones;
+import jms.Emisor;
+import jms.Consumidor;
 import model.Viaje;
-@ManagedBean(name="beanValoraciones")
+
+@ManagedBean(name = "beanValoraciones")
 @SessionScoped
 public class BeanValoraciones implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,73 +25,10 @@ public class BeanValoraciones implements Serializable {
 	private Collection<Integer> suscrito = new LinkedList<Integer>();
 	private String valoracion;
 	private int viajeToSend;
+	private String sugerencia;
 
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
-
-	/*
-	 * @PostConstruct public void init() { Collection<Viaje> viajesToSubscribe =
-	 * Controlador.getInstance().listen(); for (Viaje viaje : viajesToSubscribe)
-	 * { try { SuscriptorValoraciones.registrarApartado(viaje.getId());
-	 * suscrito.add(viaje.getId()); } catch (NamingException | JMSException e) {
-	 * e.printStackTrace(); } } }
-	 */
-
-	public void suscripciones() {
-		Collection<Viaje> viajesToSubscribe = Controlador.getInstance().listen();
-		for (Viaje viaje : viajesToSubscribe) {
-			try {
-				SuscriptorValoraciones.registrarApartado(viaje.getId());
-				suscrito.add(viaje.getId());
-			} catch (NamingException | JMSException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void enviarTexto( String mensaje,int idViaje) {
-		System.out.println("BeanValoraciones.enviarTexto()");
-		if (mensaje == null || mensaje.equals("")) {
-			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
-			return;
-		}
-		try {
-			
-			PublicadorValoraciones.enviar(mensaje, idViaje);
-		} catch (NamingException | JMSException e) {
-			beanMessages.errorCabecera("Error durante el envio");
-			return;
-		}
-		beanMessages.infoCabecera("Envio correcto");
-		
-	}
-	public String buildMessage(String usuarioReceptor, String rolReceptor, int puntuacion, String comentario) {
-		return "Se ha valorado al " + rolReceptor + " " + usuarioReceptor + " con una puntuacion " + puntuacion
-				+ " comentario: " + comentario;
-	}
-	public void enviarTexto() {
-		System.out.println("BeanValoraciones.enviarTexto()");
-		if (valoracion == null || valoracion.equals("")) {
-			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
-			return;
-		}
-		try {
-			System.out.println("viajeToSend=" + viajeToSend);
-			System.out.println("valoracion=" + valoracion);
-			PublicadorValoraciones.enviar(valoracion, viajeToSend);
-		} catch (NamingException | JMSException e) {
-			beanMessages.errorCabecera("Error durante el envio");
-			return;
-		}
-		beanMessages.infoCabecera("Envio correcto");
-		valoracion = "";
-	}
-
-	/*
-	 * public void recibirTodosTexto(ActionEvent event) { try {
-	 * SuscriptorValoraciones.registrarApartado(); } catch (NamingException e) {
-	 * e.printStackTrace(); } catch (JMSException e) { e.printStackTrace(); } }
-	 */
 
 	public Collection<String> getMensajesRecibidos() {
 		return mensajesRecibidos;
@@ -122,6 +60,14 @@ public class BeanValoraciones implements Serializable {
 		this.valoracion = valoracion;
 	}
 
+	public String getSugerencia() {
+		return sugerencia;
+	}
+
+	public void setSugerencia(String sugerencia) {
+		this.sugerencia = sugerencia;
+	}
+
 	public Collection<Integer> getSuscrito() {
 		return suscrito;
 	}
@@ -136,6 +82,90 @@ public class BeanValoraciones implements Serializable {
 
 	public void setBeanMessages(BeanMessages beanMessages) {
 		this.beanMessages = beanMessages;
+	}
+
+	public void crearOyenteBuzonSugerencias() {
+		try {
+			Consumidor.crearConsumidorBuzonSugerencias();
+		} catch (NamingException | JMSException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void suscripciones(String usuario) {
+		Collection<Viaje> viajesToSubscribe = Controlador.getInstance().listen();
+		for (Viaje viaje : viajesToSubscribe) {
+			try {
+				Consumidor.registrarApartado(usuario, viaje.getId());
+				suscrito.add(viaje.getId());
+			} catch (NamingException | JMSException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void enviarTexto(String mensaje, int idViaje) {
+		System.out.println("BeanValoraciones.enviarTexto()");
+		if (mensaje == null || mensaje.equals("")) {
+			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
+			return;
+		}
+		try {
+
+			Emisor.publicar(mensaje, idViaje);
+		} catch (NamingException | JMSException e) {
+			beanMessages.errorCabecera("Error durante el envio");
+			return;
+		}
+		beanMessages.infoCabecera("Envio correcto");
+
+	}
+
+	public void enviarTextoBuzonSugerencias() {
+		if (sugerencia == null || sugerencia.equals("")) {
+			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
+			return;
+		}
+		try {
+
+			Emisor.enviarBuzonSugerencias(sugerencia);
+		} catch (NamingException | JMSException e) {
+			beanMessages.errorCabecera("Error durante el envio");
+			return;
+		}
+		beanMessages.infoCabecera("Se ha enviado su sugerencia");
+
+	}
+
+	public void enviarTexto() {
+		System.out.println("BeanValoraciones.enviarTexto()");
+		if (valoracion == null || valoracion.equals("")) {
+			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
+			return;
+		}
+		try {
+			System.out.println("viajeToSend=" + viajeToSend);
+			System.out.println("valoracion=" + valoracion);
+			Emisor.publicar(valoracion, viajeToSend);
+		} catch (NamingException | JMSException e) {
+			beanMessages.errorCabecera("Error durante el envio");
+			return;
+		}
+		beanMessages.infoCabecera("Envio correcto");
+		valoracion = "";
+	}
+
+	public String buildMessage(String nombreViaje, String rolReceptor, String usuarioReceptor) {
+		return "En el viaje: " + nombreViaje + " se ha valorado al " + rolReceptor + " " + usuarioReceptor;
+	}
+
+	public void close() {
+		try {
+			Consumidor.close();
+		} catch (JMSException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 }

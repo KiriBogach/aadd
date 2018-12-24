@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ import model.Viaje;
 
 @Stateful(name = "ControladorRemote")
 public class Controlador implements ControladorRemote {
-
+	private List<String> sugerencias;
 	private Usuario usuarioLogeado = null;
 	public static final String FECHA_SISTEMA = "26/02/2019";
 	public static Date FECHA_SISTEMA_DATE = null;
@@ -44,12 +45,19 @@ public class Controlador implements ControladorRemote {
 	public void configurarBlaBlaCarEJB() {
 		// Configurar la instancia de DAOFactoria
 		FECHA_SISTEMA_DATE = Utils.fromStringToDate(FECHA_SISTEMA);
+		sugerencias = new LinkedList<>();
 		System.out.println("Controlador.configurarBlaBlaCarEJB()");
 		factoria.setDAOFactoria(FactoriaDAO.JPA);
 	}
 
 	public Usuario getUsuarioLogeado() {
 		return this.usuarioLogeado;
+	}
+	public List<String> getSugerencias(){
+		return sugerencias;
+	}
+	public void addSugerencia(String sugerencia) {
+		sugerencias.add(sugerencia);
 	}
 
 	/*
@@ -281,12 +289,12 @@ public class Controlador implements ControladorRemote {
 			return null;
 		}
 
-		if (!reserva.setEstadoAceptado()) {
+		if (reserva.isAceptada() || !reserva.setEstadoAceptado()) {
 			return null;
 		}
 
 		daoReserva.update(reserva);
-
+		daoViaje.update();
 		return viaje;
 	}
 
@@ -310,7 +318,7 @@ public class Controlador implements ControladorRemote {
 
 		reserva.setEstadoRechazado();
 		daoReserva.update(reserva);
-
+		daoViaje.update();
 		return viaje;
 	}
 
