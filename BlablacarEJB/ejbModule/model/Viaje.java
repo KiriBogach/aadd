@@ -31,7 +31,7 @@ public class Viaje implements Serializable {
 	private Parada origen;
 	@OneToOne(cascade = { CascadeType.REMOVE })
 	private Parada destino;
-	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "viaje")
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "viaje",fetch = FetchType.EAGER)
 	@OrderBy("estado ASC")
 	private List<Reserva> reservas;
 

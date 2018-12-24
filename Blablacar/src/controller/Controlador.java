@@ -11,18 +11,14 @@ import model.Coche;
 import model.Parada;
 import model.Reserva;
 import model.Usuario;
-import model.Utils;
 import model.Viaje;
 
 public class Controlador {
 	private ControladorRemote controladorRemoto;
 	private static Controlador unicaInstancia = null;
 
-	public static final String FECHA_SISTEMA = "26/02/2019";
-	public static Date FECHA_SISTEMA_DATE = null;
-
 	private Controlador() {
-		FECHA_SISTEMA_DATE = Utils.fromStringToDate(FECHA_SISTEMA);
+
 		try {
 			controladorRemoto = (ControladorRemote) new InitialContext()
 					.lookup("java:global/BlablacarEJB/ControladorRemote");

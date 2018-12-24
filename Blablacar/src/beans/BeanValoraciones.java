@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.annotation.PostConstruct;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
@@ -16,12 +15,11 @@ import controller.Controlador;
 import jms.PublicadorValoraciones;
 import jms.SuscriptorValoraciones;
 import model.Viaje;
-
-@ManagedBean(name = "beanValoraciones")
+@ManagedBean(name="beanValoraciones")
 @SessionScoped
 public class BeanValoraciones implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Collection<String> mensajesRecibidos = new LinkedList<String>();
 	private Collection<Integer> suscrito = new LinkedList<Integer>();
 	private String valoracion;
@@ -30,8 +28,15 @@ public class BeanValoraciones implements Serializable {
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
 
-	@PostConstruct
-	public void init() {
+	/*
+	 * @PostConstruct public void init() { Collection<Viaje> viajesToSubscribe =
+	 * Controlador.getInstance().listen(); for (Viaje viaje : viajesToSubscribe)
+	 * { try { SuscriptorValoraciones.registrarApartado(viaje.getId());
+	 * suscrito.add(viaje.getId()); } catch (NamingException | JMSException e) {
+	 * e.printStackTrace(); } } }
+	 */
+
+	public void suscripciones() {
 		Collection<Viaje> viajesToSubscribe = Controlador.getInstance().listen();
 		for (Viaje viaje : viajesToSubscribe) {
 			try {
@@ -43,6 +48,26 @@ public class BeanValoraciones implements Serializable {
 		}
 	}
 
+	public void enviarTexto( String mensaje,int idViaje) {
+		System.out.println("BeanValoraciones.enviarTexto()");
+		if (mensaje == null || mensaje.equals("")) {
+			beanMessages.errorCabecera("No se puede enviar un mensaje vacio");
+			return;
+		}
+		try {
+			
+			PublicadorValoraciones.enviar(mensaje, idViaje);
+		} catch (NamingException | JMSException e) {
+			beanMessages.errorCabecera("Error durante el envio");
+			return;
+		}
+		beanMessages.infoCabecera("Envio correcto");
+		
+	}
+	public String buildMessage(String usuarioReceptor, String rolReceptor, int puntuacion, String comentario) {
+		return "Se ha valorado al " + rolReceptor + " " + usuarioReceptor + " con una puntuacion " + puntuacion
+				+ " comentario: " + comentario;
+	}
 	public void enviarTexto() {
 		System.out.println("BeanValoraciones.enviarTexto()");
 		if (valoracion == null || valoracion.equals("")) {

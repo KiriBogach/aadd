@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import controller.Controlador;
+
 @Entity
 public class Coche implements Serializable {
 
@@ -95,6 +97,14 @@ public class Coche implements Serializable {
 	public void addViaje(Viaje viaje) {
 		viaje.setCoche(this);
 		this.viajes.add(viaje);
+	}
+	public Collection<Viaje> getViajesFinalizados(){
+		Collection<Viaje> viajesFinalizados= new LinkedList<>();
+		for (Viaje viaje : viajes) {
+			if (viaje.isFinalizado(Controlador.FECHA_SISTEMA_DATE))
+				viajesFinalizados.add(viaje);
+		}
+		return viajesFinalizados;
 	}
 
 }

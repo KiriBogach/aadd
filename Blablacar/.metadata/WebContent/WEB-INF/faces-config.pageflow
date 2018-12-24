@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15420405801380" configfile="/Practica-Bogach-Kyryl-Aramayo-Cristhian/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login" x="114" y="157" id="pf15420436013621" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf15420436013632 pf15420436013633" inlinks="pf15420446577716" path="/login.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="welcome" x="384" y="120" id="pf15420436013634" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15420436013632" path="/welcome.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="failureLogin" x="411" y="312" id="pf15420436013635" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15420436013633" path="/failureLogin.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="register" x="96" y="336" id="pf15420446577718" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15420446577716 pf15420449901719" path="/register.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="falloRegister" x="228" y="420" id="pf154204499017110" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15420449901719" path="/falloRegister.jsp"/>
-  <links id="pf15420436013632" target="pf15420436013634" source="pf15420436013621"/>
-  <links id="pf15420436013633" target="pf15420436013635" source="pf15420436013621"/>
-  <links id="pf15420446577716" target="pf15420436013621" source="pf15420446577718"/>
-  <links id="pf15420449901719" target="pf154204499017110" source="pf15420446577718"/>
-</pageflow:Pageflow>
+<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15420405801380" configfile="/Practica-Bogach-Kyryl-Aramayo-Cristhian/WebContent/WEB-INF/faces-config.xml"/>

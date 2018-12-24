@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import model.Coche;
 import model.Parada;
 import model.Reserva;
 import model.Usuario;
+import model.Utils;
 import model.Valoracion;
 import model.Viaje;
 
@@ -41,6 +43,7 @@ public class Controlador implements ControladorRemote {
 	@PostConstruct
 	public void configurarBlaBlaCarEJB() {
 		// Configurar la instancia de DAOFactoria
+		FECHA_SISTEMA_DATE = Utils.fromStringToDate(FECHA_SISTEMA);
 		System.out.println("Controlador.configurarBlaBlaCarEJB()");
 		factoria.setDAOFactoria(FactoriaDAO.JPA);
 	}
@@ -437,9 +440,13 @@ public class Controlador implements ControladorRemote {
 
 	@Override
 	public Collection<Viaje> listen() {
-		Collection<Viaje> viajesToListen = this.usuarioLogeado.getCoche().getViajes();
-		viajesToListen.addAll(this.usuarioLogeado.getViajesReservasAceptadas());
-		return viajesToListen;
+		Collection<Viaje> viajes = new LinkedList<>();
+
+		if (this.usuarioLogeado.tieneCoche())
+			viajes.addAll(this.usuarioLogeado.getCoche().getViajesFinalizados());
+
+		viajes.addAll(this.usuarioLogeado.getViajesReservasFinalizadasAceptadas());
+		return viajes;
 	}
 
 }

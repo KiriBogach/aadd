@@ -21,6 +21,9 @@ public class BeanLogin implements Serializable {
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
 
+	@ManagedProperty(value = "#{beanValoraciones}")
+	private BeanValoraciones beanValoraciones;
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -45,11 +48,20 @@ public class BeanLogin implements Serializable {
 		this.beanMessages = beanMessages;
 	}
 
+	public BeanValoraciones getBeanValoraciones() {
+		return beanValoraciones;
+	}
+
+	public void setBeanValoraciones(BeanValoraciones beanValoraciones) {
+		this.beanValoraciones = beanValoraciones;
+	}
+
 	public String login() {
 		try {
 			Controlador controlador = Controlador.getInstance();
 			if (controlador.loginUsuario(usuario, password)) {
 				controlador.listen();
+				beanValoraciones.suscripciones();
 				// ponme de oyente en todos mis viajes
 				return "faceletsWelcome";
 			} else {

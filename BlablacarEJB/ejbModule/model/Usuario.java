@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -34,7 +33,7 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario")
 	private Coche coche;
 
-	@OneToMany(mappedBy = "usuario", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private Collection<Reserva> reservas;
 
 	private Collection<Valoracion> valoraciones;
@@ -177,12 +176,12 @@ public class Usuario implements Serializable {
 
 	}
 
-	public Collection<Viaje> getViajesReservasAceptadas() {
-		LinkedList<Viaje> viajes = new LinkedList<Viaje>();
-		for (Reserva r : this.getReservas()) {
-			if (r.isAceptada()) {
-				viajes.add(r.getViaje());
-			}
+	public Collection<Viaje> getViajesReservasFinalizadasAceptadas() {
+		Collection<Viaje> viajes = new LinkedList<>();
+
+		for (Reserva reserva : reservas) {
+			if (reserva.isAceptada() && reserva.viajeAsociadoFinalizado())
+				viajes.add(reserva.getViaje());
 		}
 		return viajes;
 	}

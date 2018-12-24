@@ -63,4 +63,5 @@ public interface ControladorRemote {
 	public void logout();
 
 	public Collection<Viaje> listen();
+
 }
