@@ -14,6 +14,6 @@ public interface FactoriaDAOLocal {
 	public ParadaDAO getParadaDAO();
 
 	public ReservaDAO getReservaDAO();
-	
-	public void setDAOFactoria (int tipo);
+
+	public void setDAOFactoria(int tipo);
 }

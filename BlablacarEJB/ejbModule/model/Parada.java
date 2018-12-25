@@ -62,6 +62,9 @@ public class Parada implements Serializable {
 	}
 
 	public boolean isAnterior(Date fecha) {
-		return this.fecha.before(fecha);
+		if (this.fecha != null && fecha != null) {
+			return this.fecha.before(fecha);
+		}
+		return false;
 	}
 }

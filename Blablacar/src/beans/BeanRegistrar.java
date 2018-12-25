@@ -9,8 +9,6 @@ import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import controller.Controlador;
-
 @ManagedBean(name = "beanRegistrar")
 @SessionScoped
 public class BeanRegistrar implements Serializable {
@@ -31,6 +29,17 @@ public class BeanRegistrar implements Serializable {
 
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
 
 	public String getUsuario() {
 		return usuario;
@@ -117,7 +126,7 @@ public class BeanRegistrar implements Serializable {
 	public String registro() {
 		Date fecha = new Date(fechaNacimiento.getTime());
 		if (password.equals(password2)) {
-			if (Controlador.getInstance().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
+			if (beanController.getControlador().registrarUsuario(usuario, password, fecha, profesion, email, nombre,
 					apellidos) != null)
 				cleanFields();
 			return "faceletsLogin";

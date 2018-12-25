@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario")
 	private Coche coche;
 
-	@OneToMany(mappedBy = "usuario", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private Collection<Reserva> reservas;
 
 	private Collection<Valoracion> valoraciones;

@@ -108,7 +108,7 @@ public class Reserva implements Serializable {
 	}
 
 	public void setEstadoRechazado() {
-		if (this.estado == EstadoReserva.ACEPTADA){
+		if (this.estado == EstadoReserva.ACEPTADA) {
 			viaje.sumarUnaPlaza();
 		}
 		this.estado = EstadoReserva.RECHAZADA;

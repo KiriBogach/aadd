@@ -7,7 +7,6 @@ import java.util.LinkedList;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Reserva implements Serializable {
 	private static final String ROL_CONDUCTOR = "Conductor";
@@ -93,7 +92,8 @@ public class Reserva implements Serializable {
 	public void setValoraciones(Collection<Valoracion> valoraciones) {
 		this.valoraciones = valoraciones;
 	}
-	public String getNombreUsuario(){
+
+	public String getNombreUsuario() {
 		return this.usuario.getUsuario();
 	}
 
@@ -131,7 +131,5 @@ public class Reserva implements Serializable {
 	public boolean isAceptada() {
 		return this.estado == EstadoReserva.ACEPTADA;
 	}
-
-	
 
 }

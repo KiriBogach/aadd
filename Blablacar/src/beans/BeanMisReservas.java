@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import controller.Controlador;
 import model.*;
 
 @ManagedBean(name = "beanMisReservas")
@@ -21,10 +20,23 @@ public class BeanMisReservas implements Serializable {
 	private Reserva reservaSeleccionada;
 	private String comentario;
 	private int puntuacion;
+
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+
 	@ManagedProperty(value = "#{beanValoraciones}")
 	private BeanValoraciones beanValoraciones;
+
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -32,7 +44,7 @@ public class BeanMisReservas implements Serializable {
 	}
 
 	public void reload() {
-		reservas = (List<Reserva>) Controlador.getInstance().getReservasUsuarioLogeado();
+		reservas = (List<Reserva>) beanController.getControlador().getReservasUsuarioLogeado();
 	}
 
 	public List<Reserva> getReservas() {
@@ -85,8 +97,8 @@ public class BeanMisReservas implements Serializable {
 
 	public String valorar() {
 		Viaje viaje = this.reservaSeleccionada.getViaje();
-		if (Controlador.getInstance().valorarViajePasajero(viaje.getId(), viaje.getCoche().getUsuario().getUsuario(),
-				comentario, puntuacion)) {
+		if (beanController.getControlador().valorarViajePasajero(viaje.getId(),
+				viaje.getCoche().getUsuario().getUsuario(), comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
 
 			String nombreViaje = viaje.getCiudadOrigen() + "-" + viaje.getCiudadDestino();

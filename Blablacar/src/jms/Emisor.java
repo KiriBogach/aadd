@@ -17,7 +17,6 @@ import javax.jms.TopicPublisher;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-
 public class Emisor {
 
 	public static void publicar(String texto, int idViaje) throws NamingException, JMSException {

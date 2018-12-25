@@ -26,7 +26,7 @@ public class Coche implements Serializable {
 	private int year;
 	@OneToOne
 	private Usuario usuario;
-	@OneToMany(mappedBy = "coche", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "coche", fetch = FetchType.EAGER)
 	private Collection<Viaje> viajes;
 
 	public Coche() {
@@ -93,7 +93,8 @@ public class Coche implements Serializable {
 	public boolean isConductor(String usuario) {
 		return this.usuario.isUsuario(usuario);
 	}
-	public String getUsuarioConductor(){
+
+	public String getUsuarioConductor() {
 		return usuario.getUsuario();
 	}
 
@@ -101,8 +102,9 @@ public class Coche implements Serializable {
 		viaje.setCoche(this);
 		this.viajes.add(viaje);
 	}
-	public Collection<Viaje> getViajesFinalizados(){
-		Collection<Viaje> viajesFinalizados= new LinkedList<>();
+
+	public Collection<Viaje> getViajesFinalizados() {
+		Collection<Viaje> viajesFinalizados = new LinkedList<>();
 		for (Viaje viaje : viajes) {
 			if (viaje.isFinalizado(Controlador.FECHA_SISTEMA_DATE))
 				viajesFinalizados.add(viaje);

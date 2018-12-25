@@ -50,8 +50,8 @@ public class BeanRegistrarParada implements Serializable {
 		return cp;
 	}
 
-	public void setCp(String cP) {
-		cp = cP;
+	public void setCp(String cp) {
+		this.cp = cp;
 	}
 
 	public Date getFecha() {
@@ -66,21 +66,19 @@ public class BeanRegistrarParada implements Serializable {
 		return origen;
 	}
 
-	public void setOrigen(BeanRegistrarParada _origen) {
-		origen = _origen;
+	public void setOrigen(BeanRegistrarParada origen) {
+		this.origen = origen;
 	}
 
 	public BeanRegistrarParada getDestino() {
 		return destino;
 	}
 
-	public void setDestino(BeanRegistrarParada _destino) {
-		destino = _destino;
+	public void setDestino(BeanRegistrarParada destino) {
+		this.destino = destino;
 	}
 
-	public Parada registrarParada(int idViaje, boolean paradaOrigen) {
-
-		Controlador controlador = Controlador.getInstance();
+	public Parada registrarParada(int idViaje, boolean paradaOrigen, Controlador controlador) {
 		int CP;
 		Parada parada;
 		try {
@@ -95,7 +93,6 @@ public class BeanRegistrarParada implements Serializable {
 		}
 
 		return parada;
-
 	}
 
 	public void limpiarCampos() {

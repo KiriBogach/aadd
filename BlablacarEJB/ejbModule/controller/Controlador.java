@@ -43,7 +43,6 @@ public class Controlador implements ControladorRemote {
 
 	@PostConstruct
 	public void configurarBlaBlaCarEJB() {
-		// Configurar la instancia de DAOFactoria
 		FECHA_SISTEMA_DATE = Utils.fromStringToDate(FECHA_SISTEMA);
 		sugerencias = new LinkedList<>();
 		System.out.println("Controlador.configurarBlaBlaCarEJB()");
@@ -53,9 +52,11 @@ public class Controlador implements ControladorRemote {
 	public Usuario getUsuarioLogeado() {
 		return this.usuarioLogeado;
 	}
-	public List<String> getSugerencias(){
+
+	public List<String> getSugerencias() {
 		return sugerencias;
 	}
+
 	public void addSugerencia(String sugerencia) {
 		sugerencias.add(sugerencia);
 	}

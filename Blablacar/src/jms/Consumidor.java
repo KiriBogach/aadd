@@ -21,7 +21,7 @@ public class Consumidor {
 	// Crea un subscriptor a un topico
 	private static List<TopicSubscriber> topicSubscribers = new LinkedList<TopicSubscriber>();
 
-	private static QueueReceiver queueReceiver=null;
+	private static QueueReceiver queueReceiver = null;
 	// private static final String NOMBRE_SUSCRIPTOR = "MySub";
 	// private static List<OyenteValoraciones> oyentesValoraciones = new
 	// LinkedList<OyenteValoraciones>();

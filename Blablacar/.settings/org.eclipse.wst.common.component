@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="Practica-Bogach-Kyryl-Aramayo-Cristhian">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
-        <property name="java-output-path" value="/Practica-Bogach-Kyryl-Aramayo-Cristhian/build/classes"/>
-        <property name="context-root" value="Practica-Bogach-Kyryl-Aramayo-Cristhian"/>
-    </wb-module>
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+	<wb-module deploy-name="Practica-Bogach-Kyryl-Aramayo-Cristhian">
+		<wb-resource deploy-path="/" source-path="/WebContent"
+			tag="defaultRootSource" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/test" />
+		<property name="java-output-path"
+			value="/Practica-Bogach-Kyryl-Aramayo-Cristhian/build/classes" />
+		<property name="context-root" value="Practica-Bogach-Kyryl-Aramayo-Cristhian" />
+	</wb-module>
 </project-modules>

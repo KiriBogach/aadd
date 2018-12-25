@@ -24,6 +24,17 @@ public class BeanLogin implements Serializable {
 	@ManagedProperty(value = "#{beanValoraciones}")
 	private BeanValoraciones beanValoraciones;
 
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -58,11 +69,11 @@ public class BeanLogin implements Serializable {
 
 	public String login() {
 		try {
-			Controlador controlador = Controlador.getInstance();
+			Controlador controlador = beanController.getControlador();
 			if (controlador.loginUsuario(usuario, password)) {
 				beanValoraciones.crearOyenteBuzonSugerencias();
 				beanValoraciones.suscripciones(usuario);
-				
+
 				return "faceletsWelcome";
 			} else {
 
@@ -88,7 +99,7 @@ public class BeanLogin implements Serializable {
 	}
 
 	public void isUserLogged() {
-		if (Controlador.getInstance().getUsuarioLogeado() == null) {
+		if (beanController.getControlador().getUsuarioLogeado() == null) {
 			redirectToLogin();
 		}
 	}
@@ -97,7 +108,7 @@ public class BeanLogin implements Serializable {
 		beanValoraciones.close();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		System.out.println("BeanLogin.logout()");
-		Controlador.getInstance().logout();
+		beanController.getControlador().logout();
 		return "faceletsLogin.xhtml";
 	}
 

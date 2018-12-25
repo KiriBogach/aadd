@@ -31,7 +31,7 @@ public class Viaje implements Serializable {
 	private Parada origen;
 	@OneToOne(cascade = { CascadeType.REMOVE })
 	private Parada destino;
-	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "viaje",fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "viaje", fetch = FetchType.EAGER)
 	@OrderBy("estado ASC")
 	private List<Reserva> reservas;
 
@@ -121,14 +121,16 @@ public class Viaje implements Serializable {
 	public void setCoche(Coche coche) {
 		this.coche = coche;
 	}
-	public String getCiudadOrigen(){
+
+	public String getCiudadOrigen() {
 		return this.origen.getCiudad();
 	}
-	public String getCiudadDestino(){
+
+	public String getCiudadDestino() {
 		return this.destino.getCiudad();
 	}
-	
-	public String getUsuarioConductor(){
+
+	public String getUsuarioConductor() {
 		return coche.getUsuarioConductor();
 	}
 

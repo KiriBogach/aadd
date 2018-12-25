@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import controller.Controlador;
 import model.*;
 
 @ManagedBean(name = "beanMisViajes")
@@ -32,13 +31,24 @@ public class BeanMisViajes implements Serializable {
 	@ManagedProperty(value = "#{beanListarViaje}")
 	private BeanListarViaje beanListarViaje;
 
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
+
 	@PostConstruct
 	public void init() {
 		this.reload();
 	}
 
 	public void reload() {
-		viajesPropios = (List<Viaje>) Controlador.getInstance().listarViajes(false, false, true, false, false);
+		viajesPropios = (List<Viaje>) beanController.getControlador().listarViajes(false, false, true, false, false);
 	}
 
 	public List<Viaje> getViajesPropios() {
@@ -107,7 +117,7 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public String aceptarReserva() {
-		Viaje aceptada = Controlador.getInstance().aceptarViaje(viajeSeleccionado.getId(),
+		Viaje aceptada = beanController.getControlador().aceptarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (aceptada != null) {
 			beanMessages.info("La reserva ha sido aceptada con exito");
@@ -121,7 +131,7 @@ public class BeanMisViajes implements Serializable {
 	}
 
 	public String rechazarReserva() {
-		Viaje rechazada = Controlador.getInstance().rechazarViaje(viajeSeleccionado.getId(),
+		Viaje rechazada = beanController.getControlador().rechazarViaje(viajeSeleccionado.getId(),
 				reservaSeleccionada.getUsuario().getUsuario());
 		if (rechazada != null) {
 			beanMessages.info("La reserva ha sido rechazada con exito");
@@ -135,7 +145,7 @@ public class BeanMisViajes implements Serializable {
 
 	public String valorar() {
 		Viaje viaje = this.reservaSeleccionada.getViaje();
-		if (Controlador.getInstance().valorarViajeConductor(viaje.getId(),
+		if (beanController.getControlador().valorarViajeConductor(viaje.getId(),
 				this.reservaSeleccionada.getUsuario().getUsuario(), comentario, puntuacion)) {
 			beanMessages.info("La valoracion ha sido realizada con exito");
 

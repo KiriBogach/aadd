@@ -30,11 +30,11 @@ public class FactoriaDAO implements FactoriaDAOLocal {
 	@Override
 	public void setDAOFactoria(int tipo) {
 		switch (tipo) {
-			case JPA: {
-				factoria = new FactoriaJPADAO();
-			}
+		case JPA: {
+			factoria = new FactoriaJPADAO();
+		}
 			break;
-			
+
 		}
 	}
 }

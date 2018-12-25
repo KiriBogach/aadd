@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
-import controller.Controlador;
 import jms.Emisor;
 import jms.Consumidor;
 import model.Viaje;
@@ -29,6 +28,17 @@ public class BeanValoraciones implements Serializable {
 
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
 
 	public Collection<String> getMensajesRecibidos() {
 		return mensajesRecibidos;
@@ -93,7 +103,7 @@ public class BeanValoraciones implements Serializable {
 	}
 
 	public void suscripciones(String usuario) {
-		Collection<Viaje> viajesToSubscribe = Controlador.getInstance().listen();
+		Collection<Viaje> viajesToSubscribe = beanController.getControlador().listen();
 		for (Viaje viaje : viajesToSubscribe) {
 			try {
 				Consumidor.registrarApartado(usuario, viaje.getId());

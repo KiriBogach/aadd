@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import controller.Controlador;
 import model.Viaje;
 
 @ManagedBean(name = "beanViaje")
@@ -18,13 +18,24 @@ public class BeanViaje implements Serializable {
 	private String comentario;
 	private int idViajeSeleccionado;
 
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
+
 	public BeanViaje() {
 		System.out.println("BeanViaje.BeanViaje()");
-		viajes = Controlador.getInstance().listarViajes();
+		viajes = beanController.getControlador().listarViajes();
 	}
 
 	public Collection<Viaje> getViajes() {
-		viajes = Controlador.getInstance().listarViajes();
+		viajes = beanController.getControlador().listarViajes();
 		return viajes;
 	}
 
@@ -50,7 +61,7 @@ public class BeanViaje implements Serializable {
 
 	public void reservar() {
 		System.out.println("BeanViaje.reservar()");
-		// Controlador.getInstance().reservarViaje(idViajeSeleccionado,
+		// beanController.getControlador().reservarViaje(idViajeSeleccionado,
 		// this.comentario);
 		// return "faceletesWelcome";
 	}

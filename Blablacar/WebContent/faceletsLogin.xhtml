@@ -10,6 +10,15 @@
 Login Usuarios
 </ui:define>
 	<ui:define name="content">
+	
+		<p:ajaxStatus onstart="PF('cargando').show()"
+			onsuccess="PF('cargando').hide()" />
+
+		<p:dialog widgetVar="cargando" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="gifs/loading.gif" />
+		</p:dialog>
+
 		<h:form>
 			<p:growl id="growlLogin" />
 			<h:panelGrid columns="2" style="width: 100%">
@@ -24,7 +33,7 @@ Login Usuarios
 					requiredMessage="La clave es obligatoria" placeholder="Contraseña" />
 
 			</h:panelGrid>
-			<p:separator/>
+			<p:separator />
 			<p:commandButton value="Login" action="#{beanLogin.login}"
 				update="@form" />
 		</h:form>

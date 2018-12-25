@@ -137,13 +137,12 @@
 						</p:commandButton>
 					</p:column>
 					<p:column headerText="Valorar" style="text-align:center">
-					<p:commandButton icon="fa fa-check"
-						oncomplete="PF('valorar').show()"
-						update=":formMisViajes:valorar">
-						<f:setPropertyActionListener value="#{reserva}"
-							target="#{beanMisViajes.reservaSeleccionada}" />
-					</p:commandButton>
-				</p:column>
+						<p:commandButton icon="fa fa-check"
+							oncomplete="PF('valorar').show()" update=":formMisViajes:valorar">
+							<f:setPropertyActionListener value="#{reserva}"
+								target="#{beanMisViajes.reservaSeleccionada}" />
+						</p:commandButton>
+					</p:column>
 				</p:dataTable>
 			</p:dialog>
 
@@ -156,7 +155,7 @@
 					</p:scrollPanel>
 				</p:outputPanel>
 			</p:dialog>
-			
+
 			<p:dialog header="Valoración para el conductor" widgetVar="valorar"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="valorar" style="text-align:center;">
@@ -164,12 +163,12 @@
 						cols="30" counter="display" maxlength="128"
 						counterTemplate="{0} caracteres restantes." autoResize="false" />
 					<br />
-					<p:rating style="font-size:32px;" value="#{beanMisViajes.puntuacion}" stars="10" />
+					<p:rating style="font-size:32px;"
+						value="#{beanMisViajes.puntuacion}" stars="10" />
 					<br />
 					<h:outputText id="display" />
 					<p:separator />
-					<p:commandButton value="Aceptar"
-						action="#{beanMisViajes.valorar}"
+					<p:commandButton value="Aceptar" action="#{beanMisViajes.valorar}"
 						oncomplete="PF('valorar').hide()" update="@form" />
 				</p:outputPanel>
 			</p:dialog>

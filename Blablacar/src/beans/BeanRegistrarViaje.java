@@ -31,6 +31,9 @@ public class BeanRegistrarViaje implements Serializable {
 	@ManagedProperty(value = "#{beanMisViajes}")
 	private BeanMisViajes beanMisViajes;
 
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
 	public String getPlazas() {
 		return plazas;
 	}
@@ -87,9 +90,17 @@ public class BeanRegistrarViaje implements Serializable {
 		this.beanMisViajes = beanMisViajes;
 	}
 
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
+
 	/* Método que se encarga del registro del viaje */
 	public String registrarViaje() {
-		Controlador controlador = Controlador.getInstance();
+		Controlador controlador = beanController.getControlador();
 		int plazasEntero;
 		double precioViaje;
 		Viaje viaje;
@@ -103,8 +114,8 @@ public class BeanRegistrarViaje implements Serializable {
 		Parada paradaOrigen, paradaDestino;
 		if (viaje != null) {
 			idViaje = viaje.getId();
-			paradaOrigen = origen.registrarParada(idViaje, true);
-			paradaDestino = destino.registrarParada(idViaje, false);
+			paradaOrigen = origen.registrarParada(idViaje, true, controlador);
+			paradaDestino = destino.registrarParada(idViaje, false, controlador);
 			if (paradaOrigen != null && paradaDestino != null) {
 				limpiarCampos();
 				origen.limpiarCampos();

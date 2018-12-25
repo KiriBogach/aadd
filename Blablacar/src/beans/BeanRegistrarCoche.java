@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import controller.Controlador;
 
 @ManagedBean(name = "beanRegistrarCoche")
 @SessionScoped
@@ -16,8 +15,20 @@ public class BeanRegistrarCoche implements Serializable {
 	private String modelo;
 	private String year;
 	private String confort;
+
 	@ManagedProperty(value = "#{beanMessages}")
 	private BeanMessages beanMessages;
+
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
 
 	public String getMatricula() {
 		return matricula;
@@ -71,7 +82,7 @@ public class BeanRegistrarCoche implements Serializable {
 			return "faceletsRegistroCoche";
 		}
 
-		if (Controlador.getInstance().addCoche(matricula, modelo, yearInt, confortInt)) {
+		if (beanController.getControlador().addCoche(matricula, modelo, yearInt, confortInt)) {
 			beanMessages.infoCabecera("Se ha registrado el coche con exito");
 		} else {
 			beanMessages.errorCabecera("No se ha podido registrar el coche");

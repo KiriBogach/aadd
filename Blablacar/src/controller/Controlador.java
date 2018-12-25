@@ -16,24 +16,14 @@ import model.Viaje;
 
 public class Controlador {
 	private ControladorRemote controladorRemoto;
-	private static Controlador unicaInstancia = null;
 
-	private Controlador() {
-
+	public Controlador() {
 		try {
 			controladorRemoto = (ControladorRemote) new InitialContext()
 					.lookup("java:global/BlablacarEJB/ControladorRemote");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/* Patrón Singleton */
-	public static Controlador getInstance() {
-		if (unicaInstancia == null) {
-			unicaInstancia = new Controlador();
-		}
-		return unicaInstancia;
 	}
 
 	public Usuario getUsuarioLogeado() {

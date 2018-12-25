@@ -3,14 +3,13 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.Controlador;
+import beans.BeanController;
 
 /**
  * Servlet implementation class BuzonSugerencias
@@ -26,15 +25,14 @@ public class ServletBuzonSugerencias extends HttpServlet {
 		super();
 	}
 
-
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<String> sugerencias = Controlador.getInstance().getSugerencias();
+		BeanController beanController = (BeanController) request.getSession().getAttribute("beanController");
+		List<String> sugerencias = beanController.getControlador().getSugerencias();
 		try {
 
 			PrintWriter out = response.getWriter();
@@ -44,9 +42,9 @@ public class ServletBuzonSugerencias extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			for (String sugerencia : sugerencias) {
-				out.println("<h3>"+sugerencia+"<h3>");
+				out.println("<h3>" + sugerencia + "<h3>");
 			}
-			out.println("<a href="+"faceletsWelcome.xhtml"+">volver al HOME</a>");
+			out.println("<a href=" + "faceletsWelcome.xhtml" + ">volver al HOME</a>");
 			out.println("</body>");
 			out.println("</html>");
 		} catch (IOException e) {

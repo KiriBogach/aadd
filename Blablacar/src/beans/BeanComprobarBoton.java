@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
-import controller.Controlador;
 
 /* Este bean se utiliza para saber si el botón "Publicar Viajes" y "Mis viajes"
  * de la sección nav debe estar activo o no"
@@ -19,9 +18,20 @@ public class BeanComprobarBoton implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private boolean botonActivo;
 
+	@ManagedProperty(value = "#{beanController}")
+	private BeanController beanController;
+
+	public BeanController getBeanController() {
+		return beanController;
+	}
+
+	public void setBeanController(BeanController beanController) {
+		this.beanController = beanController;
+	}
+
 	@PostConstruct
 	public void init() {
-		this.setBotonActivo(Controlador.getInstance().usuarioLogeadoIsConductor());
+		this.setBotonActivo(beanController.getControlador().usuarioLogeadoIsConductor());
 	}
 
 	public boolean isBotonActivo() {
