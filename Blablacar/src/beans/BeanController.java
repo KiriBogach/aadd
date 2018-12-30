@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.jms.TopicSubscriber;
 
 import controller.Controlador;
 
@@ -14,6 +15,8 @@ public class BeanController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Controlador controlador;
+
+	private TopicSubscriber suscriptorBuzonSugerencias;
 
 	@PostConstruct
 	public void init() {
@@ -27,4 +30,13 @@ public class BeanController implements Serializable {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
+
+	public TopicSubscriber getSuscriptorBuzonSugerencias() {
+		return suscriptorBuzonSugerencias;
+	}
+
+	public void setSuscriptorBuzonSugerencias(TopicSubscriber suscriptorBuzonSugerencias) {
+		this.suscriptorBuzonSugerencias = suscriptorBuzonSugerencias;
+	}
+
 }

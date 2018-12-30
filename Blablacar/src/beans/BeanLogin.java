@@ -72,7 +72,7 @@ public class BeanLogin implements Serializable {
 		try {
 			Controlador controlador = beanController.getControlador();
 			if (controlador.loginUsuario(usuario, password)) {
-				beanValoraciones.crearOyenteBuzonSugerencias(controlador);
+				beanValoraciones.crearOyenteBuzonSugerencias(beanController);
 				beanValoraciones.suscripciones(usuario);
 				return "faceletsWelcome";
 			} else {
@@ -106,9 +106,11 @@ public class BeanLogin implements Serializable {
 
 	public String logout() {
 		beanValoraciones.close();
+		beanValoraciones.closeSubscriberBuzon(beanController.getSuscriptorBuzonSugerencias());
+		beanController.getControlador().logout();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		System.out.println("BeanLogin.logout()");
-		beanController.getControlador().logout();
+
 		return "faceletsLogin.xhtml";
 	}
 

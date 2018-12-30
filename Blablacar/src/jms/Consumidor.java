@@ -12,12 +12,11 @@ import javax.jms.TopicSubscriber;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import controller.Controlador;
+import beans.BeanController;
 
 public class Consumidor {
 	// Crea un subscriptor a un topico
 	private static List<TopicSubscriber> topicSubscribers = new LinkedList<TopicSubscriber>();
-	private static List<TopicSubscriber> topicBuzonSugerencias = new LinkedList<TopicSubscriber>();
 	// private static final String NOMBRE_SUSCRIPTOR = "MySub";
 	// private static List<OyenteValoraciones> oyentesValoraciones = new
 	// LinkedList<OyenteValoraciones>();
@@ -43,21 +42,19 @@ public class Consumidor {
 		// oyentesValoraciones.add(oyente);
 	}
 
-	public static void crearConsumidorBuzonSugerencias(Controlador controlador) throws NamingException, JMSException {
+	public static void crearConsumidorBuzonSugerencias(BeanController beanControlador)
+			throws NamingException, JMSException {
 		InitialContext iniCtx = new InitialContext();
 		Object tmp = iniCtx.lookup("jms/TopicConnectionFactory");
 		TopicConnectionFactory qcf = (TopicConnectionFactory) tmp;
 		TopicConnection conn = qcf.createTopicConnection();
-		// conn.setClientID(usuario+idViaje);
 		Topic topic = (Topic) iniCtx.lookup("topic/buzonSugerencias");
 		TopicSession session = conn.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 		TopicSubscriber subscriber = session.createSubscriber(topic);
-		OyenteBuzonSugerencias oyente = new OyenteBuzonSugerencias(controlador);
+		OyenteBuzonSugerencias oyente = new OyenteBuzonSugerencias(beanControlador.getControlador());
 		subscriber.setMessageListener(oyente);
-		topicBuzonSugerencias.add(subscriber);
+		beanControlador.setSuscriptorBuzonSugerencias(subscriber);
 		conn.start();
-
-		// oyentesValoraciones.add(oyente);
 	}
 
 	public static void close() throws JMSException {
@@ -65,5 +62,9 @@ public class Consumidor {
 			topicSubscriber.close();
 		}
 		topicSubscribers.clear();
+	}
+
+	public static void closeSubscriberBuzon(TopicSubscriber subscriber) throws JMSException {
+		subscriber.close();
 	}
 }

@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.jms.JMSException;
+import javax.jms.TopicSubscriber;
 import javax.naming.NamingException;
 
-import controller.Controlador;
 import jms.Emisor;
 import jms.Consumidor;
 import model.Viaje;
@@ -95,9 +95,9 @@ public class BeanValoraciones implements Serializable {
 		this.beanMessages = beanMessages;
 	}
 
-	public void crearOyenteBuzonSugerencias(Controlador controlador) {
+	public void crearOyenteBuzonSugerencias(BeanController beanControlador) {
 		try {
-			Consumidor.crearConsumidorBuzonSugerencias(controlador);
+			Consumidor.crearConsumidorBuzonSugerencias(beanControlador);
 		} catch (NamingException | JMSException e) {
 			e.printStackTrace();
 		}
@@ -175,6 +175,13 @@ public class BeanValoraciones implements Serializable {
 			Consumidor.close();
 		} catch (JMSException e) {
 
+			e.printStackTrace();
+		}
+	}
+	public void closeSubscriberBuzon(TopicSubscriber subscriber)  {
+		try {
+			Consumidor.closeSubscriberBuzon(subscriber);
+		} catch (JMSException e) {
 			e.printStackTrace();
 		}
 	}
