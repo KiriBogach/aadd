@@ -13,13 +13,18 @@ import model.Viaje;
 
 public class ControladorListarViajesTest {
 
+	private Controlador controlador;
+
+	public ControladorListarViajesTest() {
+		controlador = new Controlador();
+	}
+
 	@Test
 	public void listarViajes() {
 		/*
 		 * Hay que tener en cuenta para este test la fecha del Sistema del
 		 * controlador FECHA_SISTEMA = "26/02/2018";
 		 */
-		Controlador controlador = Controlador.getInstance();
 		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */

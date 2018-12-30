@@ -3,11 +3,6 @@ package jms;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.Queue;
-import javax.jms.QueueConnection;
-import javax.jms.QueueConnectionFactory;
-import javax.jms.QueueSender;
-import javax.jms.QueueSession;
 import javax.jms.TopicSession;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -37,15 +32,15 @@ public class Emisor {
 
 	public static void enviarBuzonSugerencias(String texto) throws NamingException, JMSException {
 		InitialContext iniCtx = new InitialContext();
-		Object tmp = iniCtx.lookup("jms/QueueConnectionFactory");
-		QueueConnectionFactory qcf = (QueueConnectionFactory) tmp;
-		QueueConnection conn = qcf.createQueueConnection();
-		Queue queue = (Queue) iniCtx.lookup("queue/buzonSugerencias");
-		QueueSession session = conn.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+		Object tmp = iniCtx.lookup("jms/TopicConnectionFactory");
+		TopicConnectionFactory qcf = (TopicConnectionFactory) tmp;
+		TopicConnection conn = qcf.createTopicConnection();
+		Topic topic = (Topic) iniCtx.lookup("topic/buzonSugerencias");
+		TopicSession session = conn.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 		TextMessage message = session.createTextMessage();
 		message.setText(texto);
-		QueueSender queueSender = session.createSender(queue);
-		queueSender.send(message);
+		TopicPublisher topicPublisher = session.createPublisher(topic);
+		topicPublisher.publish(message, DeliveryMode.PERSISTENT, Message.DEFAULT_PRIORITY, 7 * 24 * 3600 * 1000L);
 		conn.close();
 	}
 

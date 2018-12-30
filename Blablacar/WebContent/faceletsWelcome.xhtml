@@ -12,31 +12,35 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<p:outputLabel id="test" value="Bienvenido #{beanLogin.usuario}" />
-		<br />
 
+		<p:outputLabel id="test" value="Bienvenido #{beanLogin.usuario}" />
+
+		<p:separator />
+
+		<!-- 
+		<p:dataList value="#{beanValoraciones.suscrito}" var="suscripcion">
+			<f:facet name="header">
+            	Suscrito
+        	</f:facet>
+        	#{suscripcion}
+    	</p:dataList>
+    	 -->
 
 		<h:form>
+			<p:growl id="growl" showDetail="false" />
+			
 			<p:dataList value="#{beanValoraciones.mensajesRecibidos}"
 				var="mensaje">
 				<f:facet name="header">
-            Mensaje
-        	</f:facet>
-        #{mensaje}
-    </p:dataList>
+	            	Mensajes
+	        	</f:facet>
+			    #{mensaje}
+		    </p:dataList>
 
 			<p:separator />
-
-			<p:dataList value="#{beanValoraciones.suscrito}" var="suscripcion">
-				<f:facet name="header">
-            Suscrito
-        	</f:facet>
-        #{suscripcion}
-    </p:dataList>
-
-			<p:separator />
-
-			<p:growl id="growl" showDetail="false" />
+			
+			<!-- 
+		<p:dataList valu
 			<p:outputLabel> Enviar Mensaje </p:outputLabel>
 			<p:separator />
 			<p:outputLabel value="mensaje" />
@@ -47,7 +51,9 @@
 			<p:commandButton value="Enviar"
 				action="#{beanValoraciones.enviarTexto}" update="@form" />
 			<p:separator />
-			<p:outputLabel> Enviar sugerencias</p:outputLabel>
+			-->
+			
+			<p:outputLabel>Sugerencias</p:outputLabel>
 			<p:separator />
 			<p:inputTextarea value="#{beanValoraciones.sugerencia}" />
 			<p:commandButton value="Enviar sugerencia"

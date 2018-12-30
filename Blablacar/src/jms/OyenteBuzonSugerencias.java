@@ -1,16 +1,19 @@
 package jms;
 
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import beans.BeanController;
+import controller.Controlador;
 
 public class OyenteBuzonSugerencias implements MessageListener {
+
+	private Controlador controlador;
+
+	public OyenteBuzonSugerencias(Controlador controlador) {
+		this.controlador = controlador;
+	}
 
 	@Override
 	public void onMessage(Message mensaje) {
@@ -18,9 +21,7 @@ public class OyenteBuzonSugerencias implements MessageListener {
 			TextMessage mensajeTexto = (TextMessage) mensaje;
 			try {
 				String texto = mensajeTexto.getText();
-				Map<String, Object> session = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-				BeanController beanController = (BeanController) session.get("beanController");
-				beanController.getControlador().addSugerencia(texto);
+				controlador.addSugerencia(texto);
 			} catch (JMSException e) {
 				e.printStackTrace();
 			}

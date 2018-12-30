@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import controller.Controlador;
 import jms.Emisor;
 import jms.Consumidor;
 import model.Viaje;
@@ -94,9 +95,9 @@ public class BeanValoraciones implements Serializable {
 		this.beanMessages = beanMessages;
 	}
 
-	public void crearOyenteBuzonSugerencias() {
+	public void crearOyenteBuzonSugerencias(Controlador controlador) {
 		try {
-			Consumidor.crearConsumidorBuzonSugerencias();
+			Consumidor.crearConsumidorBuzonSugerencias(controlador);
 		} catch (NamingException | JMSException e) {
 			e.printStackTrace();
 		}

@@ -34,39 +34,22 @@ public class ServletBuzonSugerencias extends HttpServlet {
 		BeanController beanController = (BeanController) request.getSession().getAttribute("beanController");
 		List<String> sugerencias = beanController.getControlador().getSugerencias();
 		try {
-
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>" + "Buzon Sugerencias" + "</title>");
 			out.println("</head>");
 			out.println("<body>");
+			out.println("<h2>Buzón de Sugerencias<h2>");
 			for (String sugerencia : sugerencias) {
 				out.println("<h3>" + sugerencia + "<h3>");
 			}
-			out.println("<a href=" + "faceletsWelcome.xhtml" + ">volver al HOME</a>");
+			out.println("<a href=" + "faceletsWelcome.xhtml" + ">Volver a HOME</a>");
 			out.println("</body>");
 			out.println("</html>");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*
-		 * ServletContext app = getServletConfig().getServletContext();
-		 * app.setAttribute("sugerencias",
-		 * Controlador.getInstance().getSugerencias());
-		 */
-
-		/*
-		 * String path = getServletConfig().getServletContext().getRealPath(
-		 * "sugerencias.xhtml");
-		 * 
-		 * BufferedReader br = new BufferedReader(new FileReader(path));
-		 * 
-		 * PrintWriter out = response.getWriter(); String linea; while ((linea =
-		 * br.readLine()) != null) { out.println(linea); }
-		 * 
-		 * br.close();
-		 */
 	}
 
 	/**

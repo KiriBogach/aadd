@@ -20,19 +20,12 @@ public class OyenteValoraciones implements MessageListener {
 
 	@Override
 	public void onMessage(Message mensaje) {
-		System.out.println("onMessage");
-
 		if (mensaje instanceof TextMessage) {
 			TextMessage mensajeTexto = (TextMessage) mensaje;
-
 			try {
-
 				String texto = mensajeTexto.getText();
-
 				beanValoraciones.addMensajeRecibido(texto);
-
 			} catch (JMSException e) {
-				System.out.println("CATCH!");
 				e.printStackTrace();
 			}
 		}

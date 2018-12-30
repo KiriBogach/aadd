@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import controller.Controlador;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
-import controller.Controlador;
 
 @ManagedBean(name = "beanLogin")
 @SessionScoped
@@ -71,9 +72,8 @@ public class BeanLogin implements Serializable {
 		try {
 			Controlador controlador = beanController.getControlador();
 			if (controlador.loginUsuario(usuario, password)) {
-				beanValoraciones.crearOyenteBuzonSugerencias();
+				beanValoraciones.crearOyenteBuzonSugerencias(controlador);
 				beanValoraciones.suscripciones(usuario);
-
 				return "faceletsWelcome";
 			} else {
 

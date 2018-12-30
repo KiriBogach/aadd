@@ -16,10 +16,14 @@ import model.Viaje;
 
 public class ControladorTest {
 
+	private Controlador controlador;
+
+	public ControladorTest() {
+		controlador = new Controlador();
+	}
+
 	@Test
 	public void testRegistrarUsuario() {
-
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -38,8 +42,6 @@ public class ControladorTest {
 
 	@Test
 	public void testLogin() {
-
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -61,8 +63,6 @@ public class ControladorTest {
 
 	@Test
 	public void testAddCoche() {
-
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -109,7 +109,6 @@ public class ControladorTest {
 
 	@Test
 	public void testRegistrarViaje() {
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -126,9 +125,9 @@ public class ControladorTest {
 		/* Registramos un viaje */
 		Viaje v = controlador.registrarViaje(3, 125.0);
 		assertNotNull(v);
-		
+
 		assertTrue(controlador.addNotaViaje(v.getId(), "Este viaje va a ser super divertido!"));
-		
+
 		assertTrue(controlador.addNotaViaje(v.getId(), "O eso espero!"));
 
 		Coche coche = controlador.findCoche("12345A");
@@ -149,7 +148,6 @@ public class ControladorTest {
 
 	@Test
 	public void testRegistrarParadaOrigen() {
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -184,7 +182,6 @@ public class ControladorTest {
 
 	@Test
 	public void testRegistrarParadaDestino() {
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -219,7 +216,6 @@ public class ControladorTest {
 
 	@Test
 	public void testReservarViaje() {
-		Controlador controlador = Controlador.getInstance();
 
 		Date date = Utils.fromStringToDate("20/01/1994");
 
@@ -275,7 +271,7 @@ public class ControladorTest {
 
 	@Test
 	public void testAceptarViaje() {
-		Controlador controlador = Controlador.getInstance();
+
 		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
@@ -335,7 +331,7 @@ public class ControladorTest {
 
 	@Test
 	public void testRechazarViaje() {
-		Controlador controlador = Controlador.getInstance();
+
 		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
@@ -393,7 +389,7 @@ public class ControladorTest {
 
 	@Test
 	public void testValorarViajePasajero() {
-		Controlador controlador = Controlador.getInstance();
+
 		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
@@ -498,7 +494,7 @@ public class ControladorTest {
 
 	@Test
 	public void testValorarViajeConductor() {
-		Controlador controlador = Controlador.getInstance();
+
 		Date date = Utils.fromStringToDate("20/01/1994");
 
 		/* Registramos al usuario */
@@ -584,7 +580,7 @@ public class ControladorTest {
 		 * reserva
 		 */
 		assertEquals(0, reserva2.getValoraciones().size());
-		
+
 		/* El usuario conductor valora al pasajero de un viaje inexistente */
 		assertFalse(controlador.valorarViajeConductor(-5, usuarioReservador.getUsuario(), "Muy amigable", 7));
 
