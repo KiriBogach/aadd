@@ -34,8 +34,7 @@ public class Controlador implements ControladorRemote {
 	private Usuario usuarioLogeado = null;
 	public static final String FECHA_SISTEMA = "26/02/2019";
 	public static Date FECHA_SISTEMA_DATE = null;
-	@EJB(beanName = "Contador")
-	private ContadorEJB contador;
+
 	@EJB(beanName = "Factoria")
 	private FactoriaDAOLocal factoria;
 	@Resource
