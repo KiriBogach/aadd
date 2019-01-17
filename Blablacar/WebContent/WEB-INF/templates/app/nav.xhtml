@@ -44,10 +44,15 @@
 			icon="fa fa-book" style="margin-right:20px;" />
 
 		<p:separator />
-		<form action="ServletBuzonSugerencias" method="get">
-			<input type="submit" value="Buzon Sugerencias"
-				style="margin-right: 20px;" />
-		</form>
+
+		<button id="j_idt20" name="j_idt20" type="submit"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+			style="margin-right: 20px;"
+			onclick="window.open('\/Practica-Bogach-Kyryl-Aramayo-Cristhian\/ServletBuzonSugerencias','_self')">
+			<span class="ui-button-icon-left ui-icon ui-c fa fa-comment"></span><span
+				class="ui-button-text ui-c">Buzón Sugerencias</span>
+		</button>
+
 		<p:separator />
 		<h:form>
 			<p:commandButton action="#{beanLogin.logout}" value="Logout"

@@ -26,8 +26,6 @@ public class ServletBuzonSugerencias extends HttpServlet {
 		super();
 	}
 
-
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -36,17 +34,17 @@ public class ServletBuzonSugerencias extends HttpServlet {
 			throws ServletException, IOException {
 		List<String> sugerencias = Controlador.getInstance().getSugerencias();
 		try {
-
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>" + "Buzon Sugerencias" + "</title>");
 			out.println("</head>");
 			out.println("<body>");
+			out.println("<h2>Buzón de Sugerencias<h2>");
 			for (String sugerencia : sugerencias) {
-				out.println("<h3>"+sugerencia+"<h3>");
+				out.println("<h3>" + sugerencia + "<h3>");
 			}
-			out.println("<a href="+"faceletsWelcome.xhtml"+">volver al HOME</a>");
+			out.println("<a href=" + "faceletsWelcome.xhtml" + ">Volver a HOME</a>");
 			out.println("</body>");
 			out.println("</html>");
 		} catch (IOException e) {
